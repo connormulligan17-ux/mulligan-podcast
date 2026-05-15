@@ -14,50 +14,58 @@
     <itunes:category text="Sports"/>
     <itunes:explicit>false</itunes:explicit>
     <atom:link href="https://connormulligan17-ux.github.io/mulligan-podcast/feed.xml" rel="self" type="application/rss+xml"/>
-    
+
   <item>
-    <title>Mulligan Growth Series Ep 1: Your Channel at a Glance</title>
-    <description><![CDATA[In this debut episode, Emma breaks down the Mulligan Magazine YouTube channel from the outside looking in — 7 videos, 1 breakout hit, and a clear path forward. Covering: what's working, what isn't, and the foundation you need to start building real momentum.]]></description>
-    <pubDate>Wed, 13 May 2026 08:00:00 GMT</pubDate>
-    <enclosure url="https://connormulligan17-ux.github.io/mulligan-podcast/episodes/mulligan_growth_series_ep1.mp3" length="10779672" type="audio/mpeg"/>
-    <guid>https://connormulligan17-ux.github.io/mulligan-podcast/episodes/mulligan_growth_series_ep1.mp3</guid>
-    <itunes:duration>674</itunes:duration>
+    <title>Channel Breakdowns Ep 5: Cycling Niche Strategy</title>
+    <description><![CDATA[Today's episode covers the cycling content landscape — why gravel and adventure cycling outperforms pure road cycling on YouTube, the 3 pillars for outdoor cycling channels, how to build a vulnerability hook series, and the brand deal milestones ahead.]]></description>
+    <pubDate>Sat, 16 May 2026 08:00:00 GMT</pubDate>
+    <enclosure url="https://connormulligan17-ux.github.io/mulligan-podcast/episodes/channel_breakdowns_ep3_cycling.mp3" length="5289611" type="audio/mpeg"/>
+    <guid>https://connormulligan17-ux.github.io/mulligan-podcast/episodes/channel_breakdowns_ep3_cycling.mp3</guid>
+    <itunes:duration>394</itunes:duration>
+    <itunes:episode>5</itunes:episode>
     <itunes:author>Connor Mulligan</itunes:author>
     <itunes:explicit>false</itunes:explicit>
     <itunes:episodeType>full</itunes:episodeType>
   </item>
+
   <item>
-    <title>Mulligan Growth Series Ep 2: The Wild Fly Productions Breakdown</title>
-    <description><![CDATA[Emma goes deep on the most-watched fly fishing video on YouTube — 'A Week of Fly Fishing in Alaska' by Wild Fly Productions. 3 million views, sparse narration, silence as a storytelling tool, and 8 specific lessons Connor can apply to his own edits.]]></description>
-    <pubDate>Wed, 13 May 2026 08:00:00 GMT</pubDate>
-    <enclosure url="https://connormulligan17-ux.github.io/mulligan-podcast/episodes/mulligan_growth_series_ep2.mp3" length="7335645" type="audio/mpeg"/>
-    <guid>https://connormulligan17-ux.github.io/mulligan-podcast/episodes/mulligan_growth_series_ep2.mp3</guid>
-    <itunes:duration>458</itunes:duration>
-    <itunes:author>Connor Mulligan</itunes:author>
-    <itunes:explicit>false</itunes:explicit>
-    <itunes:episodeType>full</itunes:episodeType>
-  </item>
-  <item>
-    <title>Channel Breakdowns Ep 3: Fly Fishing Niche Strategy</title>
+    <title>Channel Breakdowns Ep 4: Fly Fishing Niche Strategy</title>
     <description><![CDATA[Today's episode covers the fly fishing content landscape — sub-niches ranked by viral potential, the 3 content pillars that work for outdoor cinematographers, seasonal river series structure, and the affiliate monetization path from 3K to 25K followers.]]></description>
     <pubDate>Thu, 14 May 2026 08:00:00 GMT</pubDate>
     <enclosure url="https://connormulligan17-ux.github.io/mulligan-podcast/episodes/channel_breakdowns_ep3_fishing.mp3" length="5101191" type="audio/mpeg"/>
     <guid>https://connormulligan17-ux.github.io/mulligan-podcast/episodes/channel_breakdowns_ep3_fishing.mp3</guid>
     <itunes:duration>393</itunes:duration>
+    <itunes:episode>4</itunes:episode>
     <itunes:author>Connor Mulligan</itunes:author>
     <itunes:explicit>false</itunes:explicit>
     <itunes:episodeType>full</itunes:episodeType>
   </item>
+
   <item>
-    <title>Channel Breakdowns Ep 3: Cycling Niche Strategy</title>
-    <description><![CDATA[Today's episode covers the cycling content landscape — why gravel and adventure cycling outperforms pure road cycling on YouTube, the 3 pillars for outdoor cycling channels, how to build a vulnerability hook series, and the brand deal milestones ahead.]]></description>
-    <pubDate>Thu, 14 May 2026 08:00:00 GMT</pubDate>
-    <enclosure url="https://connormulligan17-ux.github.io/mulligan-podcast/episodes/channel_breakdowns_ep3_cycling.mp3" length="5289611" type="audio/mpeg"/>
-    <guid>https://connormulligan17-ux.github.io/mulligan-podcast/episodes/channel_breakdowns_ep3_cycling.mp3</guid>
-    <itunes:duration>394</itunes:duration>
+    <title>Mulligan Growth Series Ep 3: The Wild Fly Productions Breakdown</title>
+    <description><![CDATA[Emma goes deep on the most-watched fly fishing video on YouTube — 'A Week of Fly Fishing in Alaska' by Wild Fly Productions. 3 million views, sparse narration, silence as a storytelling tool, and 8 specific lessons Connor can apply to his own edits.]]></description>
+    <pubDate>Wed, 13 May 2026 08:00:00 GMT</pubDate>
+    <enclosure url="https://connormulligan17-ux.github.io/mulligan-podcast/episodes/mulligan_growth_series_ep2.mp3" length="7335645" type="audio/mpeg"/>
+    <guid>https://connormulligan17-ux.github.io/mulligan-podcast/episodes/mulligan_growth_series_ep2.mp3</guid>
+    <itunes:duration>458</itunes:duration>
+    <itunes:episode>3</itunes:episode>
     <itunes:author>Connor Mulligan</itunes:author>
     <itunes:explicit>false</itunes:explicit>
     <itunes:episodeType>full</itunes:episodeType>
   </item>
+
+  <item>
+    <title>Mulligan Growth Series Ep 2: Your Channel at a Glance</title>
+    <description><![CDATA[In this debut episode, Emma breaks down the Mulligan Magazine YouTube channel from the outside looking in — 7 videos, 1 breakout hit, and a clear path forward. Covering: what's working, what isn't, and the foundation you need to start building real momentum.]]></description>
+    <pubDate>Wed, 13 May 2026 08:00:00 GMT</pubDate>
+    <enclosure url="https://connormulligan17-ux.github.io/mulligan-podcast/episodes/mulligan_growth_series_ep1.mp3" length="10779672" type="audio/mpeg"/>
+    <guid>https://connormulligan17-ux.github.io/mulligan-podcast/episodes/mulligan_growth_series_ep1.mp3</guid>
+    <itunes:duration>674</itunes:duration>
+    <itunes:episode>2</itunes:episode>
+    <itunes:author>Connor Mulligan</itunes:author>
+    <itunes:explicit>false</itunes:explicit>
+    <itunes:episodeType>full</itunes:episodeType>
+  </item>
+
   </channel>
 </rss>
