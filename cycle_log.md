@@ -171,3 +171,8 @@ Bugs: 3 — [33] OVERPROMISE about.html: cancel anytime; [33] PLATFORM pricing.h
 Push: OK | Verify: {'index.html': '200', 'about.html': '200', 'pricing.html': '200'} | Time: 2s
 Changes: Tier selection: radio buttons, not dropdown — '1 ep/wk $49' / '3 ep/wk $39'. Clear and immediate.
 Bugs: 3 — [34] OVERPROMISE about.html: cancel anytime; [34] PLATFORM pricing.html: podcast.yourdomain.com; [34] CREDIBILITY pricing.html: Most Popular badge (unproven)
+
+## Cycle 35 — 2026-05-16 11:28:22 | Focus: welcome
+Push: OK | Verify: {'index.html': '200', 'about.html': '200', 'pricing.html': '200'} | Time: 2s
+Changes: Add micro-copy under CTA: 'No script reviews. No recording. No editing.' — dismisses barriers.
+Bugs: 3 — [35] OVERPROMISE about.html: cancel anytime; [35] PLATFORM pricing.html: podcast.yourdomain.com; [35] CREDIBILITY pricing.html: Most Popular badge (unproven)
