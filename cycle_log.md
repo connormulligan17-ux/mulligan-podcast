@@ -106,3 +106,8 @@ Bugs: 3 — [20] OVERPROMISE about.html: cancel anytime; [20] PLATFORM pricing.h
 Push: OK | Verify: {'index.html': '200', 'about.html': '200', 'pricing.html': '200'} | Time: 2s
 Changes: Nav links: index.html='Welcome', about.html, pricing.html — make labels match file names.
 Bugs: 3 — [21] OVERPROMISE about.html: cancel anytime; [21] PLATFORM pricing.html: podcast.yourdomain.com; [21] CREDIBILITY pricing.html: Most Popular badge (unproven)
+
+## Cycle 22 — 2026-05-16 10:23:22 | Focus: mobile
+Push: OK | Verify: {'index.html': '200', 'about.html': '200', 'pricing.html': '200'} | Time: 2s
+Changes: Check all grids stack single-column on mobile: tier cards, deliverable grids, testimonial grid.
+Bugs: 3 — [22] OVERPROMISE about.html: cancel anytime; [22] PLATFORM pricing.html: podcast.yourdomain.com; [22] CREDIBILITY pricing.html: Most Popular badge (unproven)
