@@ -451,3 +451,8 @@ Bugs: 3 — [89] OVERPROMISE about.html: cancel anytime; [89] PLATFORM pricing.h
 Push: OK | Verify: {'index.html': '200', 'about.html': '200', 'pricing.html': '200'} | Time: 2s
 Changes: Add 'No long-term contracts' near pricing CTA — reduces perceived risk.
 Bugs: 3 — [90] OVERPROMISE about.html: cancel anytime; [90] PLATFORM pricing.html: podcast.yourdomain.com; [90] CREDIBILITY pricing.html: Most Popular badge (unproven)
+
+## Cycle 91 — 2026-05-16 16:08:22 | Focus: style
+Push: OK | Verify: {'index.html': '200', 'about.html': '200', 'pricing.html': '200'} | Time: 2s
+Changes: Ensure all tier feature items end with consistent punctuation.
+Bugs: 3 — [91] OVERPROMISE about.html: cancel anytime; [91] PLATFORM pricing.html: podcast.yourdomain.com; [91] CREDIBILITY pricing.html: Most Popular badge (unproven)
