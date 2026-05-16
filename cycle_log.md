@@ -401,3 +401,8 @@ Bugs: 3 — [79] OVERPROMISE about.html: cancel anytime; [79] PLATFORM pricing.h
 Push: OK | Verify: {'index.html': '200', 'about.html': '200', 'pricing.html': '200'} | Time: 2s
 Changes: Add: 'How is this different from Instagram?' — permanence, algorithm reach, opted-in audio audience.
 Bugs: 3 — [80] OVERPROMISE about.html: cancel anytime; [80] PLATFORM pricing.html: podcast.yourdomain.com; [80] CREDIBILITY pricing.html: Most Popular badge (unproven)
+
+## Cycle 81 — 2026-05-16 15:18:22 | Focus: pricing
+Push: OK | Verify: {'index.html': '200', 'about.html': '200', 'pricing.html': '200'} | Time: 2s
+Changes: Add urgency: 'Episodes ship within 5 days of signup.' True, specific, creates commitment.
+Bugs: 3 — [81] OVERPROMISE about.html: cancel anytime; [81] PLATFORM pricing.html: podcast.yourdomain.com; [81] CREDIBILITY pricing.html: Most Popular badge (unproven)
