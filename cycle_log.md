@@ -91,3 +91,8 @@ Bugs: 3 — [17] OVERPROMISE about.html: cancel anytime; [17] PLATFORM pricing.h
 Push: OK | Verify: {'index.html': '200', 'about.html': '200', 'pricing.html': '200'} | Time: 2s
 Changes: Rewrite 'high-conversion touchpoint' in who-it's-for — too corporate for creators.
 Bugs: 3 — [18] OVERPROMISE about.html: cancel anytime; [18] PLATFORM pricing.html: podcast.yourdomain.com; [18] CREDIBILITY pricing.html: Most Popular badge (unproven)
+
+## Cycle 19 — 2026-05-16 10:08:22 | Focus: cta
+Push: OK | Verify: {'index.html': '200', 'about.html': '200', 'pricing.html': '200'} | Time: 2s
+Changes: Email capture at bottom is noise for ready-to-buy. Remove or retitle as 'Have questions?'
+Bugs: 3 — [19] OVERPROMISE about.html: cancel anytime; [19] PLATFORM pricing.html: podcast.yourdomain.com; [19] CREDIBILITY pricing.html: Most Popular badge (unproven)
