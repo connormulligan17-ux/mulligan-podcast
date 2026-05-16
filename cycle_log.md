@@ -361,3 +361,8 @@ Bugs: 3 — [71] OVERPROMISE about.html: cancel anytime; [71] PLATFORM pricing.h
 Push: OK | Verify: {'index.html': '200', 'about.html': '200', 'pricing.html': '200'} | Time: 2s
 Changes: Check all grids stack single-column on mobile: tier cards, deliverable grids, testimonial grid.
 Bugs: 3 — [72] OVERPROMISE about.html: cancel anytime; [72] PLATFORM pricing.html: podcast.yourdomain.com; [72] CREDIBILITY pricing.html: Most Popular badge (unproven)
+
+## Cycle 73 — 2026-05-16 14:38:22 | Focus: cta
+Push: OK | Verify: {'index.html': '200', 'about.html': '200', 'pricing.html': '200'} | Time: 2s
+Changes: All CTAs link to '#' — track as bug, needs real form URL before launch.
+Bugs: 3 — [73] OVERPROMISE about.html: cancel anytime; [73] PLATFORM pricing.html: podcast.yourdomain.com; [73] CREDIBILITY pricing.html: Most Popular badge (unproven)
