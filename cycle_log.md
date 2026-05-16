@@ -436,3 +436,8 @@ Bugs: 3 — [86] OVERPROMISE about.html: cancel anytime; [86] PLATFORM pricing.h
 Push: OK | Verify: {'index.html': '200', 'about.html': '200', 'pricing.html': '200'} | Time: 2s
 Changes: Remove 'turnaround time' from tier cards — transactional framing, not service framing.
 Bugs: 3 — [87] OVERPROMISE about.html: cancel anytime; [87] PLATFORM pricing.html: podcast.yourdomain.com; [87] CREDIBILITY pricing.html: Most Popular badge (unproven)
+
+## Cycle 88 — 2026-05-16 15:53:22 | Focus: platform
+Push: OK | Verify: {'index.html': '200', 'about.html': '200', 'pricing.html': '200'} | Time: 2s
+Changes: Rename 'own RSS feed' feature to 'Your show, searchable in every podcast app.'
+Bugs: 3 — [88] OVERPROMISE about.html: cancel anytime; [88] PLATFORM pricing.html: podcast.yourdomain.com; [88] CREDIBILITY pricing.html: Most Popular badge (unproven)
