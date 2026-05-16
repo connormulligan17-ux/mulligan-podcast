@@ -261,3 +261,8 @@ Bugs: 3 — [51] OVERPROMISE about.html: cancel anytime; [51] PLATFORM pricing.h
 Push: OK | Verify: {'index.html': '200', 'about.html': '200', 'pricing.html': '200'} | Time: 2s
 Changes: Remove 'Trial episode delivered' badge — visitors are discovery traffic, not trial recipients.
 Bugs: 3 — [52] OVERPROMISE about.html: cancel anytime; [52] PLATFORM pricing.html: podcast.yourdomain.com; [52] CREDIBILITY pricing.html: Most Popular badge (unproven)
+
+## Cycle 53 — 2026-05-16 12:58:22 | Focus: platform
+Push: OK | Verify: {'index.html': '200', 'about.html': '200', 'pricing.html': '200'} | Time: 2s
+Changes: Replace 'own domain / RSS feed' with 'Apple Podcasts, Spotify, every major podcast app'.
+Bugs: 3 — [53] OVERPROMISE about.html: cancel anytime; [53] PLATFORM pricing.html: podcast.yourdomain.com; [53] CREDIBILITY pricing.html: Most Popular badge (unproven)
