@@ -26,3 +26,8 @@ Bugs: 5 — [4] PLACEHOLDER about.html: [X]; [4] PLACEHOLDER about.html: [X]; [4
 Push: OK | Verify: {'index.html': '200', 'about.html': '200', 'pricing.html': '200'} | Time: 2s
 Changes: Remove 3x conversion stat — unverified. Replace or remove.
 Bugs: 3 — [5] OVERPROMISE about.html: cancel anytime; [5] PLATFORM pricing.html: podcast.yourdomain.com; [5] CREDIBILITY pricing.html: Most Popular badge (unproven)
+
+## Cycle 6 — 2026-05-16 09:03:21 | Focus: welcome
+Push: OK | Verify: {'index.html': '200', 'about.html': '200', 'pricing.html': '200'} | Time: 2s
+Changes: Shorten hero: test H1 only + social proof + CTA. Fewer cognitive steps.
+Bugs: 3 — [6] OVERPROMISE about.html: cancel anytime; [6] PLATFORM pricing.html: podcast.yourdomain.com; [6] CREDIBILITY pricing.html: Most Popular badge (unproven)
