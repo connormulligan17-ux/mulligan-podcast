@@ -61,3 +61,8 @@ Bugs: 3 — [11] OVERPROMISE about.html: cancel anytime; [11] PLATFORM pricing.h
 Push: OK | Verify: {'index.html': '200', 'about.html': '200', 'pricing.html': '200'} | Time: 2s
 Changes: Clarify '3 episodes a week' — are they distinct? Use '3 separate episodes weekly'.
 Bugs: 3 — [12] OVERPROMISE about.html: cancel anytime; [12] PLATFORM pricing.html: podcast.yourdomain.com; [12] CREDIBILITY pricing.html: Most Popular badge (unproven)
+
+## Cycle 13 — 2026-05-16 09:38:22 | Focus: welcome
+Push: OK | Verify: {'index.html': '200', 'about.html': '200', 'pricing.html': '200'} | Time: 2s
+Changes: Add social proof: '8-12 min, good for commutes', 'just an MP3, nothing to manage'.
+Bugs: 3 — [13] OVERPROMISE about.html: cancel anytime; [13] PLATFORM pricing.html: podcast.yourdomain.com; [13] CREDIBILITY pricing.html: Most Popular badge (unproven)
