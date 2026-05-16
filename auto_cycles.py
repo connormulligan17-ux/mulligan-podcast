@@ -29,8 +29,8 @@ def write(page, html):
 def push(msg):
     run("git add -A")
     run(f'git commit -m "{msg[:72]}"')
-    err, out = run("git push 2>&1")
-    return "error" not in out.lower() and err == 0
+    out, code = run("git push 2>&1")
+    return "error" not in out.lower() and code == 0
 
 def verify():
     results = {}
