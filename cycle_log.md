@@ -136,3 +136,8 @@ Bugs: 3 — [26] OVERPROMISE about.html: cancel anytime; [26] PLATFORM pricing.h
 Push: OK | Verify: {'index.html': '200', 'about.html': '200', 'pricing.html': '200'} | Time: 2s
 Changes: Testimonial 'that one message covered months' feels exaggerated. Soften or replace.
 Bugs: 3 — [27] OVERPROMISE about.html: cancel anytime; [27] PLATFORM pricing.html: podcast.yourdomain.com; [27] CREDIBILITY pricing.html: Most Popular badge (unproven)
+
+## Cycle 28 — 2026-05-16 10:53:22 | Focus: about
+Push: OK | Verify: {'index.html': '200', 'about.html': '200', 'pricing.html': '200'} | Time: 2s
+Changes: Emma step too vague — specify: 'Emma writes a script from your content data, then narrates.'
+Bugs: 3 — [28] OVERPROMISE about.html: cancel anytime; [28] PLATFORM pricing.html: podcast.yourdomain.com; [28] CREDIBILITY pricing.html: Most Popular badge (unproven)
