@@ -86,3 +86,8 @@ Bugs: 3 — [16] OVERPROMISE about.html: cancel anytime; [16] PLATFORM pricing.h
 Push: OK | Verify: {'index.html': '200', 'about.html': '200', 'pricing.html': '200'} | Time: 2s
 Changes: Remove 'Most Popular' badge from Grow tier — no data to support this claim.
 Bugs: 3 — [17] OVERPROMISE about.html: cancel anytime; [17] PLATFORM pricing.html: podcast.yourdomain.com; [17] CREDIBILITY pricing.html: Most Popular badge (unproven)
+
+## Cycle 18 — 2026-05-16 10:03:22 | Focus: about
+Push: OK | Verify: {'index.html': '200', 'about.html': '200', 'pricing.html': '200'} | Time: 2s
+Changes: Rewrite 'high-conversion touchpoint' in who-it's-for — too corporate for creators.
+Bugs: 3 — [18] OVERPROMISE about.html: cancel anytime; [18] PLATFORM pricing.html: podcast.yourdomain.com; [18] CREDIBILITY pricing.html: Most Popular badge (unproven)
