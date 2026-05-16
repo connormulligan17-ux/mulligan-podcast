@@ -411,3 +411,8 @@ Bugs: 3 — [81] OVERPROMISE about.html: cancel anytime; [81] PLATFORM pricing.h
 Push: OK | Verify: {'index.html': '200', 'about.html': '200', 'pricing.html': '200'} | Time: 2s
 Changes: Replace 3x stat with defensible version: 'Podcast listeners spend more time with creators they follow.'
 Bugs: 3 — [82] OVERPROMISE about.html: cancel anytime; [82] PLATFORM pricing.html: podcast.yourdomain.com; [82] CREDIBILITY pricing.html: Most Popular badge (unproven)
+
+## Cycle 83 — 2026-05-16 15:28:22 | Focus: about
+Push: OK | Verify: {'index.html': '200', 'about.html': '200', 'pricing.html': '200'} | Time: 2s
+Changes: Remove 'competitive position' from deliverables — can't benchmark niche without more data.
+Bugs: 3 — [83] OVERPROMISE about.html: cancel anytime; [83] PLATFORM pricing.html: podcast.yourdomain.com; [83] CREDIBILITY pricing.html: Most Popular badge (unproven)
