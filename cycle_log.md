@@ -256,3 +256,8 @@ Bugs: 3 — [50] OVERPROMISE about.html: cancel anytime; [50] PLATFORM pricing.h
 Push: OK | Verify: {'index.html': '200', 'about.html': '200', 'pricing.html': '200'} | Time: 2s
 Changes: Remove /mo framing, switch to per-episode pricing. Tier 2 = 1 ep/week, Tier 3 = 3 ep/week.
 Bugs: 3 — [51] OVERPROMISE about.html: cancel anytime; [51] PLATFORM pricing.html: podcast.yourdomain.com; [51] CREDIBILITY pricing.html: Most Popular badge (unproven)
+
+## Cycle 52 — 2026-05-16 12:53:22 | Focus: welcome
+Push: OK | Verify: {'index.html': '200', 'about.html': '200', 'pricing.html': '200'} | Time: 2s
+Changes: Remove 'Trial episode delivered' badge — visitors are discovery traffic, not trial recipients.
+Bugs: 3 — [52] OVERPROMISE about.html: cancel anytime; [52] PLATFORM pricing.html: podcast.yourdomain.com; [52] CREDIBILITY pricing.html: Most Popular badge (unproven)
