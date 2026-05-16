@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About — CreatorPod</title>
+  <style>
+    :root {
+      --bg: #0a0a0f;
+      --surface: #111118;
+      --surface-2: #18181f;
+      --border: #1e1e2a;
+      --accent: #e8c547;
+      --accent-dim: #a88f2e;
+      --accent-glow: rgba(232, 197, 71, 0.07);
+      --text: #f0f0f5;
+      --text-dim: #8888a0;
+      --success: #47e8a0;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 18px 40px;
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      background: rgba(10,10,15,0.96);
+      backdrop-filter: blur(12px);
+      z-index: 100;
+    }
+
+    .nav-logo { font-size: 15px; font-weight: 700; letter-spacing: -0.01em; }
+    .nav-logo span { color: var(--accent); }
+
+    .nav-links { display: flex; gap: 32px; list-style: none; }
+
+    .nav-links a { font-size: 13px; color: var(--text-dim); transition: color 0.2s; }
+    .nav-links a:hover { color: var(--text); text-decoration: none; }
+    .nav-links a.active { color: var(--text); font-weight: 600; }
+    .nav-links a.active::after {
+      content: '';
+      display: block;
+      width: 16px;
+      height: 2px;
+      background: var(--accent);
+      border-radius: 2px;
+      margin-top: 3px;
+    }
+
+    .container { max-width: 600px; margin: 0 auto; padding: 68px 24px; }
+
+    .section-label {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent-dim);
+      margin-bottom: 10px;
+    }
+
+    h1 {
+      font-size: 34px;
+      font-weight: 700;
+      letter-spacing: -0.025em;
+      line-height: 1.15;
+      margin-bottom: 14px;
+    }
+
+    .page-sub {
+      font-size: 15px;
+      color: var(--text-dim);
+      margin-bottom: 38px;
+      line-height: 1.7;
+    }
+
+    .divider { border: none; border-top: 1px solid var(--border); margin: 44px 0; }
+
+    h2 { font-size: 20px; font-weight: 600; margin-bottom: 12px; letter-spacing: -0.01em; }
+    p { color: var(--text-dim); font-size: 13px; margin-bottom: 12px; }
+    p:last-child { margin-bottom: 0; }
+
+    /* WHAT IT IS */
+    .what-block { margin-bottom: 38px; }
+    .what-block p { font-size: 14px; line-height: 1.7; }
+
+    /* TRUST BAR */
+    .trust-bar {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+      margin-bottom: 44px;
+    }
+
+    .trust-cell { background: var(--surface); padding: 16px 10px; text-align: center; }
+
+    .trust-cell .num {
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--accent);
+      letter-spacing: -0.02em;
+      display: block;
+    }
+
+    .trust-cell .label {
+      font-size: 10px;
+      color: var(--text-dim);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      display: block;
+      margin-top: 3px;
+    }
+
+    /* HOW IT WORKS */
+    .steps { margin-bottom: 44px; }
+
+    .step { display: flex; gap: 16px; margin-bottom: 18px; }
+
+    .step-num {
+      width: 30px;
+      height: 30px;
+      background: var(--accent-glow);
+      border: 1px solid rgba(232,197,71,0.28);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--accent);
+      flex-shrink: 0;
+    }
+
+    .step-body h3 { font-size: 14px; font-weight: 600; margin-bottom: 3px; }
+    .step-body p { font-size: 13px; margin-bottom: 0; }
+
+    /* DELIVERABLES */
+    .deliverables { margin-bottom: 44px; }
+
+    .deliverable-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+
+    .deliverable {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 14px 16px;
+    }
+
+    .deliverable .icon { font-size: 18px; margin-bottom: 8px; display: block; }
+    .deliverable h3 { font-size: 13px; font-weight: 600; margin-bottom: 4px; }
+    .deliverable p { font-size: 11px; color: var(--text-dim); margin: 0; }
+
+    /* WHO ITS FOR */
+    .who-block { margin-bottom: 44px; }
+
+    .persona-list { list-style: none; }
+
+    .persona-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      padding: 11px 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 13px;
+      color: var(--text-dim);
+    }
+
+    .persona-list li:first-child { border-top: 1px solid var(--border); }
+    .persona-list li .check { color: var(--accent); font-size: 13px; flex-shrink: 0; margin-top: 1px; }
+
+    /* DIFFERENTIATORS */
+    .diff-block { margin-bottom: 44px; }
+
+    .diff-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+
+    .diff-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 14px 16px;
+    }
+
+    .diff-card h3 { font-size: 13px; font-weight: 600; margin-bottom: 5px; }
+    .diff-card p { font-size: 12px; color: var(--text-dim); margin: 0; }
+
+    /* CTA */
+    .cta-block {
+      background: linear-gradient(135deg, rgba(232,197,71,0.06) 0%, transparent 55%);
+      border: 1px solid rgba(232,197,71,0.2);
+      border-radius: 14px;
+      padding: 24px 28px;
+      text-align: center;
+    }
+
+    .cta-block h2 { font-size: 20px; font-weight: 600; margin-bottom: 7px; }
+    .cta-block p { color: var(--text-dim); font-size: 13px; margin-bottom: 16px; }
+
+    .btn-primary {
+      background: var(--accent);
+      color: #0a0a0f;
+      font-size: 13px;
+      font-weight: 700;
+      padding: 12px 28px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.2s;
+      text-decoration: none;
+      display: inline-block;
+    }
+
+    .btn-primary:hover { background: #f0d050; text-decoration: none; }
+
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 28px 24px;
+      text-align: center;
+      font-size: 12px;
+      color: var(--text-dim);
+      margin-top: 56px;
+    }
+
+    footer a { color: var(--accent-dim); }
+
+    @media (max-width: 600px) {
+      nav { padding: 14px 20px; }
+      .nav-links { gap: 20px; }
+      h1 { font-size: 28px; }
+      .deliverable-grid, .diff-grid, .trust-bar { grid-template-columns: 1fr; }
+      .container { padding: 48px 20px; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">Creator<span>Pod</span></div>
+  <ul class="nav-links">
+    <li><a href="welcome.html">Welcome</a></li>
+    <li><a href="about.html" class="active">About</a></li>
+    <li><a href="pricing.html">Pricing</a></li>
+  </ul>
+</nav>
+
+<div class="container">
+
+  <div class="section-label">The Product</div>
+  <h1>Your Instagram. A real podcast. Every week.</h1>
+  <p class="page-sub">CreatorPod builds a weekly audio show from your Instagram content — narrated by AI, delivered to a private feed on your own domain, subscribed to through Apple Podcasts, Spotify, or any app.</p>
+
+  <div class="what-block">
+    <p>You have an audience. You don't have time to record a podcast. We build one for you — episode by episode, using your actual content as the source material. No scripts to review, no studio sessions, no editing loops. You get an MP3, it's done.</p>
+  </div>
+
+  <div class="trust-bar">
+    <div class="trust-cell">
+      <span class="num">[X]</span>
+      <span class="label">Episodes delivered</span>
+    </div>
+    <div class="trust-cell">
+      <span class="num">[X]</span>
+      <span class="label">Active creators</span>
+    </div>
+    <div class="trust-cell">
+      <span class="num">100%</span>
+      <span class="label">Episode ownership</span>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <div class="steps">
+    <div class="section-label">The Process</div>
+    <h2>From Instagram URL to Apple Podcasts listing</h2>
+
+    <div class="step">
+      <div class="step-num">1</div>
+      <div class="step-body">
+        <h3>Paste your Instagram URL</h3>
+        <p>We pull your posts, captions, hashtags, follower data, and content themes — publicly, no login required.</p>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-num">2</div>
+      <div class="step-body">
+        <h3>We benchmark your niche</h3>
+        <p>Your content is compared against top performers. We find what's working, what's missing, and what your audience wants that you're not giving them.</p>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-num">3</div>
+      <div class="step-body">
+        <h3>Emma writes and narrates your episode</h3>
+        <p>A custom script around your growth opportunities. Emma — our AI voice — narrates it tuned to your niche. You get an MP3, ready to publish.</p>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-num">4</div>
+      <div class="step-body">
+        <h3>Published to your own RSS feed</h3>
+        <p>A private feed on your own domain (e.g., podcast.yourdomain.com). Listeners subscribe through Apple Podcasts, Spotify, or any app. Permanently yours.</p>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-num">5</div>
+      <div class="step-body">
+        <h3>Repeat every week</h3>
+        <p>New episode, same day each week. Each builds on the last — tracking performance, evolving strategy, growing your audience through a medium with 3x the engagement of feed posts.</p>
+      </div>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <div class="deliverables">
+    <div class="section-label">What You Receive</div>
+    <h2>Every week, per episode</h2>
+
+    <div class="deliverable-grid">
+      <div class="deliverable">
+        <span class="icon">&#127911;</span>
+        <h3>8–12 Min Audio Episode</h3>
+        <p>Scripted, narrated, ready to publish. Strategy-first, not fluff.</p>
+      </div>
+      <div class="deliverable">
+        <span class="icon">&#128196;</span>
+        <h3>Show Notes</h3>
+        <p>Key insight from the episode + link back to your Instagram.</p>
+      </div>
+      <div class="deliverable">
+        <span class="icon">&#127981;</span>
+        <h3>Content Recommendation</h3>
+        <p>One specific thing to create this week based on your niche.</p>
+      </div>
+      <div class="deliverable">
+        <span class="icon">&#128202;</span>
+        <h3>Growth Metrics</h3>
+        <p>Subscriber count and listen-through rate from the past week.</p>
+      </div>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <div class="who-block">
+    <div class="section-label">Is This For You?</div>
+    <h2>Built for creators who:</h2>
+    <ul class="persona-list">
+      <li><span class="check">&#10003;</span> Have an established Instagram (5K+) and want to expand into audio without recording anything themselves</li>
+      <li><span class="check">&#10003;</span> Are promoting a product, service, or brand and need a high-conversion touchpoint beyond social posts</li>
+      <li><span class="check">&#10003;</span> Want to be perceived as a category authority without hiring a production team</li>
+      <li><span class="check">&#10003;</span> Understand that podcast listeners convert at significantly higher rates than social followers</li>
+      <li><span class="check">&#10003;</span> Have tried building a podcast before and gave up because of the time required</li>
+    </ul>
+  </div>
+
+  <hr class="divider">
+
+  <div class="diff-block">
+    <div class="section-label">Why CreatorPod</div>
+    <h2>Most services own your feed. We don't.</h2>
+
+    <div class="diff-grid">
+      <div class="diff-card">
+        <h3>Your URL, your feed</h3>
+        <p>Most services give you a sub-domain. We give you a feed on your own domain. Cancel anytime — the URL and every episode stays yours.</p>
+      </div>
+      <div class="diff-card">
+        <h3>Content from your data</h3>
+        <p>Scripts aren't from templates. They're generated from your specific Instagram, niche, and audience gaps — every week.</p>
+      </div>
+      <div class="diff-card">
+        <h3>Truly hands-off</h3>
+        <p>No script approvals, no studio scheduling, no editing rounds. We publish, you get a notification.</p>
+      </div>
+      <div class="diff-card">
+        <h3>Designed for one person</h3>
+        <p>Every workflow is built for solo creators. Not a team, not a brand manager. Just you.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="cta-block">
+    <h2>Ready to start?</h2>
+    <p>Plans start at [PRICE]. First episode ships within 7 days of signup.</p>
+    <a href="pricing.html" class="btn-primary">View Plans</a>
+  </div>
+
+</div>
+
+<footer>
+  <p>CreatorPod &bull; Powered by Hermes AI &amp; ElevenLabs &bull; <a href="welcome.html">Welcome</a> &bull; <a href="pricing.html">Pricing</a></p>
+</footer>
+
+</body>
+</html>

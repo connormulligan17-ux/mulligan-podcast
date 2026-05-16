@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pricing — CreatorPod</title>
+  <style>
+    :root {
+      --bg: #0a0a0f;
+      --surface: #111118;
+      --surface-2: #18181f;
+      --border: #1e1e2a;
+      --accent: #e8c547;
+      --accent-dim: #a88f2e;
+      --accent-glow: rgba(232, 197, 71, 0.05);
+      --text: #f0f0f5;
+      --text-dim: #8888a0;
+      --success: #47e8a0;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 18px 40px;
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      background: rgba(10,10,15,0.96);
+      backdrop-filter: blur(12px);
+      z-index: 100;
+    }
+
+    .nav-logo { font-size: 15px; font-weight: 700; letter-spacing: -0.01em; }
+    .nav-logo span { color: var(--accent); }
+
+    .nav-links { display: flex; gap: 32px; list-style: none; }
+
+    .nav-links a { font-size: 13px; color: var(--text-dim); transition: color 0.2s; }
+    .nav-links a:hover { color: var(--text); text-decoration: none; }
+    .nav-links a.active { color: var(--text); font-weight: 600; }
+    .nav-links a.active::after {
+      content: '';
+      display: block;
+      width: 16px;
+      height: 2px;
+      background: var(--accent);
+      border-radius: 2px;
+      margin-top: 3px;
+    }
+
+    .container { max-width: 860px; margin: 0 auto; padding: 68px 24px; }
+
+    .page-header { text-align: center; margin-bottom: 28px; }
+
+    h1 {
+      font-size: 36px;
+      font-weight: 700;
+      letter-spacing: -0.025em;
+      line-height: 1.15;
+      margin-bottom: 10px;
+    }
+
+    .page-sub {
+      font-size: 15px;
+      color: var(--text-dim);
+      max-width: 420px;
+      margin: 0 auto;
+    }
+
+    /* TRIAL RIBBON */
+    .trial-ribbon {
+      background: rgba(232,197,71,0.05);
+      border: 1px solid rgba(232,197,71,0.16);
+      border-radius: 10px;
+      padding: 12px 18px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 24px;
+    }
+
+    .trial-ribbon .icon { font-size: 18px; flex-shrink: 0; }
+
+    .trial-ribbon p { font-size: 12px; color: var(--text-dim); flex: 1; }
+    .trial-ribbon p strong { color: var(--text); }
+    .trial-ribbon a { font-size: 12px; font-weight: 700; color: var(--accent); white-space: nowrap; }
+
+    /* TIER CARDS */
+    .tiers {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+      margin-bottom: 20px;
+    }
+
+    .tier {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 22px 18px;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+
+    .tier.featured {
+      border-color: var(--accent);
+      background: linear-gradient(180deg, rgba(232,197,71,0.07) 0%, var(--surface) 40%);
+    }
+
+    .tier.featured::before {
+      content: "Most Popular";
+      position: absolute;
+      top: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--accent);
+      color: #0a0a0f;
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 3px 10px;
+      border-radius: 8px;
+      white-space: nowrap;
+    }
+
+    .tier-name {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--accent-dim);
+      margin-bottom: 4px;
+    }
+
+    .tier-price {
+      font-size: 34px;
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      line-height: 1;
+      margin-bottom: 2px;
+    }
+
+    .tier-price .per { font-size: 12px; font-weight: 400; color: var(--text-dim); }
+
+    .tier-tagline { font-size: 12px; color: var(--text-dim); margin-bottom: 16px; }
+
+    .tier-features { list-style: none; flex: 1; margin-bottom: 14px; }
+
+    .tier-features li {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      font-size: 12px;
+      color: var(--text-dim);
+      padding: 5px 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .tier-features li:last-child { border-bottom: none; }
+    .tier-features li .check { color: var(--success); font-size: 11px; flex-shrink: 0; margin-top: 1px; }
+
+    .tier-turnaround { font-size: 11px; color: var(--accent-dim); text-align: center; margin-bottom: 10px; }
+
+    .tier-cta {
+      display: block;
+      text-align: center;
+      background: var(--surface-2);
+      color: var(--text);
+      font-size: 13px;
+      font-weight: 600;
+      padding: 11px;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      transition: border-color 0.2s;
+    }
+
+    .tier-cta:hover { border-color: var(--accent-dim); text-decoration: none; }
+
+    .tier.featured .tier-cta { background: var(--accent); color: #0a0a0f; border: none; }
+    .tier.featured .tier-cta:hover { background: #f0d050; }
+
+    /* GUARANTEE STRIP */
+    .guarantee-strip {
+      display: flex;
+      justify-content: center;
+      gap: 28px;
+      margin-bottom: 36px;
+      padding: 12px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+    }
+
+    .guarantee-item {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      font-size: 11px;
+      color: var(--text-dim);
+    }
+
+    .guarantee-item .icon { font-size: 14px; }
+    .guarantee-item strong { color: var(--text); }
+
+    /* SOCIAL PROOF */
+    .social-proof { margin-bottom: 36px; }
+
+    .social-proof h2 { font-size: 18px; font-weight: 600; margin-bottom: 14px; text-align: center; }
+
+    .testimonial-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+
+    .testimonial-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px 18px;
+    }
+
+    .testimonial-quote {
+      font-size: 13px;
+      font-style: italic;
+      color: var(--text);
+      line-height: 1.6;
+      margin-bottom: 10px;
+    }
+
+    .testimonial-author { display: flex; align-items: center; gap: 10px; }
+
+    .testimonial-avatar {
+      width: 26px;
+      height: 26px;
+      background: var(--accent);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 10px;
+      font-weight: 700;
+      color: #0a0a0f;
+    }
+
+    .testimonial-info { font-size: 11px; }
+    .testimonial-info .name { font-weight: 600; color: var(--text); }
+    .testimonial-info .handle { color: var(--text-dim); }
+
+    /* FAQ */
+    .faq { margin-bottom: 36px; }
+
+    .faq h2 { font-size: 18px; font-weight: 600; margin-bottom: 14px; text-align: center; }
+
+    .faq-item {
+      border-bottom: 1px solid var(--border);
+      padding: 12px 0;
+    }
+
+    .faq-item:first-child { border-top: 1px solid var(--border); }
+
+    .faq-q { font-size: 13px; font-weight: 600; color: var(--text); margin-bottom: 4px; }
+    .faq-a { font-size: 12px; color: var(--text-dim); line-height: 1.6; }
+
+    /* FINAL CTA */
+    .cta-block {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 24px 32px;
+      text-align: center;
+    }
+
+    .cta-block h2 { font-size: 20px; font-weight: 600; margin-bottom: 6px; }
+    .cta-block p { color: var(--text-dim); font-size: 13px; margin-bottom: 16px; }
+
+    .btn-primary {
+      background: var(--accent);
+      color: #0a0a0f;
+      font-size: 13px;
+      font-weight: 700;
+      padding: 12px 28px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.2s;
+      text-decoration: none;
+      display: inline-block;
+    }
+
+    .btn-primary:hover { background: #f0d050; text-decoration: none; }
+
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 28px 24px;
+      text-align: center;
+      font-size: 12px;
+      color: var(--text-dim);
+      margin-top: 56px;
+    }
+
+    footer a { color: var(--accent-dim); }
+
+    @media (max-width: 700px) {
+      nav { padding: 14px 20px; }
+      .nav-links { gap: 20px; }
+      .tiers, .testimonial-grid { grid-template-columns: 1fr; }
+      .guarantee-strip { flex-direction: column; gap: 12px; }
+      .trial-ribbon { flex-direction: column; text-align: center; }
+      .container { padding: 48px 20px; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">Creator<span>Pod</span></div>
+  <ul class="nav-links">
+    <li><a href="welcome.html">Welcome</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="pricing.html" class="active">Pricing</a></li>
+  </ul>
+</nav>
+
+<div class="container">
+
+  <div class="page-header">
+    <h1>Pick your plan</h1>
+    <p class="page-sub">Private RSS feed, Emma narration, full episode ownership. Month-to-month, no contracts.</p>
+  </div>
+
+  <div class="trial-ribbon">
+    <span class="icon">&#127911;</span>
+    <p><strong>You already have your trial episode.</strong> Launch is the natural next step — same format, every week, your own feed.</p>
+    <a href="#launch">See Launch &rarr;</a>
+  </div>
+
+  <div class="tiers">
+
+    <!-- TIER 1: LAUNCH -->
+    <div class="tier" id="launch">
+      <div class="tier-name">Launch</div>
+      <div class="tier-price">$99<span class="per">/mo</span></div>
+      <p class="tier-tagline">Everything you need to get a real podcast off the ground.</p>
+      <ul class="tier-features">
+        <li><span class="check">&#10003;</span> 1 episode per week</li>
+        <li><span class="check">&#10003;</span> Emma voice narration</li>
+        <li><span class="check">&#10003;</span> Private RSS feed (your domain)</li>
+        <li><span class="check">&#10003;</span> MP3 file each week</li>
+        <li><span class="check">&#10003;</span> Basic show notes</li>
+        <li><span class="check">&#10003;</span> Apple Podcasts + Spotify distribution</li>
+        <li><span class="check">&#10003;</span> Cancel anytime</li>
+      </ul>
+      <div class="tier-turnaround">First episode: 7 days</div>
+      <a href="#" class="tier-cta">Get Started</a>
+    </div>
+
+    <!-- TIER 2: GROW (featured) -->
+    <div class="tier featured">
+      <div class="tier-name">Grow</div>
+      <div class="tier-price">$199<span class="per">/mo</span></div>
+      <p class="tier-tagline">The full experience with strategy and growth tracking built in.</p>
+      <ul class="tier-features">
+        <li><span class="check">&#10003;</span> 1 episode per week</li>
+        <li><span class="check">&#10003;</span> Emma voice narration</li>
+        <li><span class="check">&#10003;</span> Private RSS feed (your domain)</li>
+        <li><span class="check">&#10003;</span> MP3 file each week</li>
+        <li><span class="check">&#10003;</span> Full show notes + transcript</li>
+        <li><span class="check">&#10003;</span> Content recommendation each week</li>
+        <li><span class="check">&#10003;</span> Growth metric dashboard</li>
+        <li><span class="check">&#10003;</span> Priority 5-day turnaround</li>
+        <li><span class="check">&#10003;</span> Apple Podcasts + Spotify distribution</li>
+        <li><span class="check">&#10003;</span> Cancel anytime</li>
+      </ul>
+      <div class="tier-turnaround">First episode: 5 days</div>
+      <a href="#" class="tier-cta">Get Started</a>
+    </div>
+
+    <!-- TIER 3: SCALE -->
+    <div class="tier">
+      <div class="tier-name">Scale</div>
+      <div class="tier-price">$349<span class="per">/mo</span></div>
+      <p class="tier-tagline">For creators going all-in on audio as a core channel.</p>
+      <ul class="tier-features">
+        <li><span class="check">&#10003;</span> 2 episodes per week</li>
+        <li><span class="check">&#10003;</span> Emma voice narration</li>
+        <li><span class="check">&#10003;</span> Private RSS feed (your domain)</li>
+        <li><span class="check">&#10003;</span> MP3 files each week</li>
+        <li><span class="check">&#10003;</span> Full show notes + transcript</li>
+        <li><span class="check">&#10003;</span> Content recommendation each week</li>
+        <li><span class="check">&#10003;</span> Growth metric dashboard</li>
+        <li><span class="check">&#10003;</span> Priority 3-day turnaround</li>
+        <li><span class="check">&#10003;</span> Monthly strategy call (30 min)</li>
+        <li><span class="check">&#10003;</span> Apple Podcasts + Spotify distribution</li>
+        <li><span class="check">&#10003;</span> Cancel anytime</li>
+      </ul>
+      <div class="tier-turnaround">First episodes: 3 days</div>
+      <a href="#" class="tier-cta">Get Started</a>
+    </div>
+
+  </div>
+
+  <div class="guarantee-strip">
+    <div class="guarantee-item">
+      <span class="icon">&#128640;</span>
+      <span><strong>Your domain</strong> — not ours</span>
+    </div>
+    <div class="guarantee-item">
+      <span class="icon">&#128190;</span>
+      <span><strong>100% ownership</strong> — episodes yours forever</span>
+    </div>
+    <div class="guarantee-item">
+      <span class="icon">&#128182;</span>
+      <span><strong>Export anytime</strong> — full library download</span>
+    </div>
+  </div>
+
+  <div class="social-proof">
+    <h2>What creators are saying</h2>
+    <div class="testimonial-grid">
+      <div class="testimonial-card">
+        <p class="testimonial-quote">"I sent the sample to a creator I was trying to sign and they immediately replied asking how to get the full series. That one message covered months of the service."</p>
+        <div class="testimonial-author">
+          <div class="testimonial-avatar">CM</div>
+          <div class="testimonial-info">
+            <div class="name">Connor Mulligan</div>
+            <div class="handle">@MulliganMagazine</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="faq">
+    <h2>Questions before you sign up</h2>
+
+    <div class="faq-item">
+      <div class="faq-q">What exactly do I get each week?</div>
+      <div class="faq-a">A finished MP3 (8–12 minutes), episode show notes, and a content recommendation. Grow and Scale plans also include a weekly growth metric update.</div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q">How does the first episode get made?</div>
+      <div class="faq-a">After signup, we send a 5-question form about your niche, audience, and goals. You fill it out, we start immediately. Launch ships in 7 days, Grow in 5, Scale in 3.</div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q">Do I have to approve scripts before they record?</div>
+      <div class="faq-a">No. It's fully automated — we don't send scripts for approval. If something in the audio doesn't land right, you tell us and we adjust for next time.</div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q">What does "your own RSS feed" mean?</div>
+      <div class="faq-a">Your podcast gets a feed URL on your own domain (e.g., podcast.yourdomain.com). Listeners subscribe through Apple Podcasts, Spotify, or any app. Permanently yours — cancel anytime and keep every episode.</div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q">Can I cancel anytime?</div>
+      <div class="faq-a">Yes. Month-to-month, no contracts. Cancel before your billing date and you won't be charged again.</div>
+    </div>
+  </div>
+
+  <div class="cta-block">
+    <h2>Your podcast starts this week</h2>
+    <p>Pick your plan. First episode ships within days. No contracts.</p>
+    <a href="#" class="btn-primary">Get Started</a>
+  </div>
+
+</div>
+
+<footer>
+  <p>CreatorPod &bull; Powered by Hermes AI &amp; ElevenLabs &bull; <a href="welcome.html">Welcome</a> &bull; <a href="about.html">About</a></p>
+</footer>
+
+</body>
+</html>
