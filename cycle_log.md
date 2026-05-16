@@ -196,3 +196,8 @@ Bugs: 3 — [38] OVERPROMISE about.html: cancel anytime; [38] PLATFORM pricing.h
 Push: OK | Verify: {'index.html': '200', 'about.html': '200', 'pricing.html': '200'} | Time: 2s
 Changes: Test CTA copy: 'See Pricing' vs 'Get Started' vs 'Start My Podcast' — which converts better?
 Bugs: 3 — [39] OVERPROMISE about.html: cancel anytime; [39] PLATFORM pricing.html: podcast.yourdomain.com; [39] CREDIBILITY pricing.html: Most Popular badge (unproven)
+
+## Cycle 40 — 2026-05-16 11:53:22 | Focus: about
+Push: OK | Verify: {'index.html': '200', 'about.html': '200', 'pricing.html': '200'} | Time: 2s
+Changes: Add 'No long-term contracts' near pricing CTA — reduces perceived risk.
+Bugs: 3 — [40] OVERPROMISE about.html: cancel anytime; [40] PLATFORM pricing.html: podcast.yourdomain.com; [40] CREDIBILITY pricing.html: Most Popular badge (unproven)
