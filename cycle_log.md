@@ -46,3 +46,8 @@ Bugs: 3 — [8] OVERPROMISE about.html: cancel anytime; [8] PLATFORM pricing.htm
 Push: OK | Verify: {'index.html': '200', 'about.html': '200', 'pricing.html': '200'} | Time: 2s
 Changes: Remove trial recap section — visitors didn't receive a trial.
 Bugs: 3 — [9] OVERPROMISE about.html: cancel anytime; [9] PLATFORM pricing.html: podcast.yourdomain.com; [9] CREDIBILITY pricing.html: Most Popular badge (unproven)
+
+## Cycle 10 — 2026-05-16 09:23:22 | Focus: platform
+Push: OK | Verify: {'index.html': '200', 'about.html': '200', 'pricing.html': '200'} | Time: 2s
+Changes: Add 'Where will my podcast appear?' — name Apple Podcasts, Spotify, Google, Overcast, Pocket Casts.
+Bugs: 3 — [10] OVERPROMISE about.html: cancel anytime; [10] PLATFORM pricing.html: podcast.yourdomain.com; [10] CREDIBILITY pricing.html: Most Popular badge (unproven)
