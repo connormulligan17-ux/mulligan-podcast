@@ -31,3 +31,8 @@ Bugs: 3 — [5] OVERPROMISE about.html: cancel anytime; [5] PLATFORM pricing.htm
 Push: OK | Verify: {'index.html': '200', 'about.html': '200', 'pricing.html': '200'} | Time: 2s
 Changes: Shorten hero: test H1 only + social proof + CTA. Fewer cognitive steps.
 Bugs: 3 — [6] OVERPROMISE about.html: cancel anytime; [6] PLATFORM pricing.html: podcast.yourdomain.com; [6] CREDIBILITY pricing.html: Most Popular badge (unproven)
+
+## Cycle 7 — 2026-05-16 09:08:21 | Focus: about
+Push: OK | Verify: {'index.html': '200', 'about.html': '200', 'pricing.html': '200'} | Time: 2s
+Changes: Consolidate 5-step process into 3: (1) Send Instagram, (2) We build episode, (3) On podcast apps.
+Bugs: 3 — [7] OVERPROMISE about.html: cancel anytime; [7] PLATFORM pricing.html: podcast.yourdomain.com; [7] CREDIBILITY pricing.html: Most Popular badge (unproven)
