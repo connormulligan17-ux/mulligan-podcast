@@ -351,3 +351,8 @@ Bugs: 3 — [69] OVERPROMISE about.html: cancel anytime; [69] PLATFORM pricing.h
 Push: OK | Verify: {'index.html': '200', 'about.html': '200', 'pricing.html': '200'} | Time: 2s
 Changes: Remove 'permanently yours / cancel anytime keep every episode' — anxiety-inducing framing.
 Bugs: 3 — [70] OVERPROMISE about.html: cancel anytime; [70] PLATFORM pricing.html: podcast.yourdomain.com; [70] CREDIBILITY pricing.html: Most Popular badge (unproven)
+
+## Cycle 71 — 2026-05-16 14:28:22 | Focus: nav
+Push: OK | Verify: {'index.html': '200', 'about.html': '200', 'pricing.html': '200'} | Time: 2s
+Changes: Nav links: index.html='Welcome', about.html, pricing.html — make labels match file names.
+Bugs: 3 — [71] OVERPROMISE about.html: cancel anytime; [71] PLATFORM pricing.html: podcast.yourdomain.com; [71] CREDIBILITY pricing.html: Most Popular badge (unproven)
