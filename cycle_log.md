@@ -416,3 +416,8 @@ Bugs: 3 — [82] OVERPROMISE about.html: cancel anytime; [82] PLATFORM pricing.h
 Push: OK | Verify: {'index.html': '200', 'about.html': '200', 'pricing.html': '200'} | Time: 2s
 Changes: Remove 'competitive position' from deliverables — can't benchmark niche without more data.
 Bugs: 3 — [83] OVERPROMISE about.html: cancel anytime; [83] PLATFORM pricing.html: podcast.yourdomain.com; [83] CREDIBILITY pricing.html: Most Popular badge (unproven)
+
+## Cycle 84 — 2026-05-16 15:33:22 | Focus: signup
+Push: OK | Verify: {'index.html': '200', 'about.html': '200', 'pricing.html': '200'} | Time: 2s
+Changes: Tier selection: radio buttons, not dropdown — '1 ep/wk $49' / '3 ep/wk $39'. Clear and immediate.
+Bugs: 3 — [84] OVERPROMISE about.html: cancel anytime; [84] PLATFORM pricing.html: podcast.yourdomain.com; [84] CREDIBILITY pricing.html: Most Popular badge (unproven)
