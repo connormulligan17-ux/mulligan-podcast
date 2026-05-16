@@ -426,3 +426,8 @@ Bugs: 3 — [84] OVERPROMISE about.html: cancel anytime; [84] PLATFORM pricing.h
 Push: OK | Verify: {'index.html': '200', 'about.html': '200', 'pricing.html': '200'} | Time: 2s
 Changes: Add micro-copy under CTA: 'No script reviews. No recording. No editing.' — dismisses barriers.
 Bugs: 3 — [85] OVERPROMISE about.html: cancel anytime; [85] PLATFORM pricing.html: podcast.yourdomain.com; [85] CREDIBILITY pricing.html: Most Popular badge (unproven)
+
+## Cycle 86 — 2026-05-16 15:43:22 | Focus: about
+Push: OK | Verify: {'index.html': '200', 'about.html': '200', 'pricing.html': '200'} | Time: 2s
+Changes: Remove unverified 3x engagement stat from process step 5.
+Bugs: 3 — [86] OVERPROMISE about.html: cancel anytime; [86] PLATFORM pricing.html: podcast.yourdomain.com; [86] CREDIBILITY pricing.html: Most Popular badge (unproven)
