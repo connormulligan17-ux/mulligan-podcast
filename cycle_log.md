@@ -251,3 +251,8 @@ Bugs: 3 — [49] OVERPROMISE about.html: cancel anytime; [49] PLATFORM pricing.h
 Push: OK | Verify: {'index.html': '200', 'about.html': '200', 'pricing.html': '200'} | Time: 2s
 Changes: Pricing tier names consistent across all pages — Launch/Grow/Scale everywhere or nowhere.
 Bugs: 3 — [50] OVERPROMISE about.html: cancel anytime; [50] PLATFORM pricing.html: podcast.yourdomain.com; [50] CREDIBILITY pricing.html: Most Popular badge (unproven)
+
+## Cycle 51 — 2026-05-16 12:48:22 | Focus: pricing
+Push: OK | Verify: {'index.html': '200', 'about.html': '200', 'pricing.html': '200'} | Time: 2s
+Changes: Remove /mo framing, switch to per-episode pricing. Tier 2 = 1 ep/week, Tier 3 = 3 ep/week.
+Bugs: 3 — [51] OVERPROMISE about.html: cancel anytime; [51] PLATFORM pricing.html: podcast.yourdomain.com; [51] CREDIBILITY pricing.html: Most Popular badge (unproven)
