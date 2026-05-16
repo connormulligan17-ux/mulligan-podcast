@@ -331,3 +331,8 @@ Bugs: 3 — [65] OVERPROMISE about.html: cancel anytime; [65] PLATFORM pricing.h
 Push: OK | Verify: {'index.html': '200', 'about.html': '200', 'pricing.html': '200'} | Time: 2s
 Changes: Replace 'You heard it. Now let's make it a show.' — too clever. Try plain: 'Your content. A podcast. Every week.'
 Bugs: 3 — [66] OVERPROMISE about.html: cancel anytime; [66] PLATFORM pricing.html: podcast.yourdomain.com; [66] CREDIBILITY pricing.html: Most Popular badge (unproven)
+
+## Cycle 67 — 2026-05-16 14:08:22 | Focus: pricing
+Push: OK | Verify: {'index.html': '200', 'about.html': '200', 'pricing.html': '200'} | Time: 2s
+Changes: Remove 'Most Popular' badge from Grow tier — no data to support this claim.
+Bugs: 3 — [67] OVERPROMISE about.html: cancel anytime; [67] PLATFORM pricing.html: podcast.yourdomain.com; [67] CREDIBILITY pricing.html: Most Popular badge (unproven)
