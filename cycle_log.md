@@ -266,3 +266,8 @@ Bugs: 3 — [52] OVERPROMISE about.html: cancel anytime; [52] PLATFORM pricing.h
 Push: OK | Verify: {'index.html': '200', 'about.html': '200', 'pricing.html': '200'} | Time: 2s
 Changes: Replace 'own domain / RSS feed' with 'Apple Podcasts, Spotify, every major podcast app'.
 Bugs: 3 — [53] OVERPROMISE about.html: cancel anytime; [53] PLATFORM pricing.html: podcast.yourdomain.com; [53] CREDIBILITY pricing.html: Most Popular badge (unproven)
+
+## Cycle 54 — 2026-05-16 13:03:22 | Focus: cta
+Push: OK | Verify: {'index.html': '200', 'about.html': '200', 'pricing.html': '200'} | Time: 2s
+Changes: Remove email capture strip at bottom — it competes with primary CTA. Keep one clear path.
+Bugs: 3 — [54] OVERPROMISE about.html: cancel anytime; [54] PLATFORM pricing.html: podcast.yourdomain.com; [54] CREDIBILITY pricing.html: Most Popular badge (unproven)
