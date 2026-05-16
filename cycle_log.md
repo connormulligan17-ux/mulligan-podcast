@@ -206,3 +206,8 @@ Bugs: 3 — [40] OVERPROMISE about.html: cancel anytime; [40] PLATFORM pricing.h
 Push: OK | Verify: {'index.html': '200', 'about.html': '200', 'pricing.html': '200'} | Time: 2s
 Changes: Ensure all tier feature items end with consistent punctuation.
 Bugs: 3 — [41] OVERPROMISE about.html: cancel anytime; [41] PLATFORM pricing.html: podcast.yourdomain.com; [41] CREDIBILITY pricing.html: Most Popular badge (unproven)
+
+## Cycle 42 — 2026-05-16 12:03:22 | Focus: mobile
+Push: OK | Verify: {'index.html': '200', 'about.html': '200', 'pricing.html': '200'} | Time: 2s
+Changes: Retest nav at mobile — sticky nav shouldn't push content below fold on small screens.
+Bugs: 3 — [42] OVERPROMISE about.html: cancel anytime; [42] PLATFORM pricing.html: podcast.yourdomain.com; [42] CREDIBILITY pricing.html: Most Popular badge (unproven)
