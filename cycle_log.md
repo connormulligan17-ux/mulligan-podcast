@@ -146,3 +146,8 @@ Bugs: 3 — [28] OVERPROMISE about.html: cancel anytime; [28] PLATFORM pricing.h
 Push: OK | Verify: {'index.html': '200', 'about.html': '200', 'pricing.html': '200'} | Time: 2s
 Changes: Remove Scale tier from featured display — $349 sticker shock before anchoring $99.
 Bugs: 3 — [29] OVERPROMISE about.html: cancel anytime; [29] PLATFORM pricing.html: podcast.yourdomain.com; [29] CREDIBILITY pricing.html: Most Popular badge (unproven)
+
+## Cycle 30 — 2026-05-16 11:03:22 | Focus: welcome
+Push: OK | Verify: {'index.html': '200', 'about.html': '200', 'pricing.html': '200'} | Time: 2s
+Changes: Add: 'How is this different from Instagram?' — permanence, algorithm reach, opted-in audio audience.
+Bugs: 3 — [30] OVERPROMISE about.html: cancel anytime; [30] PLATFORM pricing.html: podcast.yourdomain.com; [30] CREDIBILITY pricing.html: Most Popular badge (unproven)
