@@ -181,3 +181,8 @@ Bugs: 3 — [35] OVERPROMISE about.html: cancel anytime; [35] PLATFORM pricing.h
 Push: OK | Verify: {'index.html': '200', 'about.html': '200', 'pricing.html': '200'} | Time: 2s
 Changes: Remove unverified 3x engagement stat from process step 5.
 Bugs: 3 — [36] OVERPROMISE about.html: cancel anytime; [36] PLATFORM pricing.html: podcast.yourdomain.com; [36] CREDIBILITY pricing.html: Most Popular badge (unproven)
+
+## Cycle 37 — 2026-05-16 11:38:22 | Focus: pricing
+Push: OK | Verify: {'index.html': '200', 'about.html': '200', 'pricing.html': '200'} | Time: 2s
+Changes: Remove 'turnaround time' from tier cards — transactional framing, not service framing.
+Bugs: 3 — [37] OVERPROMISE about.html: cancel anytime; [37] PLATFORM pricing.html: podcast.yourdomain.com; [37] CREDIBILITY pricing.html: Most Popular badge (unproven)
