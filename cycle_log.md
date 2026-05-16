@@ -41,3 +41,8 @@ Bugs: 3 — [7] OVERPROMISE about.html: cancel anytime; [7] PLATFORM pricing.htm
 Push: OK | Verify: {'index.html': '200', 'about.html': '200', 'pricing.html': '200'} | Time: 2s
 Changes: Add Tier 1: single episode $49 — entry point for try-before-commit.
 Bugs: 3 — [8] OVERPROMISE about.html: cancel anytime; [8] PLATFORM pricing.html: podcast.yourdomain.com; [8] CREDIBILITY pricing.html: Most Popular badge (unproven)
+
+## Cycle 9 — 2026-05-16 09:18:21 | Focus: welcome
+Push: OK | Verify: {'index.html': '200', 'about.html': '200', 'pricing.html': '200'} | Time: 2s
+Changes: Remove trial recap section — visitors didn't receive a trial.
+Bugs: 3 — [9] OVERPROMISE about.html: cancel anytime; [9] PLATFORM pricing.html: podcast.yourdomain.com; [9] CREDIBILITY pricing.html: Most Popular badge (unproven)
