@@ -301,3 +301,8 @@ Bugs: 3 — [59] OVERPROMISE about.html: cancel anytime; [59] PLATFORM pricing.h
 Push: OK | Verify: {'index.html': '200', 'about.html': '200', 'pricing.html': '200'} | Time: 2s
 Changes: Add 'Where will my podcast appear?' — name Apple Podcasts, Spotify, Google, Overcast, Pocket Casts.
 Bugs: 3 — [60] OVERPROMISE about.html: cancel anytime; [60] PLATFORM pricing.html: podcast.yourdomain.com; [60] CREDIBILITY pricing.html: Most Popular badge (unproven)
+
+## Cycle 61 — 2026-05-16 13:38:22 | Focus: about
+Push: OK | Verify: {'index.html': '200', 'about.html': '200', 'pricing.html': '200'} | Time: 2s
+Changes: Add FAQ: (1) Do I record? (2) Who is Emma? (3) How long? (4) Changes?
+Bugs: 3 — [61] OVERPROMISE about.html: cancel anytime; [61] PLATFORM pricing.html: podcast.yourdomain.com; [61] CREDIBILITY pricing.html: Most Popular badge (unproven)
