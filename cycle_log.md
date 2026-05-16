@@ -371,3 +371,8 @@ Bugs: 3 — [73] OVERPROMISE about.html: cancel anytime; [73] PLATFORM pricing.h
 Push: OK | Verify: {'index.html': '200', 'about.html': '200', 'pricing.html': '200'} | Time: 2s
 Changes: Email form action='#' — track as placeholder, needs real endpoint.
 Bugs: 3 — [74] OVERPROMISE about.html: cancel anytime; [74] PLATFORM pricing.html: podcast.yourdomain.com; [74] CREDIBILITY pricing.html: Most Popular badge (unproven)
+
+## Cycle 75 — 2026-05-16 14:48:22 | Focus: trust
+Push: OK | Verify: {'index.html': '200', 'about.html': '200', 'pricing.html': '200'} | Time: 2s
+Changes: about.html trust bar has [X] placeholders — must fill before launch.
+Bugs: 3 — [75] OVERPROMISE about.html: cancel anytime; [75] PLATFORM pricing.html: podcast.yourdomain.com; [75] CREDIBILITY pricing.html: Most Popular badge (unproven)
