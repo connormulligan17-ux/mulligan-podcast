@@ -466,3 +466,8 @@ Bugs: 3 — [92] OVERPROMISE about.html: cancel anytime; [92] PLATFORM pricing.h
 Push: OK | Verify: {'index.html': '200', 'about.html': '200', 'pricing.html': '200'} | Time: 2s
 Changes: 'You own your episodes' appears differently in about.html vs pricing.html — align language.
 Bugs: 3 — [93] OVERPROMISE about.html: cancel anytime; [93] PLATFORM pricing.html: podcast.yourdomain.com; [93] CREDIBILITY pricing.html: Most Popular badge (unproven)
+
+## Cycle 94 — 2026-05-16 16:23:22 | Focus: copy
+Push: OK | Verify: {'index.html': '200', 'about.html': '200', 'pricing.html': '200'} | Time: 2s
+Changes: Check every 'you/your' vs 'your audience' — second-person only, no mixed perspective.
+Bugs: 3 — [94] OVERPROMISE about.html: cancel anytime; [94] PLATFORM pricing.html: podcast.yourdomain.com; [94] CREDIBILITY pricing.html: Most Popular badge (unproven)
