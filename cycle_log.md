@@ -56,3 +56,8 @@ Bugs: 3 — [10] OVERPROMISE about.html: cancel anytime; [10] PLATFORM pricing.h
 Push: OK | Verify: {'index.html': '200', 'about.html': '200', 'pricing.html': '200'} | Time: 2s
 Changes: Add FAQ: (1) Do I record? (2) Who is Emma? (3) How long? (4) Changes?
 Bugs: 3 — [11] OVERPROMISE about.html: cancel anytime; [11] PLATFORM pricing.html: podcast.yourdomain.com; [11] CREDIBILITY pricing.html: Most Popular badge (unproven)
+
+## Cycle 12 — 2026-05-16 09:33:22 | Focus: pricing
+Push: OK | Verify: {'index.html': '200', 'about.html': '200', 'pricing.html': '200'} | Time: 2s
+Changes: Clarify '3 episodes a week' — are they distinct? Use '3 separate episodes weekly'.
+Bugs: 3 — [12] OVERPROMISE about.html: cancel anytime; [12] PLATFORM pricing.html: podcast.yourdomain.com; [12] CREDIBILITY pricing.html: Most Popular badge (unproven)
