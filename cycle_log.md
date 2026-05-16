@@ -286,3 +286,8 @@ Bugs: 3 — [56] OVERPROMISE about.html: cancel anytime; [56] PLATFORM pricing.h
 Push: OK | Verify: {'index.html': '200', 'about.html': '200', 'pricing.html': '200'} | Time: 2s
 Changes: Consolidate 5-step process into 3: (1) Send Instagram, (2) We build episode, (3) On podcast apps.
 Bugs: 3 — [57] OVERPROMISE about.html: cancel anytime; [57] PLATFORM pricing.html: podcast.yourdomain.com; [57] CREDIBILITY pricing.html: Most Popular badge (unproven)
+
+## Cycle 58 — 2026-05-16 13:23:22 | Focus: pricing
+Push: OK | Verify: {'index.html': '200', 'about.html': '200', 'pricing.html': '200'} | Time: 2s
+Changes: Add Tier 1: single episode $49 — entry point for try-before-commit.
+Bugs: 3 — [58] OVERPROMISE about.html: cancel anytime; [58] PLATFORM pricing.html: podcast.yourdomain.com; [58] CREDIBILITY pricing.html: Most Popular badge (unproven)
