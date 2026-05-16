@@ -66,3 +66,8 @@ Bugs: 3 — [12] OVERPROMISE about.html: cancel anytime; [12] PLATFORM pricing.h
 Push: OK | Verify: {'index.html': '200', 'about.html': '200', 'pricing.html': '200'} | Time: 2s
 Changes: Add social proof: '8-12 min, good for commutes', 'just an MP3, nothing to manage'.
 Bugs: 3 — [13] OVERPROMISE about.html: cancel anytime; [13] PLATFORM pricing.html: podcast.yourdomain.com; [13] CREDIBILITY pricing.html: Most Popular badge (unproven)
+
+## Cycle 14 — 2026-05-16 09:43:22 | Focus: about
+Push: OK | Verify: {'index.html': '200', 'about.html': '200', 'pricing.html': '200'} | Time: 2s
+Changes: Lower follower threshold from 5K+ to 1K+ for micro-influencer accessibility.
+Bugs: 3 — [14] OVERPROMISE about.html: cancel anytime; [14] PLATFORM pricing.html: podcast.yourdomain.com; [14] CREDIBILITY pricing.html: Most Popular badge (unproven)
