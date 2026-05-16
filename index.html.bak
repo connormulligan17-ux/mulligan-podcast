@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Podcast Growth Strategy — Free Sample Episode</title>
+  <style>
+    :root {
+      --bg: #0a0a0f;
+      --surface: #111118;
+      --border: #1e1e2a;
+      --accent: #e8c547;
+      --accent-dim: #a88f2e;
+      --text: #f0f0f5;
+      --text-dim: #8888a0;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+
+    .container {
+      max-width: 680px;
+      margin: 0 auto;
+      padding: 60px 24px;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 56px;
+    }
+
+    .badge {
+      display: inline-block;
+      background: var(--surface);
+      border: 1px solid var(--accent-dim);
+      color: var(--accent);
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 4px 12px;
+      border-radius: 20px;
+      margin-bottom: 20px;
+    }
+
+    h1 {
+      font-size: 38px;
+      font-weight: 700;
+      line-height: 1.15;
+      margin-bottom: 16px;
+      letter-spacing: -0.02em;
+    }
+
+    h1 span { color: var(--accent); }
+
+    .tagline {
+      font-size: 18px;
+      color: var(--text-dim);
+      max-width: 480px;
+      margin: 0 auto;
+    }
+
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 36px;
+      margin-bottom: 40px;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    label {
+      display: block;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-dim);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-bottom: 8px;
+    }
+
+    input[type="url"],
+    input[type="email"] {
+      width: 100%;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 12px 16px;
+      font-size: 15px;
+      color: var(--text);
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    input:focus { border-color: var(--accent); }
+    input::placeholder { color: var(--text-dim); }
+
+    .goal-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+
+    .goal-option {
+      position: relative;
+    }
+
+    .goal-option input[type="checkbox"] {
+      position: absolute;
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+
+    .goal-option label {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px 14px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--text);
+      text-transform: none;
+      letter-spacing: 0;
+      transition: border-color 0.2s, background 0.2s;
+      margin-bottom: 0;
+    }
+
+    .goal-option label .icon {
+      font-size: 18px;
+    }
+
+    .goal-option input:checked + label {
+      border-color: var(--accent);
+      background: rgba(232, 197, 71, 0.08);
+      color: var(--accent);
+    }
+
+    .btn {
+      width: 100%;
+      background: var(--accent);
+      color: #0a0a0f;
+      font-size: 15px;
+      font-weight: 700;
+      padding: 15px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.1s;
+      letter-spacing: 0.01em;
+    }
+
+    .btn:hover { background: #f0d050; }
+    .btn:active { transform: scale(0.99); }
+    .btn:disabled { opacity: 0.6; cursor: not-allowed; }
+
+    .form-note {
+      margin-top: 12px;
+      font-size: 12px;
+      color: var(--text-dim);
+      text-align: center;
+    }
+
+    .what {
+      margin-bottom: 48px;
+    }
+
+    .what h2 {
+      font-size: 22px;
+      margin-bottom: 20px;
+      color: var(--accent);
+    }
+
+    .what ol {
+      padding-left: 20px;
+      color: var(--text-dim);
+    }
+
+    .what li {
+      margin-bottom: 10px;
+      font-size: 15px;
+    }
+
+    .what li strong { color: var(--text); }
+
+    .social-proof {
+      border-top: 1px solid var(--border);
+      padding-top: 32px;
+      margin-top: 40px;
+    }
+
+    .social-proof h3 {
+      font-size: 14px;
+      color: var(--text-dim);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 16px;
+    }
+
+    .quote {
+      font-style: italic;
+      color: var(--text-dim);
+      font-size: 15px;
+      border-left: 2px solid var(--accent);
+      padding-left: 16px;
+      margin-bottom: 12px;
+    }
+
+    footer {
+      text-align: center;
+      margin-top: 60px;
+      font-size: 13px;
+      color: var(--text-dim);
+    }
+
+    footer a { color: var(--accent-dim); text-decoration: none; }
+
+    @media (max-width: 500px) {
+      h1 { font-size: 28px; }
+      .goal-grid { grid-template-columns: 1fr; }
+      .card { padding: 24px; }
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+
+  <header>
+    <div class="badge">Free Sample Episode</div>
+    <h1>See What Your Podcast<br>Would <span>Sound Like</span></h1>
+    <p class="tagline">A 3-minute AI-generated episode analyzing your Instagram, delivered to your inbox — no commitment.</p>
+  </header>
+
+  <div class="card">
+    <form name="podcast-signup" method="POST" action="https://formspree.io/f/mwvygnqq" id="form">
+      <div class="form-group">
+        <label for="instagram">Instagram Profile URL</label>
+        <input type="url" name="instagram_url" id="instagram" placeholder="https://www.instagram.com/username" required>
+      </div>
+
+      <div class="form-group">
+        <label for="email">Your Email</label>
+        <input type="email" name="email" id="email" placeholder="you@example.com" required>
+      </div>
+
+      <div class="form-group">
+        <label>Primary Goal</label>
+        <div class="goal-grid">
+          <div class="goal-option">
+            <input type="checkbox" name="goals" value="growth" id="g-growth">
+            <label for="g-growth"><span class="icon">&#9650;</span> Audience Growth</label>
+          </div>
+          <div class="goal-option">
+            <input type="checkbox" name="goals" value="conversion" id="g-conversion">
+            <label for="g-conversion"><span class="icon">&#8644;</span> Conversions / Sales</label>
+          </div>
+          <div class="goal-option">
+            <input type="checkbox" name="goals" value="retention" id="g-retention">
+            <label for="g-retention"><span class="icon">&#9632;</span> Follower Retention</label>
+          </div>
+          <div class="goal-option">
+            <input type="checkbox" name="goals" value="engagement" id="g-engagement">
+            <label for="g-engagement"><span class="icon">&#9829;</span> Likes / Engagement</label>
+          </div>
+        </div>
+      </div>
+
+      <button type="submit" class="btn" id="submit-btn">Get My Free Sample Episode</button>
+      <p class="form-note">We'll analyze your Instagram and email you a 3-min audio episode within 24 hours.</p>
+    </form>
+
+    <div id="success" style="display:none; text-align:center; padding: 20px 0;">
+      <div style="font-size:48px; margin-bottom:16px;">&#9989;</div>
+      <h3 style="margin-bottom:8px;">You're on the list!</h3>
+      <p style="color:var(--text-dim); font-size:14px;">We'll email your sample episode within 24 hours. Check your inbox.</p>
+    </div>
+  </div>
+
+  <section class="what">
+    <h2>How it works</h2>
+    <ol>
+      <li><strong>Paste your Instagram URL</strong> — any public account, any niche.</li>
+      <li><strong>We analyze your content</strong> — posts, captions, hashtags, themes, audience, and competitive landscape.</li>
+      <li><strong>Emma delivers your episode</strong> — a 3-minute AI-generated podcast episode with strategic insights tailored to your goals.</li>
+      <li><strong>Loved it?</strong> We'll set up your full independent podcast feed, episode by episode.</li>
+    </ol>
+  </section>
+
+  <div class="social-proof">
+    <h3>Already in use</h3>
+    <p class="quote">"I sent it to a creator and they immediately replied asking how to get the full series."<br>— Connor, Mulligan Magazine</p>
+  </div>
+
+  <footer>
+    Powered by Hermes AI &amp; ElevenLabs<br>
+    <a href="https://connormulligan17-ux.github.io/mulligan-podcast/feed.xml">RSS</a>
+  </footer>
+
+</div>
+
+<script>
+  document.getElementById('form').addEventListener('submit', function() {
+    var btn = document.getElementById('submit-btn');
+    btn.disabled = true;
+    btn.textContent = 'Sending...';
+  });
+</script>
+
+</body>
+</html>
