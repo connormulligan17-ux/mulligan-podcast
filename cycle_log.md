@@ -21,3 +21,8 @@ Bugs: 5 — [3] PLACEHOLDER about.html: [X]; [3] PLACEHOLDER about.html: [X]; [3
 Push: OK | Verify: {'index.html': '200', 'about.html': '200', 'pricing.html': '200'} | Time: 2s
 Changes: Remove email capture strip at bottom — it competes with primary CTA. Keep one clear path.
 Bugs: 5 — [4] PLACEHOLDER about.html: [X]; [4] PLACEHOLDER about.html: [X]; [4] OVERPROMISE about.html: cancel anytime; [4] PLATFORM pricing.html: podcast.yourdomain.com; [4] CREDIBILITY pricing.html: Most Popular badge (unproven)
+
+## Cycle 5 — 2026-05-16 08:58:21 | Focus: trust
+Push: OK | Verify: {'index.html': '200', 'about.html': '200', 'pricing.html': '200'} | Time: 2s
+Changes: Remove 3x conversion stat — unverified. Replace or remove.
+Bugs: 3 — [5] OVERPROMISE about.html: cancel anytime; [5] PLATFORM pricing.html: podcast.yourdomain.com; [5] CREDIBILITY pricing.html: Most Popular badge (unproven)
