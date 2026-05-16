@@ -406,3 +406,8 @@ Bugs: 3 — [80] OVERPROMISE about.html: cancel anytime; [80] PLATFORM pricing.h
 Push: OK | Verify: {'index.html': '200', 'about.html': '200', 'pricing.html': '200'} | Time: 2s
 Changes: Add urgency: 'Episodes ship within 5 days of signup.' True, specific, creates commitment.
 Bugs: 3 — [81] OVERPROMISE about.html: cancel anytime; [81] PLATFORM pricing.html: podcast.yourdomain.com; [81] CREDIBILITY pricing.html: Most Popular badge (unproven)
+
+## Cycle 82 — 2026-05-16 15:23:22 | Focus: trust
+Push: OK | Verify: {'index.html': '200', 'about.html': '200', 'pricing.html': '200'} | Time: 2s
+Changes: Replace 3x stat with defensible version: 'Podcast listeners spend more time with creators they follow.'
+Bugs: 3 — [82] OVERPROMISE about.html: cancel anytime; [82] PLATFORM pricing.html: podcast.yourdomain.com; [82] CREDIBILITY pricing.html: Most Popular badge (unproven)
