@@ -96,3 +96,8 @@ Bugs: 3 — [18] OVERPROMISE about.html: cancel anytime; [18] PLATFORM pricing.h
 Push: OK | Verify: {'index.html': '200', 'about.html': '200', 'pricing.html': '200'} | Time: 2s
 Changes: Email capture at bottom is noise for ready-to-buy. Remove or retitle as 'Have questions?'
 Bugs: 3 — [19] OVERPROMISE about.html: cancel anytime; [19] PLATFORM pricing.html: podcast.yourdomain.com; [19] CREDIBILITY pricing.html: Most Popular badge (unproven)
+
+## Cycle 20 — 2026-05-16 10:13:22 | Focus: platform
+Push: OK | Verify: {'index.html': '200', 'about.html': '200', 'pricing.html': '200'} | Time: 2s
+Changes: Remove 'permanently yours / cancel anytime keep every episode' — anxiety-inducing framing.
+Bugs: 3 — [20] OVERPROMISE about.html: cancel anytime; [20] PLATFORM pricing.html: podcast.yourdomain.com; [20] CREDIBILITY pricing.html: Most Popular badge (unproven)
