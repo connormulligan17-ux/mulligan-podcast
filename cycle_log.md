@@ -141,3 +141,8 @@ Bugs: 3 — [27] OVERPROMISE about.html: cancel anytime; [27] PLATFORM pricing.h
 Push: OK | Verify: {'index.html': '200', 'about.html': '200', 'pricing.html': '200'} | Time: 2s
 Changes: Emma step too vague — specify: 'Emma writes a script from your content data, then narrates.'
 Bugs: 3 — [28] OVERPROMISE about.html: cancel anytime; [28] PLATFORM pricing.html: podcast.yourdomain.com; [28] CREDIBILITY pricing.html: Most Popular badge (unproven)
+
+## Cycle 29 — 2026-05-16 10:58:22 | Focus: pricing
+Push: OK | Verify: {'index.html': '200', 'about.html': '200', 'pricing.html': '200'} | Time: 2s
+Changes: Remove Scale tier from featured display — $349 sticker shock before anchoring $99.
+Bugs: 3 — [29] OVERPROMISE about.html: cancel anytime; [29] PLATFORM pricing.html: podcast.yourdomain.com; [29] CREDIBILITY pricing.html: Most Popular badge (unproven)
