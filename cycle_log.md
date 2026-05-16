@@ -76,3 +76,8 @@ Bugs: 3 — [14] OVERPROMISE about.html: cancel anytime; [14] PLATFORM pricing.h
 Push: OK | Verify: {'index.html': '200', 'about.html': '200', 'pricing.html': '200'} | Time: 2s
 Changes: Add simple form on pricing page itself — Instagram URL + email + tier radio.
 Bugs: 3 — [15] OVERPROMISE about.html: cancel anytime; [15] PLATFORM pricing.html: podcast.yourdomain.com; [15] CREDIBILITY pricing.html: Most Popular badge (unproven)
+
+## Cycle 16 — 2026-05-16 09:53:22 | Focus: welcome
+Push: OK | Verify: {'index.html': '200', 'about.html': '200', 'pricing.html': '200'} | Time: 2s
+Changes: Replace 'You heard it. Now let's make it a show.' — too clever. Try plain: 'Your content. A podcast. Every week.'
+Bugs: 3 — [16] OVERPROMISE about.html: cancel anytime; [16] PLATFORM pricing.html: podcast.yourdomain.com; [16] CREDIBILITY pricing.html: Most Popular badge (unproven)
