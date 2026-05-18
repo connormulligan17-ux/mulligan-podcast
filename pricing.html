@@ -320,6 +320,95 @@
       .trial-ribbon { flex-direction: column; text-align: center; }
       .container { padding: 48px 20px; }
     }
+
+    /* SIGNUP FORM */
+    .signup-form {
+      max-width: 440px;
+      margin: 0 auto 48px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 28px 24px;
+    }
+
+    .signup-form h2 { font-size: 20px; font-weight: 700; margin-bottom: 4px; text-align: center; }
+    .signup-form .form-sub { font-size: 13px; color: var(--text-dim); text-align: center; margin-bottom: 20px; }
+
+    .form-group { margin-bottom: 16px; }
+    .form-group label { display: block; font-size: 12px; font-weight: 600; color: var(--text); margin-bottom: 6px; }
+
+    .form-group input[type="url"],
+    .form-group input[type="email"] {
+      width: 100%;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 10px 12px;
+      font-size: 14px;
+      color: var(--text);
+      outline: none;
+      transition: border-color 0.2s;
+      box-sizing: border-box;
+    }
+
+    .form-group input[type="url"]:focus,
+    .form-group input[type="email"]:focus { border-color: var(--accent); }
+
+    .tier-options { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; }
+
+    .tier-option { cursor: pointer; }
+
+    .tier-option input { display: none; }
+
+    .tier-option-inner {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2px;
+      padding: 10px 8px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      background: var(--bg);
+      transition: border-color 0.2s, background 0.2s;
+    }
+
+    .tier-option input:checked + .tier-option-inner {
+      border-color: var(--accent);
+      background: rgba(232, 197, 71, 0.08);
+    }
+
+    .tier-option-name { font-size: 11px; font-weight: 600; color: var(--text); }
+    .tier-option-price { font-size: 13px; font-weight: 700; color: var(--accent); }
+
+    .form-submit {
+      width: 100%;
+      margin-top: 4px;
+      font-size: 14px;
+      padding: 13px;
+    }
+
+    .form-note {
+      font-size: 11px;
+      color: var(--text-dim);
+      text-align: center;
+      margin-top: 8px;
+    }
+
+    .form-success {
+      text-align: center;
+      padding: 20px 0;
+    }
+
+    .form-success .icon { font-size: 32px; margin-bottom: 8px; }
+    .form-success h3 { font-size: 16px; font-weight: 700; margin-bottom: 4px; }
+    .form-success p { font-size: 13px; color: var(--text-dim); }
+
+    .form-error {
+      font-size: 12px;
+      color: #e85050;
+      margin-top: 6px;
+      text-align: center;
+    }
   </style>
 </head>
 <body>
@@ -439,6 +528,49 @@
     </div>
   </div>
 
+  <div class="signup-form" id="signup">
+    <h2>Get your first episode</h2>
+    <p class="form-sub">Fill this out and your first episode is delivered today.</p>
+    <form id="creatorpod-form">
+      <div class="form-group">
+        <label for="instagram_url">Your Instagram URL</label>
+        <input type="url" id="instagram_url" name="instagram_url" placeholder="https://instagram.com/yourhandle" required>
+      </div>
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email" placeholder="you@example.com" required>
+      </div>
+      <div class="form-group">
+        <label>Choose your plan</label>
+        <div class="tier-options">
+          <label class="tier-option">
+            <input type="radio" name="tier" value="Per Episode" checked>
+            <div class="tier-option-inner">
+              <span class="tier-option-name">Per Episode</span>
+              <span class="tier-option-price">$49</span>
+            </div>
+          </label>
+          <label class="tier-option">
+            <input type="radio" name="tier" value="Weekly Podcast">
+            <div class="tier-option-inner">
+              <span class="tier-option-name">Weekly Podcast</span>
+              <span class="tier-option-price">$149/mo</span>
+            </div>
+          </label>
+          <label class="tier-option">
+            <input type="radio" name="tier" value="Principal">
+            <div class="tier-option-inner">
+              <span class="tier-option-name">Principal</span>
+              <span class="tier-option-price">$299/mo</span>
+            </div>
+          </label>
+        </div>
+      </div>
+      <button type="submit" class="btn-primary form-submit">Get Started</button>
+      <p class="form-note">First episode delivered today. No commitment.</p>
+    </form>
+  </div>
+
   <div class="faq">
     <h2>Questions before you sign up</h2>
 
@@ -474,6 +606,49 @@
 <footer>
   <p>CreatorPod &bull; Powered by Hermes AI &amp; ElevenLabs &bull; <a href="index.html">Welcome</a> &bull; <a href="about.html">About</a></p>
 </footer>
+
+<script>
+document.getElementById('creatorpod-form').addEventListener('submit', async function(e) {
+  e.preventDefault();
+  var form = e.target;
+  var submitBtn = form.querySelector('.form-submit');
+  var errorDiv = form.querySelector('.form-error') || document.createElement('p');
+
+  // clear previous state
+  if (errorDiv.parentNode === form) form.removeChild(errorDiv);
+  errorDiv.className = 'form-error';
+  errorDiv.textContent = '';
+
+  submitBtn.disabled = true;
+  submitBtn.textContent = 'Sending...';
+
+  var igUrl = form.instagram_url.value.trim();
+  var email = form.email.value.trim();
+  var tier = form.querySelector('input[name="tier"]:checked').value;
+
+  try {
+    var res = await fetch('https://creatorpod-form-handler.connormulligan17.workers.dev', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ instagram_url: igUrl, email: email, tier: tier })
+    });
+
+    if (!res.ok) {
+      var errData = await res.json().catch(function() { return {}; });
+      throw new Error(errData.message || 'Something went wrong. Please try again.');
+    }
+
+    // show success
+    form.innerHTML = '<div class="form-success"><div class="icon">&#127911;</div><h3>You\'re in.</h3><p>First episode delivered today. Check your inbox.</p></div>';
+
+  } catch(err) {
+    errorDiv.textContent = err.message;
+    form.appendChild(errorDiv);
+    submitBtn.disabled = false;
+    submitBtn.textContent = 'Get Started';
+  }
+});
+</script>
 
 </body>
 </html>
