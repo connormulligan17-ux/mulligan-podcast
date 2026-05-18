@@ -622,6 +622,9 @@
 var STRIPE_PK = 'pk_test_51TYUpxR6QLrFJzCGC12FSCtpjbTPCgMFwHmB2OhWvpERclsPXSuYma7nx06lPZeplwXpxxI5JVeED6VbBlAGy23u00PCwvuSog';
 var stripe = Stripe(STRIPE_PK);
 
+var WORKER_URL = 'https://creatorpod-form-handler.connormulligan17.workers.dev';
+var tierToken = null;
+
 var form = document.getElementById('creatorpod-form');
 var getStartedBtn = document.getElementById('get-started-btn');
 var formNote = document.getElementById('form-note');
@@ -635,12 +638,16 @@ var elements = null;
 var clientSecret = null;
 var isRecurring = false;
 
+// Fetch signed tier token on page load so tier can't be tampered with
+fetch(WORKER_URL + '/token')
+  .then(function(r) { return r.json(); })
+  .then(function(d) { tierToken = d.token; })
+  .catch(function() { tierToken = null; });
+
 // When user clicks "Get Started" — call create-payment-intent then show payment form
 form.addEventListener('submit', async function(e) {
   e.preventDefault();
 
-  // If elements already mounted, this is a retry / user changed something
-  // If not mounted yet, create payment intent first
   if (!elements) {
     getStartedBtn.disabled = true;
     getStartedBtn.textContent = 'Preparing...';
@@ -651,13 +658,18 @@ form.addEventListener('submit', async function(e) {
     var email = document.getElementById('email').value.trim();
     var tier = form.querySelector('input[name="tier"]:checked').value;
 
-    // Step 1: Call create-payment-intent to get clientSecret
+    if (!tierToken) {
+      showError('Payment system not ready. Please refresh the page and try again.');
+      return;
+    }
+
+    // Step 1: Call create-payment-intent with signed tier token
     var res;
     try {
-      res = await fetch('https://creatorpod-form-handler.connormulligan17.workers.dev/create-payment-intent', {
+      res = await fetch(WORKER_URL + '/create-payment-intent', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ instagram_url: igUrl, email: email, tier: tier })
+        body: JSON.stringify({ instagram_url: igUrl, email: email, tier: tier, tier_token: tierToken })
       });
     } catch(err) {
       showError('Could not reach payment server. Check your connection and try again.');
@@ -680,9 +692,7 @@ form.addEventListener('submit', async function(e) {
     clientSecret = data.clientSecret;
     isRecurring = data.recurring === true;
 
-    // Step 2: Initialize Stripe Elements with the clientSecret
-    // For subscription (isRecurring=true), we mount PaymentElement with confirmParams
-    // For one-time, same flow
+    // Step 2: Mount Stripe Payment Element
     var appearance = {
       theme: 'night',
       variables: {
@@ -695,43 +705,28 @@ form.addEventListener('submit', async function(e) {
       },
     };
 
-    if (isRecurring) {
-      elements = stripe.elements({
-        clientSecret: clientSecret,
-        appearance: appearance,
-        fonts: [{ cssSrc: 'https://fonts.googleapis.com/css2?family=Inter:wght@400&display=swap' }],
-      });
-    } else {
-      elements = stripe.elements({
-        clientSecret: clientSecret,
-        appearance: appearance,
-      });
-    }
+    elements = stripe.elements({
+      clientSecret: clientSecret,
+      appearance: appearance,
+    });
 
     var paymentEl = elements.create('payment', {
       layout: { type: 'accordion', defaultCollapsed: false },
     });
     paymentEl.mount('#payment-element-mount');
 
-    // Show payment section, hide note, change button to "Pay"
+    // Show payment section, hide note, change button
     stripeSection.style.display = 'block';
     formNote.style.display = 'none';
     getStartedBtn.textContent = isRecurring ? 'Subscribe' : 'Pay';
     getStartedBtn.disabled = false;
+
   } else {
     // Elements are mounted — user is clicking "Pay" or "Subscribe"
     getStartedBtn.disabled = true;
     getStartedBtn.textContent = 'Processing...';
 
     var returnUrl = window.location.origin + window.location.pathname;
-
-    var confirmOpts = {
-      confirmParams: {
-        return_url: returnUrl,
-        payment_method_data: {},
-      },
-      redirect: 'if_required',
-    };
 
     var { error } = await stripe.confirmPayment({
       elements: elements,
@@ -743,13 +738,11 @@ form.addEventListener('submit', async function(e) {
     });
 
     if (error) {
-      // Show Stripe's error inline
       stripeError.textContent = error.message || 'Payment failed. Please try again.';
       stripeError.style.display = 'block';
       getStartedBtn.disabled = false;
       getStartedBtn.textContent = isRecurring ? 'Subscribe' : 'Pay';
     } else {
-      // Payment succeeded — show success
       showSuccess();
     }
   }
@@ -767,14 +760,12 @@ function showSuccess() {
   formSuccess.style.display = 'block';
 }
 
-// Handle return_url redirect (Stripe redirects here with ?payment_intent_client_secret=...&redirect_status=...)
+// Handle return_url redirect from Stripe
 var urlParams = new URLSearchParams(window.location.search);
 if (urlParams.has('payment_intent_client_secret')) {
-  // Being redirected back from Stripe after payment
-  var returnUrl = window.location.origin + window.location.pathname;
   stripe.confirmPayment({
     confirmParams: {
-      return_url: returnUrl,
+      return_url: window.location.origin + window.location.pathname,
     },
     redirect: 'if_required',
   }).then(function(result) {
