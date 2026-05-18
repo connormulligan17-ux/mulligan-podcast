@@ -530,7 +530,7 @@
 
   <div class="signup-form" id="signup">
     <h2>Get your first episode</h2>
-    <p class="form-sub">Fill this out and your first episode is delivered today.</p>
+    <p class="form-sub">Fill this out to get started.</p>
     <form id="creatorpod-form">
       <div class="form-group">
         <label for="instagram_url">Your Instagram URL</label>
@@ -566,9 +566,19 @@
           </label>
         </div>
       </div>
-      <button type="submit" class="btn-primary form-submit">Get Started</button>
-      <p class="form-note">First episode delivered today. No commitment.</p>
+      <div id="stripe-payment-element" style="display:none; margin-bottom:14px;">
+        <div id="payment-element-mount" style="background:#0a0a0f;border:1px solid #1e1e2a;border-radius:8px;padding:14px 12px;"></div>
+        <p id="stripe-error" style="font-size:12px;color:#e85050;margin-top:6px;display:none;"></p>
+      </div>
+      <button type="submit" id="get-started-btn" class="btn-primary form-submit">Get Started</button>
+      <p class="form-note" id="form-note">First episode delivered today. Cancel anytime.</p>
+      <p id="form-error" style="font-size:12px;color:#e85050;margin-top:6px;display:none;"></p>
     </form>
+    <div id="form-success" style="display:none;" class="form-success">
+      <div class="icon">&#127911;</div>
+      <h3>You're in.</h3>
+      <p>First episode delivered today. Check your inbox.</p>
+    </div>
   </div>
 
   <div class="faq">
@@ -607,47 +617,174 @@
   <p>CreatorPod &bull; Powered by Hermes AI &amp; ElevenLabs &bull; <a href="index.html">Welcome</a> &bull; <a href="about.html">About</a></p>
 </footer>
 
+<script src="https://js.stripe.com/v3/"></script>
 <script>
-document.getElementById('creatorpod-form').addEventListener('submit', async function(e) {
+var STRIPE_PK = 'pk_test_51TYUpxR6QLrFJzCGC12FSCtpjbTPCgMFwHmB2OhWvpERclsPXSuYma7nx06lPZeplwXpxxI5JVeED6VbBlAGy23u00PCwvuSog';
+var stripe = Stripe(STRIPE_PK);
+
+var form = document.getElementById('creatorpod-form');
+var getStartedBtn = document.getElementById('get-started-btn');
+var formNote = document.getElementById('form-note');
+var formError = document.getElementById('form-error');
+var stripeSection = document.getElementById('stripe-payment-element');
+var paymentMount = document.getElementById('payment-element-mount');
+var stripeError = document.getElementById('stripe-error');
+var formSuccess = document.getElementById('form-success');
+
+var elements = null;
+var clientSecret = null;
+var isRecurring = false;
+
+// When user clicks "Get Started" — call create-payment-intent then show payment form
+form.addEventListener('submit', async function(e) {
   e.preventDefault();
-  var form = e.target;
-  var submitBtn = form.querySelector('.form-submit');
-  var errorDiv = form.querySelector('.form-error') || document.createElement('p');
 
-  // clear previous state
-  if (errorDiv.parentNode === form) form.removeChild(errorDiv);
-  errorDiv.className = 'form-error';
-  errorDiv.textContent = '';
+  // If elements already mounted, this is a retry / user changed something
+  // If not mounted yet, create payment intent first
+  if (!elements) {
+    getStartedBtn.disabled = true;
+    getStartedBtn.textContent = 'Preparing...';
+    formError.style.display = 'none';
+    stripeError.style.display = 'none';
 
-  submitBtn.disabled = true;
-  submitBtn.textContent = 'Sending...';
+    var igUrl = document.getElementById('instagram_url').value.trim();
+    var email = document.getElementById('email').value.trim();
+    var tier = form.querySelector('input[name="tier"]:checked').value;
 
-  var igUrl = form.instagram_url.value.trim();
-  var email = form.email.value.trim();
-  var tier = form.querySelector('input[name="tier"]:checked').value;
-
-  try {
-    var res = await fetch('https://creatorpod-form-handler.connormulligan17.workers.dev', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ instagram_url: igUrl, email: email, tier: tier })
-    });
-
-    if (!res.ok) {
-      var errData = await res.json().catch(function() { return {}; });
-      throw new Error(errData.message || 'Something went wrong. Please try again.');
+    // Step 1: Call create-payment-intent to get clientSecret
+    var res;
+    try {
+      res = await fetch('https://creatorpod-form-handler.connormulligan17.workers.dev/create-payment-intent', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ instagram_url: igUrl, email: email, tier: tier })
+      });
+    } catch(err) {
+      showError('Could not reach payment server. Check your connection and try again.');
+      return;
     }
 
-    // show success
-    form.innerHTML = '<div class="form-success"><div class="icon">&#127911;</div><h3>You\'re in.</h3><p>First episode delivered today. Check your inbox.</p></div>';
+    var data;
+    try {
+      data = await res.json();
+    } catch {
+      showError('Invalid response from payment server.');
+      return;
+    }
 
-  } catch(err) {
-    errorDiv.textContent = err.message;
-    form.appendChild(errorDiv);
-    submitBtn.disabled = false;
-    submitBtn.textContent = 'Get Started';
+    if (!res.ok || data.error) {
+      showError(data.error || 'Payment setup failed. Please try again.');
+      return;
+    }
+
+    clientSecret = data.clientSecret;
+    isRecurring = data.recurring === true;
+
+    // Step 2: Initialize Stripe Elements with the clientSecret
+    // For subscription (isRecurring=true), we mount PaymentElement with confirmParams
+    // For one-time, same flow
+    var appearance = {
+      theme: 'night',
+      variables: {
+        colorPrimary: '#e8c547',
+        colorBackground: '#0a0a0f',
+        colorText: '#f0f0f5',
+        colorDanger: '#e85050',
+        fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif',
+        borderRadius: '8px',
+      },
+    };
+
+    if (isRecurring) {
+      elements = stripe.elements({
+        clientSecret: clientSecret,
+        appearance: appearance,
+        fonts: [{ cssSrc: 'https://fonts.googleapis.com/css2?family=Inter:wght@400&display=swap' }],
+      });
+    } else {
+      elements = stripe.elements({
+        clientSecret: clientSecret,
+        appearance: appearance,
+      });
+    }
+
+    var paymentEl = elements.create('payment', {
+      layout: { type: 'accordion', defaultCollapsed: false },
+    });
+    paymentEl.mount('#payment-element-mount');
+
+    // Show payment section, hide note, change button to "Pay"
+    stripeSection.style.display = 'block';
+    formNote.style.display = 'none';
+    getStartedBtn.textContent = isRecurring ? 'Subscribe' : 'Pay';
+    getStartedBtn.disabled = false;
+  } else {
+    // Elements are mounted — user is clicking "Pay" or "Subscribe"
+    getStartedBtn.disabled = true;
+    getStartedBtn.textContent = 'Processing...';
+
+    var returnUrl = window.location.origin + window.location.pathname;
+
+    var confirmOpts = {
+      confirmParams: {
+        return_url: returnUrl,
+        payment_method_data: {},
+      },
+      redirect: 'if_required',
+    };
+
+    var { error } = await stripe.confirmPayment({
+      elements: elements,
+      confirmType: 'none',
+      confirmParams: {
+        return_url: returnUrl,
+      },
+      redirect: 'if_required',
+    });
+
+    if (error) {
+      // Show Stripe's error inline
+      stripeError.textContent = error.message || 'Payment failed. Please try again.';
+      stripeError.style.display = 'block';
+      getStartedBtn.disabled = false;
+      getStartedBtn.textContent = isRecurring ? 'Subscribe' : 'Pay';
+    } else {
+      // Payment succeeded — show success
+      showSuccess();
+    }
   }
 });
+
+function showError(msg) {
+  formError.textContent = msg;
+  formError.style.display = 'block';
+  getStartedBtn.disabled = false;
+  getStartedBtn.textContent = 'Get Started';
+}
+
+function showSuccess() {
+  form.style.display = 'none';
+  formSuccess.style.display = 'block';
+}
+
+// Handle return_url redirect (Stripe redirects here with ?payment_intent_client_secret=...&redirect_status=...)
+var urlParams = new URLSearchParams(window.location.search);
+if (urlParams.has('payment_intent_client_secret')) {
+  // Being redirected back from Stripe after payment
+  var returnUrl = window.location.origin + window.location.pathname;
+  stripe.confirmPayment({
+    confirmParams: {
+      return_url: returnUrl,
+    },
+    redirect: 'if_required',
+  }).then(function(result) {
+    if (!result.error) {
+      showSuccess();
+    } else {
+      showError(result.error.message || 'Payment confirmation failed.');
+    }
+  });
+}
 </script>
 
 </body>
