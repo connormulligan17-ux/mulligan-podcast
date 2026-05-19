@@ -854,13 +854,14 @@ document.getElementById('modal-next-btn').addEventListener('click', async functi
       el = stripe.elements({
         clientSecret: clientSecret,
         mode: 'setup',
+        currency: 'usd',
         appearance: appearance,
       });
       var setupEl = el.create('setup', { layout: { type: 'accordion', defaultCollapsed: false } });
       setupEl.mount('#payment-element-mount');
     } else {
       // One-time: use Payment Element with PaymentIntent client secret
-      el = stripe.elements({ clientSecret: clientSecret, appearance: appearance });
+      el = stripe.elements({ clientSecret: clientSecret, currency: 'usd', appearance: appearance });
       var paymentEl = el.create('payment', { layout: { type: 'accordion', defaultCollapsed: false } });
       paymentEl.mount('#payment-element-mount');
     }
