@@ -395,20 +395,32 @@ fetch(WORKER_URL + '/token')
 
     try {
       window.__cpLog('[CP] Sending POST to', WORKER_URL + '/create-setup-intent');
-      var res = await fetch(WORKER_URL + '/create-setup-intent', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          instagram_url: 'https://instagram.com/' + igHandle,
-          email: email,
-          tier: selectedTier,
-          tier_token: tierToken,
-          goal: goal
-        })
-      });
-      window.__cpLog('[CP] POST response status:', res.status, 'ok:', res.ok);
-      var data = await res.json();
-      window.__cpLog('[CP] POST response data keys:', Object.keys(data));
+      var res;
+      try {
+        res = await fetch(WORKER_URL + '/create-setup-intent', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            instagram_url: 'https://instagram.com/' + igHandle,
+            email: email,
+            tier: selectedTier,
+            tier_token: tierToken,
+            goal: goal
+          })
+        });
+        window.__cpLog('[CP] fetch succeeded, status:', res.status);
+      } catch(fetchErr) {
+        window.__cpLog('[CP] fetch threw:', fetchErr.name, fetchErr.message);
+        throw fetchErr;
+      }
+      var data;
+      try {
+        data = await res.json();
+        window.__cpLog('[CP] JSON parsed OK, keys:', Object.keys(data));
+      } catch(jsonErr) {
+        window.__cpLog('[CP] json() threw:', jsonErr.name, jsonErr.message, 'body:', await res.text().substring(0,100));
+        throw jsonErr;
+      }
       window.__cpLog('/create-setup-intent response:', res.status, data);
 
       if (!res.ok || data.error) {
