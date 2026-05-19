@@ -844,9 +844,25 @@ document.getElementById('modal-next-btn').addEventListener('click', async functi
     },
   };
 
-  elements = stripe.elements({ clientSecret: clientSecret, appearance: appearance });
+  try {
+    elements = stripe.elements({ clientSecret: clientSecret, appearance: appearance });
+  } catch(e) {
+    console.error('stripe.elements() threw:', e.message || String(e));
+    errEl.textContent = 'Payment element failed to load. Please refresh and try again.';
+    errEl.style.display = 'block';
+    this.disabled = false; this.textContent = 'Continue to Payment';
+    return;
+  }
   var paymentEl = elements.create('payment', { layout: { type: 'accordion', defaultCollapsed: false } });
-  paymentEl.mount('#payment-element-mount');
+  try {
+    paymentEl.mount('#payment-element-mount');
+  } catch(e) {
+    console.error('paymentEl.mount() threw:', e.message || String(e));
+    errEl.textContent = 'Payment element failed to mount. Please refresh and try again.';
+    errEl.style.display = 'block';
+    this.disabled = false; this.textContent = 'Continue to Payment';
+    return;
+  }
 
   // Show step 2
   modalStep1.style.display = 'none';
