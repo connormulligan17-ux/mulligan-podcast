@@ -883,15 +883,25 @@ modalPayBtn.addEventListener('click', async function() {
 
   var returnUrl = window.location.origin + window.location.pathname;
 
-  var result = await stripe.confirmPayment({
-    elements: elements,
-    confirmType: 'none',
-    confirmParams: { return_url: returnUrl },
-    redirect: 'if_required',
-  });
+  var result;
+  try {
+    result = await stripe.confirmPayment({
+      elements: elements,
+      confirmType: 'none',
+      confirmParams: { return_url: returnUrl },
+      redirect: 'if_required',
+    });
+  } catch(e) {
+    console.error('confirmPayment threw:', e.message || String(e), 'code:', e.code, 'type:', e.type);
+    modalStep2Err.textContent = 'Payment could not be processed. Please try again or use a different card.';
+    modalStep2Err.style.display = 'block';
+    modalPayBtn.disabled = false;
+    modalPayBtn.textContent = isRecurring ? 'Subscribe' : 'Pay';
+    return;
+  }
 
   if (result.error) {
-    console.error('Stripe error:', result.error.code, result.error.declineCode, result.error.message);
+    console.error('Stripe result.error:', JSON.stringify(result.error));
     modalStep2Err.textContent = result.error.message || 'Payment failed. Please try again.';
     modalStep2Err.style.display = 'block';
     modalPayBtn.disabled = false;
