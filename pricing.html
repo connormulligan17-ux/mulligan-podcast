@@ -830,8 +830,11 @@ document.getElementById('modal-next-btn').addEventListener('click', async functi
 
   clientSecret = data.clientSecret;
   isRecurring  = data.recurring === true;
+  var setupMode = data.setupMode === true;
+  var setupIntentId = data.setupIntentId || null;
+  var customerId = data.customerId || null;
 
-  // Mount Stripe Payment Element
+  // Mount Stripe Element — Payment Element for one-time, Setup Element for recurring
   var appearance = {
     theme: 'night',
     variables: {
@@ -844,8 +847,23 @@ document.getElementById('modal-next-btn').addEventListener('click', async functi
     },
   };
 
+  var el;
   try {
-    elements = stripe.elements({ clientSecret: clientSecret, appearance: appearance });
+    if (setupMode) {
+      // Recurring: use Setup Element with SetupIntent client secret
+      el = stripe.elements({
+        clientSecret: clientSecret,
+        mode: 'setup',
+        appearance: appearance,
+      });
+      var setupEl = el.create('setup', { layout: { type: 'accordion', defaultCollapsed: false } });
+      setupEl.mount('#payment-element-mount');
+    } else {
+      // One-time: use Payment Element with PaymentIntent client secret
+      el = stripe.elements({ clientSecret: clientSecret, appearance: appearance });
+      var paymentEl = el.create('payment', { layout: { type: 'accordion', defaultCollapsed: false } });
+      paymentEl.mount('#payment-element-mount');
+    }
   } catch(e) {
     console.error('stripe.elements() threw:', e.message || String(e));
     errEl.textContent = 'Payment element failed to load. Please refresh and try again.';
@@ -853,16 +871,8 @@ document.getElementById('modal-next-btn').addEventListener('click', async functi
     this.disabled = false; this.textContent = 'Continue to Payment';
     return;
   }
-  var paymentEl = elements.create('payment', { layout: { type: 'accordion', defaultCollapsed: false } });
-  try {
-    paymentEl.mount('#payment-element-mount');
-  } catch(e) {
-    console.error('paymentEl.mount() threw:', e.message || String(e));
-    errEl.textContent = 'Payment element failed to mount. Please refresh and try again.';
-    errEl.style.display = 'block';
-    this.disabled = false; this.textContent = 'Continue to Payment';
-    return;
-  }
+  elements = el;
+  var paymentElForConfirm = el; // alias for use in pay handler
 
   // Show step 2
   modalStep1.style.display = 'none';
@@ -885,14 +895,24 @@ modalPayBtn.addEventListener('click', async function() {
 
   var result;
   try {
-    result = await stripe.confirmPayment({
-      elements: elements,
-      confirmType: 'none',
-      confirmParams: { return_url: returnUrl },
-      redirect: 'if_required',
-    });
+    if (setupMode) {
+      // Recurring: confirm card setup with SetupIntent
+      result = await stripe.confirmSetup({
+        elements: elements,
+        confirmParams: { return_url: returnUrl },
+        redirect: 'if_required',
+      });
+    } else {
+      // One-time: confirm payment with PaymentIntent
+      result = await stripe.confirmPayment({
+        elements: elements,
+        confirmType: 'none',
+        confirmParams: { return_url: returnUrl },
+        redirect: 'if_required',
+      });
+    }
   } catch(e) {
-    console.error('confirmPayment threw:', e.message || String(e), 'code:', e.code, 'type:', e.type);
+    console.error('Stripe confirm threw:', e.message || String(e), 'code:', e.code, 'type:', e.type);
     modalStep2Err.textContent = 'Payment could not be processed. Please try again or use a different card.';
     modalStep2Err.style.display = 'block';
     modalPayBtn.disabled = false;
