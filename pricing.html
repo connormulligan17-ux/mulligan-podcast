@@ -67,9 +67,84 @@
 
     .guarantee-strip { display: flex; justify-content: center; gap: 24px; margin-top: 20px; flex-wrap: wrap; }
     .guarantee-item { display: flex; align-items: center; gap: 8px; font-size: 12px; color: var(--text-dim); }
+
+    /* Loading overlay */
+    #loading-overlay {
+      position: fixed; inset: 0; z-index: 1000;
+      background: var(--bg); display: flex; align-items: center; justify-content: center;
+      flex-direction: column; gap: 16px;
+    }
+    #loading-overlay.hidden { display: none; }
+    #loading-overlay .spinner {
+      width: 32px; height: 32px; border: 2px solid var(--border);
+      border-top-color: var(--accent); border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    #loading-overlay p { font-size: 14px; color: var(--text-dim); }
+
+    /* Modal */
+    .modal-overlay {
+      display: none; position: fixed; inset: 0; z-index: 999;
+      background: rgba(0,0,0,0.75); backdrop-filter: blur(4px);
+      align-items: center; justify-content: center; padding: 20px;
+    }
+    .modal-overlay.open { display: flex; overflow-y: auto; -webkit-overflow-scrolling: touch; }
+
+    .modal {
+      background: var(--surface); border: 1px solid var(--border); border-radius: 16px;
+      padding: 32px 28px; width: 100%; max-width: 440px; position: relative;
+    }
+    .modal-close {
+      position: absolute; top: 16px; right: 16px;
+      background: none; border: none; color: var(--text-dim);
+      font-size: 24px; cursor: pointer; line-height: 1;
+    }
+    .modal-close:hover { color: var(--text); }
+    .modal h2 { font-size: 20px; font-weight: 700; margin-bottom: 4px; }
+    .modal .modal-tier-badge { font-size: 13px; color: var(--accent-dim); display: block; margin-bottom: 20px; }
+
+    .modal-form-group { margin-bottom: 16px; }
+    .modal-form-group label { display: block; font-size: 12px; font-weight: 600; margin-bottom: 6px; color: var(--text-dim); }
+    .modal-form-group input, .modal-form-group select {
+      width: 100%; background: var(--bg); border: 1px solid var(--border); border-radius: 8px;
+      padding: 10px 12px; font-size: 14px; color: var(--text); outline: none;
+      transition: border-color 0.2s; box-sizing: border-box;
+    }
+    .modal-form-group input:focus, .modal-form-group select:focus { border-color: var(--accent); }
+    .modal-form-group input::placeholder { color: var(--text-dim); }
+    .modal-form-group select {
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%238888a0' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+      background-repeat: no-repeat; background-position: right 12px center; padding-right: 32px;
+    }
+
+    .btn-primary {
+      background: var(--accent); color: #0a0a0f; border: none;
+      font-size: 14px; font-weight: 700; padding: 13px 20px;
+      border-radius: 8px; cursor: pointer; width: 100%; transition: background 0.2s;
+    }
+    .btn-primary:hover:not(:disabled) { background: #f0d050; }
+    .btn-primary:disabled { opacity: 0.5; cursor: not-allowed; }
+
+    .error-msg { font-size: 12px; color: var(--danger); margin-top: 8px; min-height: 18px; }
+    #modal-step1 .error-msg { text-align: center; }
+    #modal-step2 .error-msg { text-align: center; margin-bottom: 10px; }
+
+    #payment-element-mount {
+      background: var(--bg); border: 1px solid var(--border); border-radius: 8px;
+      padding: 14px 12px; margin-bottom: 14px;
+    }
+
+    .modal-footer { font-size: 11px; color: var(--text-dim); text-align: center; padding: 14px 0 4px; margin-top: 12px; border-top: 1px solid var(--border); }
   </style>
 </head>
 <body>
+
+<div id="loading-overlay">
+  <div class="spinner"></div>
+  <p>Loading...</p>
+</div>
 
 <nav>
   <div class="nav-logo">Creator<span>Pod</span></div>
@@ -103,7 +178,7 @@
         <li><span class="check">&#10003;</span> RSS feed (yours forever)</li>
         <li><span class="check">&#10003;</span> Email delivery</li>
       </ul>
-      <button class="tier-cta" data-tier="Per Episode" data-amount="4900">Get Started</button>
+      <button class="tier-cta" data-tier="Per Episode">Get Started</button>
     </div>
 
     <div class="tier featured">
@@ -119,7 +194,7 @@
         <li><span class="check">&#10003;</span> Cancel anytime</li>
       </ul>
       <p class="tier-turnaround">First episode within 24 hours</p>
-      <button class="tier-cta" data-tier="Weekly Podcast" data-amount="14900">Get Started</button>
+      <button class="tier-cta" data-tier="Weekly Podcast">Get Started</button>
     </div>
 
     <div class="tier">
@@ -136,7 +211,7 @@
         <li><span class="check">&#10003;</span> Cancel anytime</li>
       </ul>
       <p class="tier-turnaround">First episode within 24 hours</p>
-      <button class="tier-cta" data-tier="Principal" data-amount="29900">Get Started</button>
+      <button class="tier-cta" data-tier="Principal">Get Started</button>
     </div>
   </div>
 
@@ -152,7 +227,7 @@
   <div class="modal">
     <button class="modal-close" id="modal-close-btn">&times;</button>
     <h2 id="modal-title">Subscribe to CreatorPod</h2>
-    <span class="modal-tier-badge" id="modal-tier-badge">Weekly Podcast — $149/mo</span>
+    <span class="modal-tier-badge" id="modal-tier-badge"></span>
 
     <!-- Step 1: account details -->
     <div id="modal-step-1">
@@ -175,17 +250,16 @@
           <option value="retention">Follower retention</option>
         </select>
       </div>
-      <p class="modal-error" id="modal-step1-error" style="display:none;"></p>
-      <button type="button" id="modal-next-btn" class="btn-primary">Continue to Payment</button>
+      <p class="error-msg" id="modal-step1-error"></p>
+      <button type="button" id="modal-next-btn" class="btn-primary" disabled>Continue to Payment</button>
     </div>
 
     <!-- Step 2: Stripe Elements -->
     <div id="modal-step-2" style="display:none;">
       <div id="payment-element-mount"></div>
-      <p id="stripe-error" class="modal-error" style="display:none;"></p>
+      <p class="error-msg" id="modal-step2-error"></p>
       <button type="button" id="modal-pay-btn" class="btn-primary">Subscribe</button>
       <p id="modal-pay-note" style="font-size:11px;color:var(--text-dim);text-align:center;margin-top:10px;"></p>
-      <p id="modal-step2-error" class="modal-error" style="display:none;"></p>
     </div>
 
     <!-- Success -->
@@ -199,59 +273,6 @@
   </div>
 </div>
 
-<style>
-  .modal-overlay {
-    display: none; position: fixed; inset: 0; z-index: 999;
-    background: rgba(0,0,0,0.75); backdrop-filter: blur(4px);
-    align-items: center; justify-content: center; padding: 20px;
-  }
-  .modal-overlay.open { display: flex; overflow-y: auto; -webkit-overflow-scrolling: touch; }
-
-  .modal {
-    background: var(--surface); border: 1px solid var(--border); border-radius: 16px;
-    padding: 32px 28px; width: 100%; max-width: 440px; position: relative;
-  }
-
-  .modal-close {
-    position: absolute; top: 16px; right: 16px;
-    background: none; border: none; color: var(--text-dim);
-    font-size: 24px; cursor: pointer; line-height: 1;
-  }
-  .modal-close:hover { color: var(--text); }
-
-  .modal h2 { font-size: 20px; font-weight: 700; margin-bottom: 4px; }
-  .modal .modal-tier-badge { font-size: 13px; color: var(--accent-dim); display: block; margin-bottom: 20px; }
-
-  .modal-form-group { margin-bottom: 16px; }
-  .modal-form-group label { display: block; font-size: 12px; font-weight: 600; margin-bottom: 6px; color: var(--text-dim); }
-  .modal-form-group input, .modal-form-group select {
-    width: 100%; background: var(--bg); border: 1px solid var(--border); border-radius: 8px;
-    padding: 10px 12px; font-size: 14px; color: var(--text); outline: none;
-    transition: border-color 0.2s; box-sizing: border-box;
-  }
-  .modal-form-group input:focus, .modal-form-group select:focus { border-color: var(--accent); }
-  .modal-form-group input::placeholder { color: var(--text-dim); }
-  .modal-form-group select {
-    appearance: none;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%238888a0' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
-    background-repeat: no-repeat; background-position: right 12px center; padding-right: 32px;
-  }
-
-  .btn-primary {
-    background: var(--accent); color: #0a0a0f; border: none;
-    font-size: 14px; font-weight: 700; padding: 13px 20px;
-    border-radius: 8px; cursor: pointer; width: 100%; transition: background 0.2s;
-  }
-  .btn-primary:hover:not(:disabled) { background: #f0d050; }
-  .btn-primary:disabled { opacity: 0.5; cursor: not-allowed; }
-
-  .modal-error { font-size: 12px; color: var(--danger); margin-top: 8px; text-align: center; }
-
-  #payment-element-mount { background: var(--bg); border: 1px solid var(--border); border-radius: 8px; padding: 14px 12px; margin-bottom: 14px; }
-
-  .modal-footer { font-size: 11px; color: var(--text-dim); text-align: center; padding: 14px 0 4px; margin-top: 12px; border-top: 1px solid var(--border); }
-</style>
-
 <script src="https://js.stripe.com/v3/"></script>
 <script>
 (function() {
@@ -260,74 +281,24 @@
 
   var stripe = Stripe(STRIPE_PK);
 
-// Inject a console log capture into the page
-(function() {
-  var logDiv = document.createElement('div');
-  logDiv.id = '__cp-log';
-  logDiv.style.cssText = 'position:fixed;bottom:10px;left:10px;background:#111;padding:8px;font-size:10px;max-width:300px;max-height:200px;overflow:auto;z-index:99999;color:#0f0;font-family:monospace;border:1px solid #333;display:none;';
-  document.body.appendChild(logDiv);
-  var _origLog = console.log.bind(console);
-  var _origErr = console.error.bind(console);
-  var logs = [];
-  window.__cpLog = function() {
-    var args = Array.prototype.slice.call(arguments);
-    var msg = args.join(' ');
-    logs.push(msg);
-    if (logs.length > 50) logs.shift();
-    if (logDiv) logDiv.textContent = logs.join('\n');
-  };
-  console.log = function() {
-    var args = Array.prototype.slice.call(arguments);
-    _origLog.apply(console, args);
-    window.__cpLog.apply(null, args);
-  };
-  console.error = function() {
-    var args = Array.prototype.slice.call(arguments);
-    _origErr.apply(console, args);
-    window.__cpLog.apply(null, args);
-  };
-  window.__cpShowLog = function() { logDiv.style.display = logDiv.style.display === 'none' ? 'block' : 'none'; };
-  window.__cpLog('Console logger active');
-})();
-
-// Signed tier token
-var tierToken = null;
-window.__cpLog('[CP] Pricing script loading, WORKER_URL:', WORKER_URL);
-fetch(WORKER_URL + '/token')
-  .then(function(r) {
-    window.__cpLog('[CP] /token response status:', r.status, 'ok:', r.ok);
-    if (!r.ok) { _origLog('/token HTTP error:', r.status); return { token: null }; }
-    return r.json();
-  })
-  .then(function(d) {
-    window.__cpLog('[CP] /token parsed:', d && Object.keys(d));
-    if (d && d.token) {
-      tierToken = d.token;
-      window.__cpLog('[CP] tierToken SET, prefix:', d.token.substring(0, 20));
-    } else {
-      window.__cpLog('[CP] /token no token in response:', d);
-    }
-  })
-  .catch(function(e) {
-    window.__cpLog('[CP] /token fetch failed:', e.name, e.message);
-  });
-
+  var tierToken = null;
   var selectedTier = null;
   var clientSecret = null;
   var elements = null;
 
-  var modalOverlay  = document.getElementById('modal-overlay');
-  var modalCloseBtn = document.getElementById('modal-close-btn');
-  var modalStep1    = document.getElementById('modal-step-1');
-  var modalStep2    = document.getElementById('modal-step-2');
-  var modalSuccess  = document.getElementById('modal-success');
+  // Elements
+  var loadingOverlay = document.getElementById('loading-overlay');
+  var modalOverlay   = document.getElementById('modal-overlay');
+  var modalCloseBtn  = document.getElementById('modal-close-btn');
+  var modalStep1     = document.getElementById('modal-step-1');
+  var modalStep2     = document.getElementById('modal-step-2');
+  var modalSuccess   = document.getElementById('modal-success');
   var modalTierBadge = document.getElementById('modal-tier-badge');
-  var modalNextBtn  = document.getElementById('modal-next-btn');
-  var modalPayBtn   = document.getElementById('modal-pay-btn');
-  var modalPayNote  = document.getElementById('modal-pay-note');
-  var modalStep1Err = document.getElementById('modal-step1-error');
-  var modalStep2Err = document.getElementById('modal-step2-error');
-  var stripeErrorEl = document.getElementById('stripe-error');
+  var modalNextBtn   = document.getElementById('modal-next-btn');
+  var modalPayBtn    = document.getElementById('modal-pay-btn');
+  var modalPayNote   = document.getElementById('modal-pay-note');
+  var modalStep1Err  = document.getElementById('modal-step1-error');
+  var modalStep2Err  = document.getElementById('modal-step2-error');
 
   var TIER_LABELS = {
     'Per Episode':    '$49 one-time',
@@ -335,24 +306,50 @@ fetch(WORKER_URL + '/token')
     'Principal':      '$299/mo'
   };
 
-  var isRecurring = function(tier) { return tier === 'Weekly Podcast' || tier === 'Principal'; };
+  var isRecurring = function(t) { return t === 'Weekly Podcast' || t === 'Principal'; };
 
-  // Open modal
+  function showErr(el, msg) {
+    el.textContent = msg;
+  }
+
+  // ------------------------------------------------------------
+  // Bootstrap: fetch tierToken before doing anything else
+  // ------------------------------------------------------------
+  function init() {
+    loadingOverlay.classList.remove('hidden');
+    modalNextBtn.disabled = true;
+
+    fetch(WORKER_URL + '/token')
+      .then(function(r) { return r.json(); })
+      .then(function(d) {
+        tierToken = d.token || null;
+        loadingOverlay.classList.add('hidden');
+        modalNextBtn.disabled = false;
+      })
+      .catch(function() {
+        loadingOverlay.querySelector('p').textContent = 'Failed to load. Refresh to try again.';
+      });
+  }
+
+  init();
+
+  // ------------------------------------------------------------
+  // Tier buttons
+  // ------------------------------------------------------------
   document.querySelectorAll('.tier-cta[data-tier]').forEach(function(btn) {
-    btn.addEventListener('click', function(e) {
-      e.preventDefault();
+    btn.addEventListener('click', function() {
       selectedTier = btn.getAttribute('data-tier');
-
       modalTierBadge.textContent = selectedTier + ' — ' + TIER_LABELS[selectedTier];
-      modalStep1.style.display    = 'block';
-      modalStep2.style.display    = 'none';
-      modalSuccess.style.display  = 'none';
-      modalStep1Err.style.display = 'none';
-      modalStep2Err.style.display = 'none';
-      stripeErrorEl.style.display = 'none';
+
+      // Reset
+      modalStep1.style.display = 'block';
+      modalStep2.style.display = 'none';
+      modalSuccess.style.display = 'none';
+      modalStep1Err.textContent = '';
+      modalStep2Err.textContent = '';
       document.getElementById('modal-ig-url').value = '';
-      document.getElementById('modal-email').value  = '';
-      document.getElementById('modal-goal').value   = '';
+      document.getElementById('modal-email').value = '';
+      document.getElementById('modal-goal').value = '';
 
       var recurring = isRecurring(selectedTier);
       modalPayBtn.textContent = recurring ? 'Subscribe' : 'Pay';
@@ -363,7 +360,9 @@ fetch(WORKER_URL + '/token')
     });
   });
 
+  // ------------------------------------------------------------
   // Close modal
+  // ------------------------------------------------------------
   function closeModal() {
     modalOverlay.classList.remove('open');
     if (elements) {
@@ -376,58 +375,41 @@ fetch(WORKER_URL + '/token')
   modalOverlay.addEventListener('click', function(e) { if (e.target === modalOverlay) closeModal(); });
   document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeModal(); });
 
+  // ------------------------------------------------------------
   // Step 1 → Step 2
-  modalNextBtn.addEventListener('click', async function() {
+  // ------------------------------------------------------------
+  modalNextBtn.addEventListener('click', function() {
     var igHandle = document.getElementById('modal-ig-url').value.trim().replace(/^@/, '');
     var email    = document.getElementById('modal-email').value.trim();
     var goal     = document.getElementById('modal-goal').value;
 
-    window.__cpLog('[CP] modalNextBtn click, tierToken:', tierToken ? tierToken.substring(0,20) : 'NULL');
+    modalStep1Err.textContent = '';
     if (!igHandle) { showErr(modalStep1Err, 'Please enter your Instagram username.'); return; }
     if (!email)    { showErr(modalStep1Err, 'Please enter your email address.'); return; }
     if (!goal)     { showErr(modalStep1Err, 'Please select what you want to improve.'); return; }
-    window.__cpLog('[CP] modalNextBtn click, tierToken:', tierToken ? tierToken.substring(0,20) : 'NULL');
-    if (!tierToken) { showErr(modalStep1Err, 'Payment system not ready. Please refresh.'); return; }
+    if (!tierToken){ showErr(modalStep1Err, 'Payment system not ready. Please refresh.'); return; }
 
-    window.__cpLog('[CP] Submitting form:', { igHandle: igHandle, email: email, goal: goal, tier: selectedTier, tierTokenPrefix: tierToken.substring(0,20) });
     modalNextBtn.disabled = true;
     modalNextBtn.textContent = 'Preparing...';
 
-    try {
-      window.__cpLog('[CP] Sending POST to', WORKER_URL + '/create-setup-intent');
-      var res;
-      try {
-        res = await fetch(WORKER_URL + '/create-setup-intent', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            instagram_url: 'https://instagram.com/' + igHandle,
-            email: email,
-            tier: selectedTier,
-            tier_token: tierToken,
-            goal: goal
-          })
-        });
-        window.__cpLog('[CP] fetch succeeded, status:', res.status);
-      } catch(fetchErr) {
-        window.__cpLog('[CP] fetch threw:', fetchErr.name, fetchErr.message);
-        throw fetchErr;
-      }
-      var data;
-      try {
-        data = await res.json();
-        window.__cpLog('[CP] JSON parsed OK, keys:', Object.keys(data));
-      } catch(jsonErr) {
-        window.__cpLog('[CP] json() threw:', jsonErr.name, jsonErr.message, 'body:', await res.text().substring(0,100));
-        throw jsonErr;
-      }
-      window.__cpLog('/create-setup-intent response:', res.status, data);
+    fetch(WORKER_URL + '/create-setup-intent', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        instagram_url: 'https://instagram.com/' + igHandle,
+        email: email,
+        tier: selectedTier,
+        tier_token: tierToken,
+        goal: goal
+      })
+    })
+    .then(function(r) { return r.json(); })
+    .then(function(data) {
+      modalNextBtn.disabled = false;
+      modalNextBtn.textContent = 'Continue to Payment';
 
-      if (!res.ok || data.error) {
-        window.__cpLog('[CP] API error:', res.status, data.error || 'unknown');
-        showErr(modalStep1Err, data.error || 'Payment setup failed. Please try again.');
-        modalNextBtn.disabled = false;
-        modalNextBtn.textContent = 'Continue to Payment';
+      if (data.error) {
+        showErr(modalStep1Err, data.error);
         return;
       }
 
@@ -447,82 +429,71 @@ fetch(WORKER_URL + '/token')
       };
 
       if (recurring) {
-        // SetupIntent flow — mode: 'setup', clientSecret in confirmSetup()
         elements = stripe.elements({ mode: 'setup', appearance: appearance });
       } else {
-        // PaymentIntent flow — clientSecret in elements()
         elements = stripe.elements({ clientSecret: clientSecret, appearance: appearance });
       }
 
-      var paymentEl = elements.create('payment', {
-        layout: { type: 'accordion', defaultCollapsed: false },
-      });
+      var paymentEl = elements.create('payment', { layout: { type: 'accordion', defaultCollapsed: false } });
       paymentEl.mount('#payment-element-mount');
 
       modalStep1.style.display = 'none';
       modalStep2.style.display = 'block';
+    })
+    .catch(function() {
       modalNextBtn.disabled = false;
       modalNextBtn.textContent = 'Continue to Payment';
-
-    } catch(e) {
-      window.__cpLog('[CP] fetch failed:', e.name, e.message);
-      var errMsg = 'Could not reach payment server. Check connection and try again.';
-      showErr(modalStep1Err, errMsg + ' [' + e.name + ']');
-      modalNextBtn.disabled = false;
-      modalNextBtn.textContent = 'Continue to Payment';
-    }
+      showErr(modalStep1Err, 'Could not reach payment server. Check connection and try again.');
+    });
   });
 
+  // ------------------------------------------------------------
   // Step 2: confirm
-  modalPayBtn.addEventListener('click', async function() {
+  // ------------------------------------------------------------
+  modalPayBtn.addEventListener('click', function() {
     if (!elements) return;
 
     modalPayBtn.disabled = true;
     modalPayBtn.textContent = 'Processing...';
-    modalStep2Err.style.display = 'none';
-    stripeErrorEl.style.display = 'none';
+    modalStep2Err.textContent = '';
 
     var recurring = isRecurring(selectedTier);
     var returnUrl = window.location.origin + window.location.pathname;
 
-    try {
-      var result;
-      if (recurring) {
-        result = await stripe.confirmSetup({
-          elements: elements,
-          confirmParams: { return_url: returnUrl },
-          redirect: 'if_required',
-        });
-      } else {
-        result = await stripe.confirmPayment({
-          elements: elements,
-          confirmParams: { return_url: returnUrl },
-          redirect: 'if_required',
-        });
-      }
-
-      if (result.error) {
-        showErr(modalStep2Err, result.error.message || 'Payment failed. Please try again.');
+    if (recurring) {
+      stripe.confirmSetup({
+        elements: elements,
+        confirmParams: { return_url: returnUrl },
+        redirect: 'if_required',
+      }).then(function(result) {
         modalPayBtn.disabled = false;
-        modalPayBtn.textContent = recurring ? 'Subscribe' : 'Pay';
-      } else {
-        modalStep2.style.display  = 'none';
-        modalSuccess.style.display = 'block';
-      }
-    } catch(e) {
-      showErr(modalStep2Err, 'An unexpected error occurred. Please try again.');
-      modalPayBtn.disabled = false;
-      modalPayBtn.textContent = recurring ? 'Subscribe' : 'Pay';
+        modalPayBtn.textContent = 'Subscribe';
+        if (result.error) {
+          showErr(modalStep2Err, result.error.message || 'Payment failed. Please try again.');
+        } else {
+          modalStep2.style.display = 'none';
+          modalSuccess.style.display = 'block';
+        }
+      });
+    } else {
+      stripe.confirmPayment({
+        elements: elements,
+        confirmParams: { return_url: returnUrl },
+        redirect: 'if_required',
+      }).then(function(result) {
+        modalPayBtn.disabled = false;
+        modalPayBtn.textContent = 'Pay';
+        if (result.error) {
+          showErr(modalStep2Err, result.error.message || 'Payment failed. Please try again.');
+        } else {
+          modalStep2.style.display = 'none';
+          modalSuccess.style.display = 'block';
+        }
+      });
     }
   });
 
-  function showErr(el, msg) {
-    el.textContent = msg;
-    el.style.display = 'block';
-  }
-
 })();
 </script>
-
 </body>
 </html>
