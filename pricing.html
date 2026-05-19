@@ -538,11 +538,11 @@
     <h2 id="modal-title">Get Started</h2>
     <span class="modal-tier-badge" id="modal-tier-badge">Per Episode — $49</span>
 
-    <!-- STEP 1: collect IG URL, email, goal -->
+    <!-- STEP 1: collect IG username, email, goal -->
     <div class="modal-step-1" id="modal-step-1">
       <div class="modal-form-group">
-        <label for="modal-ig-url">Your Instagram URL</label>
-        <input type="url" id="modal-ig-url" placeholder="https://instagram.com/yourhandle" required>
+        <label for="modal-ig-url">Your Instagram username</label>
+        <input type="text" id="modal-ig-url" placeholder="@yourhandle" required>
       </div>
       <div class="modal-form-group">
         <label for="modal-email">Email</label>
@@ -791,12 +791,12 @@ function resetModalState() {
 
 // ── Step 1 → Step 2: validate then call create-payment-intent ─────────────
 document.getElementById('modal-next-btn').addEventListener('click', async function() {
-  var igUrl = document.getElementById('modal-ig-url').value.trim();
+  var igHandle = document.getElementById('modal-ig-url').value.trim().replace(/^@/, '');
   var email = document.getElementById('modal-email').value.trim();
   var goal  = document.getElementById('modal-goal').value;
   var errEl = document.getElementById('modal-step1-error');
 
-  if (!igUrl) { errEl.textContent = 'Please enter your Instagram URL.'; errEl.style.display = 'block'; return; }
+  if (!igHandle) { errEl.textContent = 'Please enter your Instagram username.'; errEl.style.display = 'block'; return; }
   if (!email) { errEl.textContent = 'Please enter your email.'; errEl.style.display = 'block'; return; }
   if (!goal)  { errEl.textContent = 'Please select what you want to improve.'; errEl.style.display = 'block'; return; }
   if (!tierToken) { errEl.textContent = 'Payment system not ready. Please refresh the page and try again.'; errEl.style.display = 'block'; return; }
@@ -811,7 +811,7 @@ document.getElementById('modal-next-btn').addEventListener('click', async functi
     res = await fetch(WORKER_URL + '/create-payment-intent', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ instagram_url: igUrl, email: email, tier: selectedTier, tier_token: tierToken, goal: goal })
+      body: JSON.stringify({ instagram_url: 'https://instagram.com/' + igHandle, email: email, tier: selectedTier, tier_token: tierToken, goal: goal })
     });
     data = await res.json();
   } catch(e) {
