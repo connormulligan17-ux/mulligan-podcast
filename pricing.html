@@ -12,404 +12,61 @@
       --border: #1e1e2a;
       --accent: #e8c547;
       --accent-dim: #a88f2e;
-      --accent-glow: rgba(232, 197, 71, 0.05);
       --text: #f0f0f5;
       --text-dim: #8888a0;
       --success: #47e8a0;
+      --danger: #e85050;
     }
-
     * { box-sizing: border-box; margin: 0; padding: 0; }
-
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      line-height: 1.6;
-    }
-
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; }
     a { color: var(--accent); text-decoration: none; }
     a:hover { text-decoration: underline; }
 
     nav {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 18px 40px;
-      border-bottom: 1px solid var(--border);
-      position: sticky;
-      top: 0;
-      background: rgba(10,10,15,0.96);
-      backdrop-filter: blur(12px);
-      z-index: 100;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 18px 40px; border-bottom: 1px solid var(--border);
+      position: sticky; top: 0; background: rgba(10,10,15,0.96);
+      backdrop-filter: blur(12px); z-index: 100;
     }
-
-    .nav-logo { font-size: 15px; font-weight: 700; letter-spacing: -0.01em; }
+    .nav-logo { font-size: 15px; font-weight: 700; }
     .nav-logo span { color: var(--accent); }
-
     .nav-links { display: flex; gap: 32px; list-style: none; }
-
     .nav-links a { font-size: 13px; color: var(--text-dim); transition: color 0.2s; }
     .nav-links a:hover { color: var(--text); text-decoration: none; }
-    .nav-links a.active { color: var(--text); font-weight: 600; }
-    .nav-links a.active::after {
-      content: '';
-      display: block;
-      width: 16px;
-      height: 2px;
-      background: var(--accent);
-      border-radius: 2px;
-      margin-top: 3px;
-    }
 
     .container { max-width: 860px; margin: 0 auto; padding: 68px 24px; }
-
     .page-header { text-align: center; margin-bottom: 28px; }
+    h1 { font-size: 36px; font-weight: 700; letter-spacing: -0.025em; line-height: 1.15; margin-bottom: 10px; }
+    .page-sub { font-size: 15px; color: var(--text-dim); max-width: 420px; margin: 0 auto; }
 
-    h1 {
-      font-size: 36px;
-      font-weight: 700;
-      letter-spacing: -0.025em;
-      line-height: 1.15;
-      margin-bottom: 10px;
-    }
-
-    .page-sub {
-      font-size: 15px;
-      color: var(--text-dim);
-      max-width: 420px;
-      margin: 0 auto;
-    }
-
-    /* TRIAL RIBBON */
     .trial-ribbon {
-      background: rgba(232,197,71,0.05);
-      border: 1px solid rgba(232,197,71,0.16);
-      border-radius: 10px;
-      padding: 12px 18px;
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      margin-bottom: 24px;
+      background: rgba(232,197,71,0.05); border: 1px solid rgba(232,197,71,0.16);
+      border-radius: 10px; padding: 12px 18px; display: flex; align-items: center;
+      gap: 12px; margin-bottom: 24px;
     }
-
     .trial-ribbon .icon { font-size: 18px; flex-shrink: 0; }
-
     .trial-ribbon p { font-size: 12px; color: var(--text-dim); flex: 1; }
     .trial-ribbon p strong { color: var(--text); }
-    .trial-ribbon a { font-size: 12px; font-weight: 700; color: var(--accent); white-space: nowrap; }
 
-    /* TIER CARDS */
-    .tiers {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 14px;
-      margin-bottom: 20px;
-    }
-
-    .tier {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 14px;
-      padding: 22px 18px;
-      display: flex;
-      flex-direction: column;
-      position: relative;
-    }
-
-    .tier.featured {
-      border-color: var(--accent);
-      background: linear-gradient(180deg, rgba(232,197,71,0.07) 0%, var(--surface) 40%);
-    }
-
-    .tier.featured::before {
-      content: none;
-      position: absolute;
-      top: -10px;
-      left: 50%;
-      transform: translateX(-50%);
-      background: var(--accent);
-      color: #0a0a0f;
-      font-size: 9px;
-      font-weight: 700;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      padding: 3px 10px;
-      border-radius: 8px;
-      white-space: nowrap;
-    }
-
-    .tier-name {
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--accent-dim);
-      margin-bottom: 4px;
-    }
-
-    .tier-price {
-      font-size: 34px;
-      font-weight: 700;
-      letter-spacing: -0.03em;
-      line-height: 1;
-      margin-bottom: 2px;
-    }
-
+    .tiers { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-bottom: 20px; }
+    .tier { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 22px 18px; display: flex; flex-direction: column; }
+    .tier.featured { border-color: var(--accent); background: linear-gradient(180deg, rgba(232,197,71,0.07) 0%, var(--surface) 40%); }
+    .tier-name { font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent-dim); margin-bottom: 4px; }
+    .tier-price { font-size: 34px; font-weight: 700; letter-spacing: -0.03em; line-height: 1; margin-bottom: 2px; }
     .tier-price .per { font-size: 12px; font-weight: 400; color: var(--text-dim); }
-
     .tier-tagline { font-size: 12px; color: var(--text-dim); margin-bottom: 16px; }
-
     .tier-features { list-style: none; flex: 1; margin-bottom: 14px; }
-
-    .tier-features li {
-      display: flex;
-      align-items: flex-start;
-      gap: 8px;
-      font-size: 12px;
-      color: var(--text-dim);
-      padding: 5px 0;
-      border-bottom: 1px solid var(--border);
-    }
-
+    .tier-features li { display: flex; align-items: flex-start; gap: 8px; font-size: 12px; color: var(--text-dim); padding: 5px 0; border-bottom: 1px solid var(--border); }
     .tier-features li:last-child { border-bottom: none; }
     .tier-features li .check { color: var(--success); font-size: 11px; flex-shrink: 0; margin-top: 1px; }
-
     .tier-turnaround { font-size: 11px; color: var(--accent-dim); text-align: center; margin-bottom: 6px; }
-    .tier-final-sale { font-size: 10px; color: var(--text); text-align: center; margin-bottom: 8px; }
-
-    .tier-cta {
-      display: block;
-      text-align: center;
-      background: var(--surface-2);
-      color: var(--text);
-      font-size: 13px;
-      font-weight: 600;
-      padding: 11px;
-      border-radius: 8px;
-      border: 1px solid var(--border);
-      transition: border-color 0.2s;
-    }
-
+    .tier-cta { display: block; text-align: center; background: var(--surface-2); color: var(--text); font-size: 13px; font-weight: 600; padding: 11px; border-radius: 8px; border: 1px solid var(--border); cursor: pointer; transition: border-color 0.2s, background 0.2s; }
     .tier-cta:hover { border-color: var(--accent-dim); text-decoration: none; }
-
     .tier.featured .tier-cta { background: var(--accent); color: #0a0a0f; border: none; }
     .tier.featured .tier-cta:hover { background: #f0d050; }
 
-    /* GUARANTEE STRIP */
-    .guarantee-strip {
-      display: flex;
-      justify-content: center;
-      gap: 28px;
-      margin-bottom: 36px;
-      padding: 12px;
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 10px;
-    }
-
-    .guarantee-item {
-      display: flex;
-      align-items: center;
-      gap: 7px;
-      font-size: 11px;
-      color: var(--text-dim);
-    }
-
-    .guarantee-item .icon { font-size: 14px; }
-    .guarantee-item strong { color: var(--text); }
-
-    /* SOCIAL PROOF */
-    .social-proof { margin-bottom: 36px; }
-
-    .social-proof h2 { font-size: 18px; font-weight: 600; margin-bottom: 14px; text-align: center; }
-
-    .testimonial-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-
-    .testimonial-card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 16px 18px;
-    }
-
-    .testimonial-quote {
-      font-size: 13px;
-      font-style: italic;
-      color: var(--text);
-      line-height: 1.6;
-      margin-bottom: 10px;
-    }
-
-    .testimonial-author { display: flex; align-items: center; gap: 10px; }
-
-    .testimonial-avatar {
-      width: 26px;
-      height: 26px;
-      background: var(--accent);
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 10px;
-      font-weight: 700;
-      color: #0a0a0f;
-    }
-
-    .testimonial-info { font-size: 11px; }
-    .testimonial-info .name { font-weight: 600; color: var(--text); }
-    .testimonial-info .handle { color: var(--text-dim); }
-
-    /* FAQ */
-    .faq { margin-bottom: 36px; }
-
-    .faq h2 { font-size: 18px; font-weight: 600; margin-bottom: 14px; text-align: center; }
-
-    .faq-item {
-      border-bottom: 1px solid var(--border);
-      padding: 12px 0;
-    }
-
-    .faq-item:first-child { border-top: 1px solid var(--border); }
-
-    .faq-q { font-size: 13px; font-weight: 600; color: var(--text); margin-bottom: 4px; }
-    .faq-a { font-size: 12px; color: var(--text-dim); line-height: 1.6; }
-
-    /* FINAL CTA */
-    .cta-block {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 14px;
-      padding: 24px 32px;
-      text-align: center;
-    }
-
-    .cta-block h2 { font-size: 20px; font-weight: 600; margin-bottom: 6px; }
-    .cta-block p { color: var(--text-dim); font-size: 13px; margin-bottom: 16px; }
-
-    .btn-primary {
-      background: var(--accent);
-      color: #0a0a0f;
-      font-size: 13px;
-      font-weight: 700;
-      padding: 12px 28px;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-      transition: background 0.2s;
-      text-decoration: none;
-      display: inline-block;
-    }
-
-    .btn-primary:hover { background: #f0d050; text-decoration: none; }
-
-    footer {
-      border-top: 1px solid var(--border);
-      padding: 28px 24px;
-      text-align: center;
-      font-size: 12px;
-      color: var(--text-dim);
-      margin-top: 56px;
-    }
-
-    footer a { color: var(--accent-dim); }
-
-    @media (max-width: 700px) {
-      nav { padding: 14px 20px; }
-      .nav-links { gap: 20px; }
-      .tiers, .testimonial-grid { grid-template-columns: 1fr; }
-      .guarantee-strip { flex-direction: column; gap: 12px; }
-      .trial-ribbon { flex-direction: column; text-align: center; }
-      .container { padding: 48px 20px; }
-    }
-
-    /* SIGNUP FORM */
-    .signup-form {
-      max-width: 440px;
-      margin: 0 auto 48px;
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 14px;
-      padding: 28px 24px;
-    }
-
-    .signup-form h2 { font-size: 20px; font-weight: 700; margin-bottom: 4px; text-align: center; }
-    .signup-form .form-sub { font-size: 13px; color: var(--text-dim); text-align: center; margin-bottom: 20px; }
-
-    .form-group { margin-bottom: 16px; }
-    .form-group label { display: block; font-size: 12px; font-weight: 600; color: var(--text); margin-bottom: 6px; }
-
-    .form-group input[type="url"],
-    .form-group input[type="email"] {
-      width: 100%;
-      background: var(--bg);
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      padding: 10px 12px;
-      font-size: 14px;
-      color: var(--text);
-      outline: none;
-      transition: border-color 0.2s;
-      box-sizing: border-box;
-    }
-
-    .form-group input[type="url"]:focus,
-    .form-group input[type="email"]:focus { border-color: var(--accent); }
-
-    .tier-options { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; }
-
-    .tier-option { cursor: pointer; }
-
-    .tier-option input { display: none; }
-
-    .tier-option-inner {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 2px;
-      padding: 10px 8px;
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      background: var(--bg);
-      transition: border-color 0.2s, background 0.2s;
-    }
-
-    .tier-option input:checked + .tier-option-inner {
-      border-color: var(--accent);
-      background: rgba(232, 197, 71, 0.08);
-    }
-
-    .tier-option-name { font-size: 11px; font-weight: 600; color: var(--text); }
-    .tier-option-price { font-size: 13px; font-weight: 700; color: var(--accent); }
-
-    .form-submit {
-      width: 100%;
-      margin-top: 4px;
-      font-size: 14px;
-      padding: 13px;
-    }
-
-    .form-note {
-      font-size: 11px;
-      color: var(--text-dim);
-      text-align: center;
-      margin-top: 8px;
-    }
-
-    .form-success {
-      text-align: center;
-      padding: 20px 0;
-    }
-
-    .form-success .icon { font-size: 32px; margin-bottom: 8px; }
-    .form-success h3 { font-size: 16px; font-weight: 700; margin-bottom: 4px; }
-    .form-success p { font-size: 13px; color: var(--text-dim); }
-
-    .form-error {
-      font-size: 12px;
-      color: #e85050;
-      margin-top: 6px;
-      text-align: center;
-    }
+    .guarantee-strip { display: flex; justify-content: center; gap: 24px; margin-top: 20px; flex-wrap: wrap; }
+    .guarantee-item { display: flex; align-items: center; gap: 8px; font-size: 12px; color: var(--text-dim); }
   </style>
 </head>
 <body>
@@ -419,532 +76,386 @@
   <ul class="nav-links">
     <li><a href="index.html">Welcome</a></li>
     <li><a href="about.html">About</a></li>
-    <li><a href="pricing.html" class="active">Pricing</a></li>
+    <li><a href="pricing.html" style="color:var(--text)">Pricing</a></li>
   </ul>
 </nav>
 
 <div class="container">
-
   <div class="page-header">
     <h1>Pick your plan</h1>
-    <p class="page-sub">Emma narration, content recommendations, and growth metrics. Every episode yours forever.</p>
+    <p class="page-sub">One episode, one podcast feed — delivered with Emma's voice and your growth strategy.</p>
   </div>
 
   <div class="trial-ribbon">
-    <span class="icon">&#127911;</span>
-    <p><strong>First episode ships today.</strong> Pick your frequency and we get to work.</p>
-    <a href="#signup">See Plans &rarr;</a>
+    <span class="icon">&#9733;</span>
+    <p><strong>All tiers include</strong> full Instagram analysis, Emma voice audio, RSS feed, and email delivery.</p>
   </div>
 
   <div class="tiers">
-
-    <!-- TIER 1: PER EPISODE -->
     <div class="tier">
       <div class="tier-name">Per Episode</div>
-      <div class="tier-price">$49<span class="per">/episode</span></div>
-      <p class="tier-tagline">One episode at a time. Test the format before committing.</p>
+      <div class="tier-price">$49 <span class="per">one-time</span></div>
+      <p class="tier-tagline">Try it out — no commitment</p>
       <ul class="tier-features">
-        <li><span class="check">&#10003;</span> 1 episode</li>
-        <li><span class="check">&#10003;</span> Emma voice narration</li>
-        <li><span class="check">&#10003;</span> MP3 file</li>
-        <li><span class="check">&#10003;</span> 1 niche-specific content recommendation</li>
-        <li><span class="check">&#10003;</span> Growth metrics</li>
-        <li><span class="check">&#10003;</span> Apple Podcasts + Spotify distribution</li>
+        <li><span class="check">&#10003;</span> 1 episode produced</li>
+        <li><span class="check">&#10003;</span> Emma voice audio</li>
+        <li><span class="check">&#10003;</span> Instagram full analysis</li>
+        <li><span class="check">&#10003;</span> RSS feed (yours forever)</li>
+        <li><span class="check">&#10003;</span> Email delivery</li>
       </ul>
-      <div class="tier-turnaround">First episode delivered today</div>
-      <div class="tier-final-sale">All sales final for PPE.</div>
-      <a href="#" class="tier-cta" data-tier="Per Episode">Get Started</a>
+      <button class="tier-cta" data-tier="Per Episode" data-amount="4900">Get Started</button>
     </div>
 
-    <!-- TIER 2: WEEKLY PODCAST (featured) -->
     <div class="tier featured">
       <div class="tier-name">Weekly Podcast</div>
-      <div class="tier-price">$149<span class="per">/month</span></div>
-      <p class="tier-tagline">A real podcast, every week, built from your actual content.</p>
+      <div class="tier-price">$149 <span class="per">/ month</span></div>
+      <p class="tier-tagline">Consistent growth, week by week</p>
       <ul class="tier-features">
-        <li><span class="check">&#10003;</span> <strong>Everything in Per Episode tier</strong></li>
-        <li><span class="check">&#10003;</span> 1 episode per week, every week</li>
-        <li><span class="check">&#10003;</span> Content advice tuned to real-time analysis of your posts</li>
-        <li><span class="check">&#10003;</span> Each episode builds on the last — a feedback loop for your content</li>
+        <li><span class="check">&#10003;</span> 4 episodes / month</li>
+        <li><span class="check">&#10003;</span> Emma voice audio</li>
+        <li><span class="check">&#10003;</span> Instagram full analysis</li>
+        <li><span class="check">&#10003;</span> RSS feed (yours forever)</li>
+        <li><span class="check">&#10003;</span> Email delivery each episode</li>
+        <li><span class="check">&#10003;</span> Cancel anytime</li>
       </ul>
-      <div class="tier-turnaround">First episode delivered today</div>
-      <a href="#" class="tier-cta" data-tier="Weekly Podcast">Get Started</a>
+      <p class="tier-turnaround">First episode within 24 hours</p>
+      <button class="tier-cta" data-tier="Weekly Podcast" data-amount="14900">Get Started</button>
     </div>
 
-    <!-- TIER 3: PRINCIPAL -->
     <div class="tier">
       <div class="tier-name">Principal</div>
-      <div class="tier-price">$299<span class="per">/month</span></div>
-      <p class="tier-tagline">Maximum momentum for creators going all-in on audio.</p>
+      <div class="tier-price">$299 <span class="per">/ month</span></div>
+      <p class="tier-tagline">High-frequency, maximum signal</p>
       <ul class="tier-features">
-        <li><span class="check">&#10003;</span> <strong>Everything in Weekly Podcast tier</strong></li>
-        <li><span class="check">&#10003;</span> 12 episodes per month</li>
-        <li><span class="check">&#10003;</span> Episodes land Monday, Wednesday, and Friday</li>
-        <li><span class="check">&#10003;</span> First episode on your subscription day</li>
+        <li><span class="check">&#10003;</span> 12 episodes / month</li>
+        <li><span class="check">&#10003;</span> Emma voice audio</li>
+        <li><span class="check">&#10003;</span> Instagram full analysis</li>
+        <li><span class="check">&#10003;</span> RSS feed (yours forever)</li>
+        <li><span class="check">&#10003;</span> Email delivery each episode</li>
+        <li><span class="check">&#10003;</span> Mon / Wed / Fri schedule</li>
+        <li><span class="check">&#10003;</span> Cancel anytime</li>
       </ul>
-      <div class="tier-turnaround">First episode delivered today</div>
-      <a href="#" class="tier-cta" data-tier="Principal">Get Started</a>
+      <p class="tier-turnaround">First episode within 24 hours</p>
+      <button class="tier-cta" data-tier="Principal" data-amount="29900">Get Started</button>
     </div>
-
   </div>
 
   <div class="guarantee-strip">
-    <div class="guarantee-item">
-      <span class="icon">&#128640;</span>
-      <span><strong>Your domain</strong> — not ours</span>
-    </div>
-    <div class="guarantee-item">
-      <span class="icon">&#128190;</span>
-      <span><strong>100% ownership</strong> — episodes yours forever</span>
-    </div>
-    <div class="guarantee-item">
-      <span class="icon">&#128182;</span>
-      <span><strong>Export anytime</strong> — full library download</span>
-    </div>
+    <div class="guarantee-item"><span>&#9888;</span> No hidden fees</div>
+    <div class="guarantee-item"><span>&#9888;</span> Cancel anytime</div>
+    <div class="guarantee-item"><span>&#9888;</span> Email support</div>
   </div>
+</div>
 
-  <div class="social-proof">
-    <h2>What creators are saying</h2>
-    <div class="testimonial-grid">
-      <div class="testimonial-card">
-        <p class="testimonial-quote">"I sent the sample to a creator I was trying to sign and they immediately replied asking how to get the full series. That one message covered months of the service."</p>
-        <div class="testimonial-author">
-          <div class="testimonial-avatar">CM</div>
-          <div class="testimonial-info">
-            <div class="name">Connor Mulligan</div>
-            <div class="handle">@MulliganMagazine</div>
-          </div>
-        </div>
-      </div>
-      <div class="testimonial-card">
-        <p class="testimonial-quote">"The teaser Emma produced for me was more useful than a month of engagement pods. Got three collaboration requests the same week."</p>
-        <div class="testimonial-author">
-          <div class="testimonial-avatar">SP</div>
-          <div class="testimonial-info">
-            <div class="name">Sarah Park</div>
-            <div class="handle">@silverpig3</div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-</div><!-- end .container -->
-
-<!-- MODAL: opens when user clicks "Get Started" on any tier card -->
+<!-- Payment Modal -->
 <div class="modal-overlay" id="modal-overlay">
-  <div class="modal" id="modal">
+  <div class="modal">
     <button class="modal-close" id="modal-close-btn">&times;</button>
-    <h2 id="modal-title">Get Started</h2>
-    <span class="modal-tier-badge" id="modal-tier-badge">Per Episode — $49</span>
+    <h2 id="modal-title">Subscribe to CreatorPod</h2>
+    <span class="modal-tier-badge" id="modal-tier-badge">Weekly Podcast — $149/mo</span>
 
-    <!-- STEP 1: collect IG username, email, goal -->
-    <div class="modal-step-1" id="modal-step-1">
+    <!-- Step 1: account details -->
+    <div id="modal-step-1">
       <div class="modal-form-group">
         <label for="modal-ig-url">Your Instagram username</label>
         <input type="text" id="modal-ig-url" placeholder="@yourhandle" required>
       </div>
       <div class="modal-form-group">
-        <label for="modal-email">Email</label>
+        <label for="modal-email">Email address</label>
         <input type="email" id="modal-email" placeholder="you@example.com" required>
       </div>
       <div class="modal-form-group">
         <label for="modal-goal">What do you most want to improve?</label>
         <select id="modal-goal" required>
           <option value="" disabled selected>Pick one...</option>
-          <option value="growth">Growth — get more followers</option>
-          <option value="retention">Retention — keep the ones you have</option>
-          <option value="engagement">Engagement — more likes, comments, saves</option>
-          <option value="general">General — all of the above</option>
+          <option value="growth">Follower growth</option>
+          <option value="engagement">Post engagement</option>
+          <option value="content">Content quality</option>
+          <option value="monetization">Brand deals / monetization</option>
+          <option value="retention">Follower retention</option>
         </select>
       </div>
       <p class="modal-error" id="modal-step1-error" style="display:none;"></p>
-      <button type="button" id="modal-next-btn" class="btn-primary modal-submit">Continue to Payment</button>
+      <button type="button" id="modal-next-btn" class="btn-primary">Continue to Payment</button>
     </div>
 
-    <!-- STEP 2: Stripe payment -->
-    <div class="modal-step-2" id="modal-step-2">
-      <div id="stripe-payment-element">
-        <div id="payment-element-mount"></div>
-        <p id="stripe-error"></p>
-      </div>
+    <!-- Step 2: Stripe Elements -->
+    <div id="modal-step-2" style="display:none;">
+      <div id="payment-element-mount"></div>
+      <p id="stripe-error" class="modal-error" style="display:none;"></p>
+      <button type="button" id="modal-pay-btn" class="btn-primary">Subscribe</button>
+      <p id="modal-pay-note" style="font-size:11px;color:var(--text-dim);text-align:center;margin-top:10px;"></p>
       <p id="modal-step2-error" class="modal-error" style="display:none;"></p>
-      <button type="button" id="modal-pay-btn" class="btn-primary modal-submit">Pay</button>
-      <p style="font-size:11px;color:var(--text-dim);text-align:center;margin-top:10px;" id="modal-pay-note"></p>
     </div>
 
-    <!-- SUCCESS -->
-    <div class="form-success" id="modal-success" style="display:none;">
-      <div class="icon">&#127911;</div>
-      <h3>You're in.</h3>
-      <p>First episode delivered today. Check your inbox.</p>
+    <!-- Success -->
+    <div id="modal-success" style="display:none;text-align:center;padding:20px 0;">
+      <div style="font-size:48px;margin-bottom:12px;">&#9989;</div>
+      <h3 style="font-size:20px;margin-bottom:8px;">You're in!</h3>
+      <p style="font-size:14px;color:var(--text-dim);">Check your email — your first episode is on its way.</p>
     </div>
 
     <div class="modal-footer">CreatorPod &bull; Powered by Hermes AI &amp; ElevenLabs</div>
   </div>
-  <style>
-    .modal-overlay {
-      display: none;
-      position: fixed;
-      inset: 0;
-      background: rgba(0,0,0,0.75);
-      backdrop-filter: blur(4px);
-      z-index: 200;
-      align-items: center;
-      justify-content: center;
-      padding: 20px;
-    }
-    .modal-overlay.open { display: flex; overflow-y: auto; -webkit-overflow-scrolling: touch; }
+</div>
 
-    .modal {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      padding: 32px 28px;
-      max-width: 420px;
-      width: 100%;
-      position: relative;
-    }
+<style>
+  .modal-overlay {
+    display: none; position: fixed; inset: 0; z-index: 999;
+    background: rgba(0,0,0,0.75); backdrop-filter: blur(4px);
+    align-items: center; justify-content: center; padding: 20px;
+  }
+  .modal-overlay.open { display: flex; overflow-y: auto; -webkit-overflow-scrolling: touch; }
 
-    .modal-close {
-      position: absolute;
-      top: 14px; right: 16px;
-      background: none; border: none;
-      color: var(--text-dim); font-size: 20px;
-      cursor: pointer; line-height: 1;
-      padding: 4px;
-    }
-    .modal-close:hover { color: var(--text); }
+  .modal {
+    background: var(--surface); border: 1px solid var(--border); border-radius: 16px;
+    padding: 32px 28px; width: 100%; max-width: 440px; position: relative;
+  }
 
-    .modal h2 { font-size: 20px; font-weight: 700; margin-bottom: 4px; }
-    .modal .modal-tier-badge {
-      display: inline-block;
-      font-size: 10px; font-weight: 700; letter-spacing: 0.1em;
-      text-transform: uppercase;
-      background: rgba(232,197,71,0.12);
-      color: var(--accent);
-      border: 1px solid rgba(232,197,71,0.3);
-      border-radius: 20px;
-      padding: 3px 10px;
-      margin-bottom: 20px;
-    }
+  .modal-close {
+    position: absolute; top: 16px; right: 16px;
+    background: none; border: none; color: var(--text-dim);
+    font-size: 24px; cursor: pointer; line-height: 1;
+  }
+  .modal-close:hover { color: var(--text); }
 
-    .modal-form-group { margin-bottom: 16px; }
-    .modal-form-group label {
-      display: block; font-size: 12px; font-weight: 600;
-      color: var(--text); margin-bottom: 6px;
-    }
-    .modal-form-group input {
-      width: 100%;
-      background: var(--bg);
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      padding: 10px 12px;
-      font-size: 14px;
-      color: var(--text);
-      outline: none;
-      transition: border-color 0.2s;
-      box-sizing: border-box;
-    }
-    .modal-form-group input:focus { border-color: var(--accent); }
+  .modal h2 { font-size: 20px; font-weight: 700; margin-bottom: 4px; }
+  .modal .modal-tier-badge { font-size: 13px; color: var(--accent-dim); display: block; margin-bottom: 20px; }
 
-    .modal-form-group select {
-      width: 100%;
-      background: var(--bg);
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      padding: 10px 12px;
-      font-size: 14px;
-      color: var(--text);
-      outline: none;
-      transition: border-color 0.2s;
-      box-sizing: border-box;
-      appearance: none;
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%238888a0' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
-      background-repeat: no-repeat;
-      background-position: right 12px center;
-      padding-right: 32px;
-    }
-    .modal-form-group select:focus { border-color: var(--accent); }
+  .modal-form-group { margin-bottom: 16px; }
+  .modal-form-group label { display: block; font-size: 12px; font-weight: 600; margin-bottom: 6px; color: var(--text-dim); }
+  .modal-form-group input, .modal-form-group select {
+    width: 100%; background: var(--bg); border: 1px solid var(--border); border-radius: 8px;
+    padding: 10px 12px; font-size: 14px; color: var(--text); outline: none;
+    transition: border-color 0.2s; box-sizing: border-box;
+  }
+  .modal-form-group input:focus, .modal-form-group select:focus { border-color: var(--accent); }
+  .modal-form-group input::placeholder { color: var(--text-dim); }
+  .modal-form-group select {
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%238888a0' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat; background-position: right 12px center; padding-right: 32px;
+  }
 
-    .modal-submit {
-      width: 100%;
-      font-size: 14px;
-      padding: 13px;
-      margin-top: 4px;
-    }
+  .btn-primary {
+    background: var(--accent); color: #0a0a0f; border: none;
+    font-size: 14px; font-weight: 700; padding: 13px 20px;
+    border-radius: 8px; cursor: pointer; width: 100%; transition: background 0.2s;
+  }
+  .btn-primary:hover:not(:disabled) { background: #f0d050; }
+  .btn-primary:disabled { opacity: 0.5; cursor: not-allowed; }
 
-    .modal-error {
-      font-size: 12px; color: #e85050;
-      margin-top: 8px; text-align: center;
-    }
+  .modal-error { font-size: 12px; color: var(--danger); margin-top: 8px; text-align: center; }
 
-    .modal-step-2 { display: none; }
-    .modal-step-2.active { display: block; }
+  #payment-element-mount { background: var(--bg); border: 1px solid var(--border); border-radius: 8px; padding: 14px 12px; margin-bottom: 14px; }
 
-    #stripe-payment-element { display: none; margin-bottom: 14px; }
-    #payment-element-mount { background:#0a0a0f;border:1px solid #1e1e2a;border-radius:8px;padding:14px 12px; }
-    #stripe-error { font-size:12px;color:#e85050;margin-top:6px;display:none; }
-
-    .modal-footer {
-      display: block;
-      clear: both;
-      font-size: 11px;
-      color: var(--text-dim);
-      text-align: center;
-      padding: 14px 0 4px;
-      margin-top: 12px;
-      border-top: 1px solid var(--border);
-      line-height: 1.4;
-    }
-  </style>
-
-<footer>
-  <p>CreatorPod &bull; Powered by Hermes AI &amp; ElevenLabs &bull; <a href="index.html">Welcome</a> &bull; <a href="about.html">About</a></p>
-</footer>
-
+  .modal-footer { font-size: 11px; color: var(--text-dim); text-align: center; padding: 14px 0 4px; margin-top: 12px; border-top: 1px solid var(--border); }
+</style>
 
 <script src="https://js.stripe.com/v3/"></script>
 <script>
-var STRIPE_PK = 'pk_test_51TYUpxR6QLrFJzCGC12FSCtpjbTPCgMFwHmB2OhWvpERclsPXSuYma7nx06lPZeplwXpxxI5JVeED6VbBlAGy23u00PCwvuSog';
-var stripe = Stripe(STRIPE_PK);
+(function() {
+  var STRIPE_PK = 'pk_test_51TYUpxR6QLrFJzCGC12FSCtpjbTPCgMFwHmB2OhWvpERclsPXSuYma7nx06lPZeplwXpxxI5JVeED6VbBlAGy23u00PCwvuSog';
+  var WORKER_URL = 'https://creatorpod-form-handler.connormulligan17.workers.dev';
 
-var WORKER_URL = 'https://creatorpod-form-handler.connormulligan17.workers.dev';
-var tierToken = null;
+  var stripe = Stripe(STRIPE_PK);
 
-// Fetch signed tier token on page load
-fetch(WORKER_URL + '/token')
-  .then(function(r) { return r.json(); })
-  .then(function(d) { tierToken = d.token; })
-  .catch(function() { tierToken = null; });
+  // Signed tier token
+  var tierToken = null;
+  fetch(WORKER_URL + '/token')
+    .then(function(r) { return r.json(); })
+    .then(function(d) { tierToken = d.token; })
+    .catch(function() {});
 
-// ── Modal state ──────────────────────────────────────────────────────────
-var selectedTier = null;
-var clientSecret = null;
-var isRecurring = false;
-var elements = null;
+  var selectedTier = null;
+  var clientSecret = null;
+  var elements = null;
 
-// ── DOM refs ─────────────────────────────────────────────────────────────
-var modalOverlay  = document.getElementById('modal-overlay');
-var modalCloseBtn = document.getElementById('modal-close-btn');
-var modalStep1    = document.getElementById('modal-step-1');
-var modalStep2    = document.getElementById('modal-step-2');
-var modalSuccess  = document.getElementById('modal-success');
-var modalTierBadge = document.getElementById('modal-tier-badge');
-var modalPayBtn   = document.getElementById('modal-pay-btn');
-var modalPayNote  = document.getElementById('modal-pay-note');
-var modalStep2Err = document.getElementById('modal-step2-error');
-var stripeSection = document.getElementById('stripe-payment-element');
-var paymentMount  = document.getElementById('payment-element-mount');
-var stripeError   = document.getElementById('stripe-error');
+  var modalOverlay  = document.getElementById('modal-overlay');
+  var modalCloseBtn = document.getElementById('modal-close-btn');
+  var modalStep1    = document.getElementById('modal-step-1');
+  var modalStep2    = document.getElementById('modal-step-2');
+  var modalSuccess  = document.getElementById('modal-success');
+  var modalTierBadge = document.getElementById('modal-tier-badge');
+  var modalNextBtn  = document.getElementById('modal-next-btn');
+  var modalPayBtn   = document.getElementById('modal-pay-btn');
+  var modalPayNote  = document.getElementById('modal-pay-note');
+  var modalStep1Err = document.getElementById('modal-step1-error');
+  var modalStep2Err = document.getElementById('modal-step2-error');
+  var stripeErrorEl = document.getElementById('stripe-error');
 
-// Tier name → price label
-var TIER_PRICES = { 'Per Episode': '$49', 'Weekly Podcast': '$149/mo', 'Principal': '$299/mo' };
-
-// ── Open modal when any "Get Started" is clicked ──────────────────────────
-document.querySelectorAll('.tier-cta[data-tier]').forEach(function(link) {
-  link.addEventListener('click', function(e) {
-    e.preventDefault();
-    selectedTier = link.getAttribute('data-tier');
-    modalTierBadge.textContent = selectedTier + ' — ' + TIER_PRICES[selectedTier];
-    modalStep1.style.display = 'block';
-    modalStep2.classList.remove('active');
-    modalSuccess.style.display = 'none';
-    document.getElementById('modal-step1-error').style.display = 'none';
-    document.getElementById('modal-ig-url').value = '';
-    document.getElementById('modal-email').value = '';
-    document.getElementById('modal-goal').value = '';
-    modalOverlay.classList.add('open');
-    setTimeout(function() { document.getElementById('modal-ig-url').focus(); }, 50);
-  });
-});
-
-// ── Close modal ──────────────────────────────────────────────────────────
-modalCloseBtn.addEventListener('click', closeModal);
-modalOverlay.addEventListener('click', function(e) {
-  if (e.target === modalOverlay) closeModal();
-});
-document.addEventListener('keydown', function(e) {
-  if (e.key === 'Escape') closeModal();
-});
-
-function closeModal() {
-  modalOverlay.classList.remove('open');
-  resetModalState();
-}
-
-function resetModalState() {
-  elements = null;
-  clientSecret = null;
-  isRecurring = false;
-  modalStep2.classList.remove('active');
-  stripeSection.style.display = 'none';
-  modalPayBtn.style.display = 'none';
-  modalPayNote.textContent = '';
-  modalStep2Err.style.display = 'none';
-  stripeError.style.display = 'none';
-  if (elements && elements.getElement('payment')) {
-    elements.getElement('payment').unmount();
-  }
-  elements = null;
-}
-
-// ── Step 1 → Step 2: validate then call create-payment-intent ─────────────
-document.getElementById('modal-next-btn').addEventListener('click', async function() {
-  var igHandle = document.getElementById('modal-ig-url').value.trim().replace(/^@/, '');
-  var email = document.getElementById('modal-email').value.trim();
-  var goal  = document.getElementById('modal-goal').value;
-  var errEl = document.getElementById('modal-step1-error');
-
-  if (!igHandle) { errEl.textContent = 'Please enter your Instagram username.'; errEl.style.display = 'block'; return; }
-  if (!email) { errEl.textContent = 'Please enter your email.'; errEl.style.display = 'block'; return; }
-  if (!goal)  { errEl.textContent = 'Please select what you want to improve.'; errEl.style.display = 'block'; return; }
-  if (!tierToken) { errEl.textContent = 'Payment system not ready. Please refresh the page and try again.'; errEl.style.display = 'block'; return; }
-
-  errEl.style.display = 'none';
-  this.disabled = true;
-  this.textContent = 'Preparing...';
-
-  // Call create-payment-intent
-  var res, data;
-  try {
-    res = await fetch(WORKER_URL + '/create-payment-intent', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ instagram_url: 'https://instagram.com/' + igHandle, email: email, tier: selectedTier, tier_token: tierToken, goal: goal })
-    });
-    data = await res.json();
-  } catch(e) {
-    errEl.textContent = 'Could not reach payment server. Check your connection and try again.';
-    errEl.style.display = 'block';
-    this.disabled = false; this.textContent = 'Continue to Payment';
-    return;
-  }
-
-  if (!res.ok || data.error) {
-    errEl.textContent = data.error || 'Payment setup failed. Please try again.';
-    errEl.style.display = 'block';
-    this.disabled = false; this.textContent = 'Continue to Payment';
-    return;
-  }
-
-  clientSecret = data.clientSecret;
-  isRecurring  = data.recurring === true;
-  var setupMode = data.setupMode === true;
-  var setupIntentId = data.setupIntentId || null;
-  var customerId = data.customerId || null;
-
-  // Mount Stripe Element — Payment Element for one-time, Setup Element for recurring
-  var appearance = {
-    theme: 'night',
-    variables: {
-      colorPrimary: '#e8c547',
-      colorBackground: '#0a0a0f',
-      colorText: '#f0f0f5',
-      colorDanger: '#e85050',
-      fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif',
-      borderRadius: '8px',
-    },
+  var TIER_LABELS = {
+    'Per Episode':    '$49 one-time',
+    'Weekly Podcast': '$149/mo',
+    'Principal':      '$299/mo'
   };
 
-  var el;
-  try {
-    if (setupMode) {
-      // Recurring: Setup Element — mode goes in elements(), clientSecret goes in confirmSetup()
-      el = stripe.elements({
-        clientSecret: clientSecret,
-        appearance: { theme: 'night' },
+  var isRecurring = function(tier) { return tier === 'Weekly Podcast' || tier === 'Principal'; };
+
+  // Open modal
+  document.querySelectorAll('.tier-cta[data-tier]').forEach(function(btn) {
+    btn.addEventListener('click', function(e) {
+      e.preventDefault();
+      selectedTier = btn.getAttribute('data-tier');
+
+      modalTierBadge.textContent = selectedTier + ' — ' + TIER_LABELS[selectedTier];
+      modalStep1.style.display    = 'block';
+      modalStep2.style.display    = 'none';
+      modalSuccess.style.display  = 'none';
+      modalStep1Err.style.display = 'none';
+      modalStep2Err.style.display = 'none';
+      stripeErrorEl.style.display = 'none';
+      document.getElementById('modal-ig-url').value = '';
+      document.getElementById('modal-email').value  = '';
+      document.getElementById('modal-goal').value   = '';
+
+      var recurring = isRecurring(selectedTier);
+      modalPayBtn.textContent = recurring ? 'Subscribe' : 'Pay';
+      modalPayNote.textContent = recurring ? 'First episode within 24 hours. Cancel anytime.' : '';
+
+      modalOverlay.classList.add('open');
+      setTimeout(function() { document.getElementById('modal-ig-url').focus(); }, 50);
+    });
+  });
+
+  // Close modal
+  function closeModal() {
+    modalOverlay.classList.remove('open');
+    if (elements) {
+      try { elements.getElement('payment').unmount(); } catch(e) {}
+      elements = null;
+    }
+    clientSecret = null;
+  }
+  modalCloseBtn.addEventListener('click', closeModal);
+  modalOverlay.addEventListener('click', function(e) { if (e.target === modalOverlay) closeModal(); });
+  document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeModal(); });
+
+  // Step 1 → Step 2
+  modalNextBtn.addEventListener('click', async function() {
+    var igHandle = document.getElementById('modal-ig-url').value.trim().replace(/^@/, '');
+    var email    = document.getElementById('modal-email').value.trim();
+    var goal     = document.getElementById('modal-goal').value;
+
+    if (!igHandle) { showErr(modalStep1Err, 'Please enter your Instagram username.'); return; }
+    if (!email)    { showErr(modalStep1Err, 'Please enter your email address.'); return; }
+    if (!goal)     { showErr(modalStep1Err, 'Please select what you want to improve.'); return; }
+    if (!tierToken) { showErr(modalStep1Err, 'Payment system not ready. Please refresh.'); return; }
+
+    modalNextBtn.disabled = true;
+    modalNextBtn.textContent = 'Preparing...';
+
+    try {
+      var res = await fetch(WORKER_URL + '/create-setup-intent', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          instagram_url: 'https://instagram.com/' + igHandle,
+          email: email,
+          tier: selectedTier,
+          tier_token: tierToken,
+          goal: goal
+        })
       });
-      var setupEl = el.create('payment', {
-        layout: { type: 'accordion', defaultCollapsed: false },
-      });
-      setupEl.mount('#payment-element-mount');
-    } else {
-      // One-time: Payment Element — clientSecret goes in elements(), confirmPayment has no secret
-      el = stripe.elements({
-        clientSecret: clientSecret,
-        appearance: { theme: 'night' },
-      });
-      var paymentEl = el.create('payment', {
+      var data = await res.json();
+
+      if (!res.ok || data.error) {
+        showErr(modalStep1Err, data.error || 'Payment setup failed. Please try again.');
+        modalNextBtn.disabled = false;
+        modalNextBtn.textContent = 'Continue to Payment';
+        return;
+      }
+
+      clientSecret = data.clientSecret;
+      var recurring = isRecurring(selectedTier);
+
+      var appearance = {
+        theme: 'night',
+        variables: {
+          colorPrimary: '#e8c547',
+          colorBackground: '#0a0a0f',
+          colorText: '#f0f0f5',
+          colorDanger: '#e85050',
+          fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif',
+          borderRadius: '8px',
+        },
+      };
+
+      if (recurring) {
+        // SetupIntent flow — mode: 'setup', clientSecret in confirmSetup()
+        elements = stripe.elements({ mode: 'setup', appearance: appearance });
+      } else {
+        // PaymentIntent flow — clientSecret in elements()
+        elements = stripe.elements({ clientSecret: clientSecret, appearance: appearance });
+      }
+
+      var paymentEl = elements.create('payment', {
         layout: { type: 'accordion', defaultCollapsed: false },
       });
       paymentEl.mount('#payment-element-mount');
+
+      modalStep1.style.display = 'none';
+      modalStep2.style.display = 'block';
+      modalNextBtn.disabled = false;
+      modalNextBtn.textContent = 'Continue to Payment';
+
+    } catch(e) {
+      showErr(modalStep1Err, 'Could not reach payment server. Check connection and try again.');
+      modalNextBtn.disabled = false;
+      modalNextBtn.textContent = 'Continue to Payment';
     }
-  } catch(e) {
-    console.error('stripe.elements() threw:', e.message || String(e));
-    errEl.textContent = 'Payment element failed to load. Please refresh and try again.';
-    errEl.style.display = 'block';
-    this.disabled = false; this.textContent = 'Continue to Payment';
-    return;
-  }
-  elements = el;
-  var paymentElForConfirm = el; // alias for use in pay handler
+  });
 
-  // Store setupMode on the pay button so the click handler can read it
-  modalPayBtn.dataset.setupMode = setupMode ? 'true' : 'false';
+  // Step 2: confirm
+  modalPayBtn.addEventListener('click', async function() {
+    if (!elements) return;
 
-  // Show step 2
-  modalStep1.style.display = 'none';
-  modalStep2.classList.add('active');
-  stripeSection.style.display = 'block';
-  modalPayBtn.style.display = 'inline-block';
-  modalPayBtn.textContent = isRecurring ? 'Subscribe' : 'Pay';
-  modalPayNote.textContent = isRecurring ? 'First episode delivered today. Cancel anytime.' : '';
-});
+    modalPayBtn.disabled = true;
+    modalPayBtn.textContent = 'Processing...';
+    modalStep2Err.style.display = 'none';
+    stripeErrorEl.style.display = 'none';
 
-// ── Step 2: pay ──────────────────────────────────────────────────────────
-modalPayBtn.addEventListener('click', async function() {
-  if (!elements) return;
-  modalPayBtn.disabled = true;
-  modalPayBtn.textContent = 'Processing...';
-  modalStep2Err.style.display = 'none';
-  stripeError.style.display = 'none';
+    var recurring = isRecurring(selectedTier);
+    var returnUrl = window.location.origin + window.location.pathname;
 
-  var returnUrl = window.location.origin + window.location.pathname;
-  var isSetupMode = modalPayBtn.dataset.setupMode === 'true';
+    try {
+      var result;
+      if (recurring) {
+        result = await stripe.confirmSetup({
+          elements: elements,
+          confirmParams: { return_url: returnUrl },
+          redirect: 'if_required',
+        });
+      } else {
+        result = await stripe.confirmPayment({
+          elements: elements,
+          confirmParams: { return_url: returnUrl },
+          redirect: 'if_required',
+        });
+      }
 
-  var result;
-  try {
-    if (isSetupMode) {
-      // Recurring: confirm card payment with PaymentIntent
-      result = await stripe.confirmPayment({
-        elements: elements,
-        confirmType: 'none',
-        confirmParams: { return_url: returnUrl },
-        redirect: 'if_required',
-      });
-    } else {
-      // One-time: confirm payment with PaymentIntent
-      result = await stripe.confirmPayment({
-        elements: elements,
-        confirmType: 'none',
-        confirmParams: { return_url: returnUrl },
-        redirect: 'if_required',
-      });
+      if (result.error) {
+        showErr(modalStep2Err, result.error.message || 'Payment failed. Please try again.');
+        modalPayBtn.disabled = false;
+        modalPayBtn.textContent = recurring ? 'Subscribe' : 'Pay';
+      } else {
+        modalStep2.style.display  = 'none';
+        modalSuccess.style.display = 'block';
+      }
+    } catch(e) {
+      showErr(modalStep2Err, 'An unexpected error occurred. Please try again.');
+      modalPayBtn.disabled = false;
+      modalPayBtn.textContent = recurring ? 'Subscribe' : 'Pay';
     }
-  } catch(e) {
-    console.error('Stripe confirm threw:', e.message || String(e), 'code:', e.code, 'type:', e.type);
-    modalStep2Err.textContent = 'Payment could not be processed. Please try again or use a different card.';
-    modalStep2Err.style.display = 'block';
-    modalPayBtn.disabled = false;
-    modalPayBtn.textContent = isRecurring ? 'Subscribe' : 'Pay';
-    return;
+  });
+
+  function showErr(el, msg) {
+    el.textContent = msg;
+    el.style.display = 'block';
   }
 
-  if (result.error) {
-    console.error('Stripe result.error:', JSON.stringify(result.error));
-    modalStep2Err.textContent = result.error.message || 'Payment failed. Please try again.';
-    modalStep2Err.style.display = 'block';
-    modalPayBtn.disabled = false;
-    modalPayBtn.textContent = isRecurring ? 'Subscribe' : 'Pay';
-  } else {
-    // Success
-    modalStep2.style.display = 'none';
-    modalSuccess.style.display = 'block';
-  }
-});
+})();
 </script>
 
-</div><!-- end .container -->
 </body>
 </html>
