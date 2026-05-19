@@ -862,8 +862,11 @@ document.getElementById('modal-next-btn').addEventListener('click', async functi
       setupEl.mount('#payment-element-mount');
     } else {
       // One-time: Payment Element — clientSecret goes in elements(), confirmPayment has no secret
-      el = stripe.elements({ clientSecret: clientSecret, currency: 'usd', appearance: appearance });
-      var paymentEl = el.create('payment', { layout: { type: 'accordion', defaultCollapsed: false } });
+      el = stripe.elements({ clientSecret: clientSecret, appearance: appearance });
+      var paymentEl = el.create('payment', {
+        layout: { type: 'accordion', defaultCollapsed: false },
+        currency: 'usd',
+      });
       paymentEl.mount('#payment-element-mount');
     }
   } catch(e) {
