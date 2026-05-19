@@ -262,21 +262,24 @@
 
   // Signed tier token
   var tierToken = null;
+  console.log('[CP] Pricing script loading, WORKER_URL:', WORKER_URL);
   fetch(WORKER_URL + '/token')
     .then(function(r) {
-      if (!r.ok) { console.error('/token HTTP error:', r.status); return; }
+      console.log('[CP] /token response status:', r.status, 'ok:', r.ok);
+      if (!r.ok) { console.error('/token HTTP error:', r.status); return { token: null }; }
       return r.json();
     })
     .then(function(d) {
+      console.log('[CP] /token parsed:', d && Object.keys(d));
       if (d && d.token) {
         tierToken = d.token;
-        console.log('tierToken populated, prefix:', d.token.substring(0, 20));
+        console.log('[CP] tierToken SET, prefix:', d.token.substring(0, 20));
       } else {
-        console.error('/token no token in response:', d);
+        console.error('[CP] /token no token in response:', d);
       }
     })
     .catch(function(e) {
-      console.error('/token fetch failed:', e.message);
+      console.error('[CP] /token fetch failed:', e.name, e.message);
     });
 
   var selectedTier = null;
@@ -352,12 +355,15 @@
     if (!igHandle) { showErr(modalStep1Err, 'Please enter your Instagram username.'); return; }
     if (!email)    { showErr(modalStep1Err, 'Please enter your email address.'); return; }
     if (!goal)     { showErr(modalStep1Err, 'Please select what you want to improve.'); return; }
+    console.log('[CP] modalNextBtn click, tierToken:', tierToken ? tierToken.substring(0,20) : 'NULL');
     if (!tierToken) { showErr(modalStep1Err, 'Payment system not ready. Please refresh.'); return; }
 
+    console.log('[CP] Submitting form:', { igHandle: igHandle, email: email, goal: goal, tier: selectedTier, tierTokenPrefix: tierToken.substring(0,20) });
     modalNextBtn.disabled = true;
     modalNextBtn.textContent = 'Preparing...';
 
     try {
+      console.log('[CP] Sending POST to', WORKER_URL + '/create-setup-intent');
       var res = await fetch(WORKER_URL + '/create-setup-intent', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -369,7 +375,9 @@
           goal: goal
         })
       });
+      console.log('[CP] POST response status:', res.status, 'ok:', res.ok);
       var data = await res.json();
+      console.log('[CP] POST response data keys:', Object.keys(data));
       console.log('/create-setup-intent response:', res.status, data);
 
       if (!res.ok || data.error) {
@@ -414,8 +422,7 @@
 
     } catch(e) {
       var errMsg = 'Could not reach payment server. Check connection and try again.';
-      if (e.name === 'TypeError' && !navigator.onLine) errMsg = 'You appear to be offline. Check your connection.';
-      showErr(modalStep1Err, errMsg + ' (' + e.message + ')');
+      showErr(modalStep1Err, errMsg + ' [' + e.name + ']');
       modalNextBtn.disabled = false;
       modalNextBtn.textContent = 'Continue to Payment';
     }
