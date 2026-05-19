@@ -263,9 +263,21 @@
   // Signed tier token
   var tierToken = null;
   fetch(WORKER_URL + '/token')
-    .then(function(r) { return r.json(); })
-    .then(function(d) { tierToken = d.token; })
-    .catch(function() {});
+    .then(function(r) {
+      if (!r.ok) { console.error('/token HTTP error:', r.status); return; }
+      return r.json();
+    })
+    .then(function(d) {
+      if (d && d.token) {
+        tierToken = d.token;
+        console.log('tierToken populated, prefix:', d.token.substring(0, 20));
+      } else {
+        console.error('/token no token in response:', d);
+      }
+    })
+    .catch(function(e) {
+      console.error('/token fetch failed:', e.message);
+    });
 
   var selectedTier = null;
   var clientSecret = null;
@@ -358,6 +370,7 @@
         })
       });
       var data = await res.json();
+      console.log('/create-setup-intent response:', res.status, data);
 
       if (!res.ok || data.error) {
         showErr(modalStep1Err, data.error || 'Payment setup failed. Please try again.');
