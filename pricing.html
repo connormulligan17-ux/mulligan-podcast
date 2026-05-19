@@ -260,27 +260,57 @@
 
   var stripe = Stripe(STRIPE_PK);
 
-  // Signed tier token
-  var tierToken = null;
-  console.log('[CP] Pricing script loading, WORKER_URL:', WORKER_URL);
-  fetch(WORKER_URL + '/token')
-    .then(function(r) {
-      console.log('[CP] /token response status:', r.status, 'ok:', r.ok);
-      if (!r.ok) { console.error('/token HTTP error:', r.status); return { token: null }; }
-      return r.json();
-    })
-    .then(function(d) {
-      console.log('[CP] /token parsed:', d && Object.keys(d));
-      if (d && d.token) {
-        tierToken = d.token;
-        console.log('[CP] tierToken SET, prefix:', d.token.substring(0, 20));
-      } else {
-        console.error('[CP] /token no token in response:', d);
-      }
-    })
-    .catch(function(e) {
-      console.error('[CP] /token fetch failed:', e.name, e.message);
-    });
+// Inject a console log capture into the page
+(function() {
+  var logDiv = document.createElement('div');
+  logDiv.id = '__cp-log';
+  logDiv.style.cssText = 'position:fixed;bottom:10px;left:10px;background:#111;padding:8px;font-size:10px;max-width:300px;max-height:200px;overflow:auto;z-index:99999;color:#0f0;font-family:monospace;border:1px solid #333;display:none;';
+  document.body.appendChild(logDiv);
+  var _origLog = console.log.bind(console);
+  var _origErr = console.error.bind(console);
+  var logs = [];
+  window.__cpLog = function() {
+    var args = Array.prototype.slice.call(arguments);
+    var msg = args.join(' ');
+    logs.push(msg);
+    if (logs.length > 50) logs.shift();
+    if (logDiv) logDiv.textContent = logs.join('\n');
+  };
+  console.log = function() {
+    var args = Array.prototype.slice.call(arguments);
+    _origLog.apply(console, args);
+    window.__cpLog.apply(null, args);
+  };
+  console.error = function() {
+    var args = Array.prototype.slice.call(arguments);
+    _origErr.apply(console, args);
+    window.__cpLog.apply(null, args);
+  };
+  window.__cpShowLog = function() { logDiv.style.display = logDiv.style.display === 'none' ? 'block' : 'none'; };
+  window.__cpLog('Console logger active');
+})();
+
+// Signed tier token
+var tierToken = null;
+window.__cpLog('[CP] Pricing script loading, WORKER_URL:', WORKER_URL);
+fetch(WORKER_URL + '/token')
+  .then(function(r) {
+    window.__cpLog('[CP] /token response status:', r.status, 'ok:', r.ok);
+    if (!r.ok) { _origLog('/token HTTP error:', r.status); return { token: null }; }
+    return r.json();
+  })
+  .then(function(d) {
+    window.__cpLog('[CP] /token parsed:', d && Object.keys(d));
+    if (d && d.token) {
+      tierToken = d.token;
+      window.__cpLog('[CP] tierToken SET, prefix:', d.token.substring(0, 20));
+    } else {
+      window.__cpLog('[CP] /token no token in response:', d);
+    }
+  })
+  .catch(function(e) {
+    window.__cpLog('[CP] /token fetch failed:', e.name, e.message);
+  });
 
   var selectedTier = null;
   var clientSecret = null;
@@ -352,18 +382,19 @@
     var email    = document.getElementById('modal-email').value.trim();
     var goal     = document.getElementById('modal-goal').value;
 
+    window.__cpLog('[CP] modalNextBtn click, tierToken:', tierToken ? tierToken.substring(0,20) : 'NULL');
     if (!igHandle) { showErr(modalStep1Err, 'Please enter your Instagram username.'); return; }
     if (!email)    { showErr(modalStep1Err, 'Please enter your email address.'); return; }
     if (!goal)     { showErr(modalStep1Err, 'Please select what you want to improve.'); return; }
-    console.log('[CP] modalNextBtn click, tierToken:', tierToken ? tierToken.substring(0,20) : 'NULL');
+    window.__cpLog('[CP] modalNextBtn click, tierToken:', tierToken ? tierToken.substring(0,20) : 'NULL');
     if (!tierToken) { showErr(modalStep1Err, 'Payment system not ready. Please refresh.'); return; }
 
-    console.log('[CP] Submitting form:', { igHandle: igHandle, email: email, goal: goal, tier: selectedTier, tierTokenPrefix: tierToken.substring(0,20) });
+    window.__cpLog('[CP] Submitting form:', { igHandle: igHandle, email: email, goal: goal, tier: selectedTier, tierTokenPrefix: tierToken.substring(0,20) });
     modalNextBtn.disabled = true;
     modalNextBtn.textContent = 'Preparing...';
 
     try {
-      console.log('[CP] Sending POST to', WORKER_URL + '/create-setup-intent');
+      window.__cpLog('[CP] Sending POST to', WORKER_URL + '/create-setup-intent');
       var res = await fetch(WORKER_URL + '/create-setup-intent', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -375,10 +406,10 @@
           goal: goal
         })
       });
-      console.log('[CP] POST response status:', res.status, 'ok:', res.ok);
+      window.__cpLog('[CP] POST response status:', res.status, 'ok:', res.ok);
       var data = await res.json();
-      console.log('[CP] POST response data keys:', Object.keys(data));
-      console.log('/create-setup-intent response:', res.status, data);
+      window.__cpLog('[CP] POST response data keys:', Object.keys(data));
+      window.__cpLog('/create-setup-intent response:', res.status, data);
 
       if (!res.ok || data.error) {
         showErr(modalStep1Err, data.error || 'Payment setup failed. Please try again.');
@@ -421,6 +452,7 @@
       modalNextBtn.textContent = 'Continue to Payment';
 
     } catch(e) {
+      window.__cpLog('[CP] fetch failed:', e.name, e.message);
       var errMsg = 'Could not reach payment server. Check connection and try again.';
       showErr(modalStep1Err, errMsg + ' [' + e.name + ']');
       modalNextBtn.disabled = false;
