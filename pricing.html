@@ -880,6 +880,9 @@ document.getElementById('modal-next-btn').addEventListener('click', async functi
   elements = el;
   var paymentElForConfirm = el; // alias for use in pay handler
 
+  // Store setupMode on the pay button so the click handler can read it
+  modalPayBtn.dataset.setupMode = setupMode ? 'true' : 'false';
+
   // Show step 2
   modalStep1.style.display = 'none';
   modalStep2.classList.add('active');
@@ -898,11 +901,12 @@ modalPayBtn.addEventListener('click', async function() {
   stripeError.style.display = 'none';
 
   var returnUrl = window.location.origin + window.location.pathname;
+  var isSetupMode = modalPayBtn.dataset.setupMode === 'true';
 
   var result;
   try {
-    if (setupMode) {
-      // Recurring: confirm card payment with PaymentIntent (same as one-time)
+    if (isSetupMode) {
+      // Recurring: confirm card payment with PaymentIntent
       result = await stripe.confirmPayment({
         elements: elements,
         confirmType: 'none',
