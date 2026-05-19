@@ -853,13 +853,14 @@ document.getElementById('modal-next-btn').addEventListener('click', async functi
       // Recurring: Setup Element — mode goes in elements(), clientSecret goes in confirmSetup()
       el = stripe.elements({
         mode: 'setup',
+        currency: 'usd',
         appearance: appearance,
       });
       var setupEl = el.create('setup', { layout: { type: 'accordion', defaultCollapsed: false } });
       setupEl.mount('#payment-element-mount');
     } else {
       // One-time: Payment Element — clientSecret goes in elements(), confirmPayment has no secret
-      el = stripe.elements({ clientSecret: clientSecret, appearance: appearance });
+      el = stripe.elements({ clientSecret: clientSecret, currency: 'usd', appearance: appearance });
       var paymentEl = el.create('payment', { layout: { type: 'accordion', defaultCollapsed: false } });
       paymentEl.mount('#payment-element-mount');
     }
