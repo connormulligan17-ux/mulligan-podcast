@@ -902,9 +902,10 @@ modalPayBtn.addEventListener('click', async function() {
   var result;
   try {
     if (setupMode) {
-      // Recurring: confirm card setup with SetupIntent
-      result = await stripe.confirmSetup({
+      // Recurring: confirm card payment with PaymentIntent (same as one-time)
+      result = await stripe.confirmPayment({
         elements: elements,
+        confirmType: 'none',
         confirmParams: { return_url: returnUrl },
         redirect: 'if_required',
       });
