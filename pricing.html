@@ -424,6 +424,7 @@ fetch(WORKER_URL + '/token')
       window.__cpLog('/create-setup-intent response:', res.status, data);
 
       if (!res.ok || data.error) {
+        window.__cpLog('[CP] API error:', res.status, data.error || 'unknown');
         showErr(modalStep1Err, data.error || 'Payment setup failed. Please try again.');
         modalNextBtn.disabled = false;
         modalNextBtn.textContent = 'Continue to Payment';
