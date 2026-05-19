@@ -400,7 +400,9 @@
       modalNextBtn.textContent = 'Continue to Payment';
 
     } catch(e) {
-      showErr(modalStep1Err, 'Could not reach payment server. Check connection and try again.');
+      var errMsg = 'Could not reach payment server. Check connection and try again.';
+      if (e.name === 'TypeError' && !navigator.onLine) errMsg = 'You appear to be offline. Check your connection.';
+      showErr(modalStep1Err, errMsg + ' (' + e.message + ')');
       modalNextBtn.disabled = false;
       modalNextBtn.textContent = 'Continue to Payment';
     }
