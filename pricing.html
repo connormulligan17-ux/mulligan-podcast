@@ -875,6 +875,7 @@ modalPayBtn.addEventListener('click', async function() {
   });
 
   if (result.error) {
+    console.error('Stripe error:', result.error.code, result.error.declineCode, result.error.message);
     modalStep2Err.textContent = result.error.message || 'Payment failed. Please try again.';
     modalStep2Err.style.display = 'block';
     modalPayBtn.disabled = false;
