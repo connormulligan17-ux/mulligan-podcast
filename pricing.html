@@ -857,7 +857,6 @@ document.getElementById('modal-next-btn').addEventListener('click', async functi
       });
       var setupEl = el.create('setup', {
         layout: { type: 'accordion', defaultCollapsed: false },
-        currency: 'usd',
       });
       setupEl.mount('#payment-element-mount');
     } else {
@@ -865,7 +864,6 @@ document.getElementById('modal-next-btn').addEventListener('click', async functi
       el = stripe.elements({ clientSecret: clientSecret, appearance: appearance });
       var paymentEl = el.create('payment', {
         layout: { type: 'accordion', defaultCollapsed: false },
-        currency: 'usd',
       });
       paymentEl.mount('#payment-element-mount');
     }
