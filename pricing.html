@@ -853,7 +853,6 @@ document.getElementById('modal-next-btn').addEventListener('click', async functi
       // Recurring: Setup Element — mode goes in elements(), clientSecret goes in confirmSetup()
       el = stripe.elements({
         mode: 'setup',
-        currency: 'usd',
         appearance: appearance,
       });
       var setupEl = el.create('setup', {
