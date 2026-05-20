@@ -455,8 +455,8 @@
       <p class="modal-sub">Tell us about your Instagram and your goal.</p>
 
       <div class="form-group">
-        <label for="field-ig">Instagram URL</label>
-        <input type="text" id="field-ig" placeholder="https://instagram.com/yourhandle">
+        <label for="field-ig">Instagram username</label>
+        <input type="text" id="field-ig" placeholder="@yourhandle" autocorrect="off" autocapitalize="none">
       </div>
       <div class="form-group">
         <label for="field-email">Email address</label>
@@ -563,7 +563,7 @@
     var em = document.getElementById('field-email').value.trim();
     var gl = document.getElementById('field-goal').value;
 
-    if (!ig) { stepError.textContent = 'Please enter your Instagram URL.'; return; }
+    if (!ig) { stepError.textContent = 'Please enter your Instagram username.'; return; }
     if (!em) { stepError.textContent = 'Please enter your email.'; return; }
     if (!gl) { stepError.textContent = 'Please select your goal.'; return; }
     if (!tierToken) { stepError.textContent = 'Payment system not ready. Please refresh.'; return; }
