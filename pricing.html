@@ -679,7 +679,7 @@
 
       clientSecret = data.clientSecret;
 
-      // Build Stripe elements — all tiers use clientSecret (PaymentIntent flow)
+      // Build Stripe elements — all tiers use clientSecret
       var el = stripe.elements({
         clientSecret: clientSecret,
         appearance: {
@@ -701,6 +701,9 @@
       paymentEl.mount('#stripe-mount');
       elements = el;
 
+      // Store recurring flag so btnPay knows which confirm method to use
+      elements._recurring = data.recurring;
+
       showStep('payment');
     })
     .catch(function() {
@@ -710,7 +713,7 @@
     });
   });
 
-  // ── Step 2: confirm payment ──
+  // ── Step 2: confirm payment / setup ──
   btnPay.addEventListener('click', function() {
     if (!elements) return;
 
@@ -719,28 +722,51 @@
     step2Error.textContent = '';
 
     var returnUrl = window.location.origin + window.location.pathname;
+    var email = document.getElementById('field-email').value.trim();
 
-    stripe.confirmPayment({
-      elements: elements,
-      confirmParams: {
-        return_url: returnUrl,
-        payment_method_data: {
-          billing_details: {
-            email: document.getElementById('field-email').value.trim()
+    if (elements._recurring) {
+      // Recurring: confirm SetupIntent, not PaymentIntent
+      stripe.confirmSetup({
+        elements: elements,
+        confirmParams: {
+          return_url: returnUrl,
+          payment_method_data: {
+            billing_details: { email: email }
           }
-        }
-      },
-      redirect: 'if_required',
-    }).then(function(result) {
-      btnPay.disabled = false;
-      btnPay.textContent = isRecurring(selectedTier) ? 'Subscribe' : 'Pay';
+        },
+        redirect: 'if_required',
+      }).then(function(result) {
+        btnPay.disabled = false;
+        btnPay.textContent = 'Subscribe';
 
-      if (result.error) {
-        err(step2Error, result.error.message || 'Payment failed. Please try again.');
-      } else {
-        showStep('success');
-      }
-    });
+        if (result.error) {
+          err(step2Error, result.error.message || 'Setup failed. Please try again.');
+        } else {
+          showStep('success');
+        }
+      });
+    } else {
+      // One-time: confirm PaymentIntent
+      stripe.confirmPayment({
+        elements: elements,
+        confirmParams: {
+          return_url: returnUrl,
+          payment_method_data: {
+            billing_details: { email: email }
+          }
+        },
+        redirect: 'if_required',
+      }).then(function(result) {
+        btnPay.disabled = false;
+        btnPay.textContent = 'Pay';
+
+        if (result.error) {
+          err(step2Error, result.error.message || 'Payment failed. Please try again.');
+        } else {
+          showStep('success');
+        }
+      });
+    }
   });
 
 })();
