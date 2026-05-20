@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>You're in! — CreatorPod</title>
+  <style>
+    :root {
+      --bg: #090910;
+      --surface: #111120;
+      --border: #1e1e30;
+      --accent: #e8c547;
+      --text: #f0f0f5;
+      --text-dim: #7070a0;
+      --success: #3dd98f;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 60px 48px;
+      max-width: 480px;
+      width: 100%;
+      text-align: center;
+    }
+    .icon {
+      font-size: 64px;
+      margin-bottom: 20px;
+      display: block;
+    }
+    h1 {
+      font-size: 36px;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      margin-bottom: 12px;
+    }
+    p {
+      font-size: 15px;
+      color: var(--text-dim);
+      line-height: 1.65;
+      margin-bottom: 8px;
+    }
+    .tier-badge {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--accent);
+      background: rgba(232,197,71,0.1);
+      border: 1px solid rgba(232,197,71,0.25);
+      border-radius: 100px;
+      padding: 5px 14px;
+      margin: 20px 0 28px;
+    }
+    .divider {
+      height: 1px;
+      background: var(--border);
+      margin: 28px 0;
+    }
+    .next-steps {
+      text-align: left;
+      margin-bottom: 28px;
+    }
+    .next-steps h3 {
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+      margin-bottom: 14px;
+    }
+    .next-steps li {
+      font-size: 13px;
+      color: var(--text-dim);
+      padding: 6px 0;
+      list-style: none;
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+    }
+    .next-steps li span {
+      color: var(--success);
+      font-size: 14px;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+    .btn {
+      display: inline-block;
+      background: var(--accent);
+      color: #090910;
+      font-size: 14px;
+      font-weight: 700;
+      padding: 13px 28px;
+      border-radius: 10px;
+      text-decoration: none;
+      transition: background 0.2s;
+    }
+    .btn:hover { background: #f0d050; text-decoration: none; }
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 18px 48px;
+      border-bottom: 1px solid var(--border);
+      background: rgba(9,9,16,0.96);
+      backdrop-filter: blur(12px);
+    }
+    .nav-logo { font-size: 16px; font-weight: 700; letter-spacing: -0.02em; }
+    .nav-logo span { color: var(--accent); }
+    .nav-links { display: flex; gap: 32px; list-style: none; }
+    .nav-links a { font-size: 13px; color: var(--text-dim); transition: color 0.2s; text-decoration: none; }
+    .nav-links a:hover { color: var(--text); }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">Creator<span>Pod</span></div>
+  <ul class="nav-links">
+    <li><a href="index.html">Welcome</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="pricing.html">Pricing</a></li>
+  </ul>
+</nav>
+
+<div class="card">
+  <span class="icon">&#127775;</span>
+  <h1>You're in!</h1>
+  <p id="msg">Your payment was successful. Check your inbox — your first episode is on its way within 24 hours.</p>
+  <div class="tier-badge" id="tier-badge"></div>
+
+  <div class="divider"></div>
+
+  <div class="next-steps">
+    <h3>What happens next</h3>
+    <ul>
+      <li><span>&#10003;</span> <span>Check your email — confirmation and setup details are on the way.</span></li>
+      <li><span>&#10003;</span> <span>We'll analyze your Instagram and start working on your first episode.</span></li>
+      <li><span>&#10003;</span> <span>Your podcast feed will be ready at creatorpod.io/episodes/yourhandle/feed.xml</span></li>
+      <li><span>&#10003;</span> <span>Add the feed to any podcast app (Apple Podcasts, Spotify, etc.)</span></li>
+    </ul>
+  </div>
+
+  <a href="index.html" class="btn">Back to CreatorPod</a>
+</div>
+
+<script>
+(function() {
+  var params = new URLSearchParams(window.location.search);
+  var tier = params.get('tier') || '';
+  if (tier) {
+    document.getElementById('tier-badge').textContent = tier;
+  }
+  // Verify session_id was passed (Stripe redirects with it)
+  var sessionId = params.get('session_id');
+  if (!sessionId) {
+    // Redirect back to pricing if accessed directly without payment
+    window.location.replace('pricing.html');
+  }
+})();
+</script>
+
+</body>
+</html>

@@ -337,36 +337,6 @@
       margin-top: 8px;
     }
 
-    /* Stripe element mount */
-    #stripe-mount {
-      background: var(--bg);
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      padding: 16px 14px;
-      margin-bottom: 14px;
-      min-height: 80px;
-    }
-
-    /* Success */
-    .modal-success {
-      text-align: center;
-      padding: 10px 0 20px;
-    }
-    .modal-success .icon {
-      font-size: 56px;
-      margin-bottom: 14px;
-    }
-    .modal-success h3 {
-      font-size: 22px;
-      font-weight: 800;
-      margin-bottom: 8px;
-    }
-    .modal-success p {
-      font-size: 14px;
-      color: var(--text-dim);
-      line-height: 1.6;
-    }
-
     .modal-footer {
       font-size: 11px;
       color: var(--text-dim);
@@ -473,13 +443,12 @@
 </div>
 
 <!-- ────────────────────────────────────────────
-     Payment Modal
+     Info Modal (collects Instagram + email + goal)
 ──────────────────────────────────────────── -->
 <div class="modal-backdrop" id="modal-backdrop">
   <div class="modal">
     <button class="modal-close" id="modal-close-btn">&times;</button>
 
-    <!-- Step 1: Info -->
     <div class="modal-step active" id="step-info">
       <div class="modal-eyebrow" id="modal-tier-label">Weekly Podcast</div>
       <h2>Let's get started</h2>
@@ -487,11 +456,11 @@
 
       <div class="form-group">
         <label for="field-ig">Instagram URL</label>
-        <input type="text" id="field-ig" placeholder="https://instagram.com/yourhandle" />
+        <input type="text" id="field-ig" placeholder="https://instagram.com/yourhandle">
       </div>
       <div class="form-group">
         <label for="field-email">Email address</label>
-        <input type="email" id="field-email" placeholder="you@example.com" />
+        <input type="email" id="field-email" placeholder="you@example.com">
       </div>
       <div class="form-group">
         <label for="field-goal">Primary goal</label>
@@ -504,76 +473,38 @@
           <option value="retention">Follower retention</option>
         </select>
       </div>
-      <p class="error-msg" id="step1-error"></p>
-      <button class="btn-primary" id="btn-to-payment" disabled>Continue to Payment</button>
-    </div>
-
-    <!-- Step 2: Payment -->
-    <div class="modal-step" id="step-payment">
-      <div class="modal-eyebrow" id="modal-tier-label-2">Weekly Podcast — $149/mo</div>
-      <h2>Secure payment</h2>
-      <p class="modal-sub">Your card details are encrypted and never stored.</p>
-
-      <div id="stripe-mount"></div>
-      <p class="error-msg" id="step2-error"></p>
-      <button class="btn-primary" id="btn-pay">Pay</button>
-      <p id="pay-note" style="font-size:11px;color:var(--text-dim);text-align:center;margin-top:10px;"></p>
-    </div>
-
-    <!-- Step 3: Success -->
-    <div class="modal-step" id="step-success">
-      <div class="modal-success">
-        <div class="icon">&#9989;</div>
-        <h3>You're in!</h3>
-        <p>Check your email — your first episode is on its way within 24 hours.</p>
-      </div>
+      <p class="error-msg" id="step-error"></p>
+      <button class="btn-primary" id="btn-checkout" disabled>Continue to Payment</button>
     </div>
 
     <div class="modal-footer">CreatorPod &bull; Powered by Hermes AI &amp; ElevenLabs</div>
   </div>
 </div>
 
-<script src="https://js.stripe.com/v3/"></script>
 <script>
 (function() {
-  var STRIPE_PK = 'pk_test_51TYUpxR6QLrFJzCGC12FSCtpjbTPCgMFwHmB2OhWvpERclsPXSuYma7nx06lPZeplwXpxxI5JVeED6VbBlAGy23u00PCwvuSog';
   var WORKER_URL = 'https://creatorpod-form-handler.connormulligan17.workers.dev';
 
-  var stripe = Stripe(STRIPE_PK);
   var tierToken = null;
   var selectedTier = null;
-  var clientSecret = null;
-  var elements = null;
 
   // DOM refs
   var loadingOverlay = document.getElementById('loading-overlay');
   var modalBackdrop   = document.getElementById('modal-backdrop');
   var modalCloseBtn   = document.getElementById('modal-close-btn');
-  var btnToPayment    = document.getElementById('btn-to-payment');
-  var btnPay          = document.getElementById('btn-pay');
-  var step1Error      = document.getElementById('step1-error');
-  var step2Error      = document.getElementById('step2-error');
+  var btnCheckout     = document.getElementById('btn-checkout');
+  var stepError       = document.getElementById('step-error');
 
-  var TIER_LABELS = {
-    'Per Episode':    '$49 one-time',
-    'Weekly Podcast': '$149/mo',
-    'Principal':      '$299/mo'
-  };
-
-  var isRecurring = function(t) { return t === 'Weekly Podcast' || t === 'Principal'; };
-
-  function err(el, msg) { el.textContent = msg; }
-
-  // ── Bootstrap: fetch tierToken before anything ──
+  // ── Bootstrap: fetch tierToken ──
   function init() {
     loadingOverlay.classList.remove('hidden');
-    btnToPayment.disabled = true;
+    btnCheckout.disabled = true;
     fetch(WORKER_URL + '/token')
       .then(function(r) { return r.json(); })
       .then(function(d) {
         tierToken = d.token || null;
         loadingOverlay.classList.add('hidden');
-        btnToPayment.disabled = false;
+        btnCheckout.disabled = false;
       })
       .catch(function() {
         loadingOverlay.querySelector('p').textContent = 'Failed to load. Refresh to try again.';
@@ -581,8 +512,8 @@
   }
   init();
 
-  // ── Validate step 1 form ──
-  function step1Valid() {
+  // ── Validate form ──
+  function formValid() {
     var ig = document.getElementById('field-ig').value.trim();
     var em = document.getElementById('field-email').value.trim();
     var gl = document.getElementById('field-goal').value;
@@ -590,13 +521,13 @@
   }
 
   document.getElementById('field-ig').addEventListener('input', function() {
-    btnToPayment.disabled = !step1Valid();
+    btnCheckout.disabled = !formValid();
   });
   document.getElementById('field-email').addEventListener('input', function() {
-    btnToPayment.disabled = !step1Valid();
+    btnCheckout.disabled = !formValid();
   });
   document.getElementById('field-goal').addEventListener('change', function() {
-    btnToPayment.disabled = !step1Valid();
+    btnCheckout.disabled = !formValid();
   });
 
   // ── Open modal ──
@@ -604,22 +535,14 @@
     btn.addEventListener('click', function() {
       selectedTier = btn.getAttribute('data-tier');
       document.getElementById('modal-tier-label').textContent = selectedTier;
-      document.getElementById('modal-tier-label-2').textContent = selectedTier + ' — ' + TIER_LABELS[selectedTier];
 
       // Reset
       document.getElementById('field-ig').value = '';
       document.getElementById('field-email').value = '';
       document.getElementById('field-goal').value = '';
-      step1Error.textContent = '';
-      step2Error.textContent = '';
-      btnToPayment.disabled = true;
-
-      // Show step 1
-      showStep('info');
-
-      var note = isRecurring(selectedTier) ? 'First episode within 24 hours. Cancel anytime.' : '';
-      document.getElementById('pay-note').textContent = note;
-      btnPay.textContent = isRecurring(selectedTier) ? 'Subscribe' : 'Pay';
+      stepError.textContent = '';
+      btnCheckout.disabled = true;
+      btnCheckout.textContent = 'Continue to Payment';
 
       modalBackdrop.classList.add('open');
       setTimeout(function() { document.getElementById('field-ig').focus(); }, 60);
@@ -629,37 +552,26 @@
   // ── Close modal ──
   function closeModal() {
     modalBackdrop.classList.remove('open');
-    if (elements) {
-      try { elements.getElement('payment').unmount(); } catch(e) {}
-      elements = null;
-    }
-    clientSecret = null;
   }
   modalCloseBtn.addEventListener('click', closeModal);
   modalBackdrop.addEventListener('click', function(e) { if (e.target === modalBackdrop) closeModal(); });
   document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeModal(); });
 
-  // ── Step helpers ──
-  function showStep(name) {
-    document.querySelectorAll('.modal-step').forEach(function(s) { s.classList.remove('active'); });
-    document.getElementById('step-' + name).classList.add('active');
-  }
-
-  // ── Step 1 → Step 2 ──
-  btnToPayment.addEventListener('click', function() {
+  // ── Checkout redirect ──
+  btnCheckout.addEventListener('click', function() {
     var ig = document.getElementById('field-ig').value.trim().replace(/^@/, '').replace('https://instagram.com/', '').replace('instagram.com/', '');
     var em = document.getElementById('field-email').value.trim();
     var gl = document.getElementById('field-goal').value;
 
-    if (!ig) { err(step1Error, 'Please enter your Instagram URL.'); return; }
-    if (!em) { err(step1Error, 'Please enter your email.'); return; }
-    if (!gl) { err(step1Error, 'Please select your goal.'); return; }
-    if (!tierToken) { err(step1Error, 'Payment system not ready. Please refresh.'); return; }
+    if (!ig) { stepError.textContent = 'Please enter your Instagram URL.'; return; }
+    if (!em) { stepError.textContent = 'Please enter your email.'; return; }
+    if (!gl) { stepError.textContent = 'Please select your goal.'; return; }
+    if (!tierToken) { stepError.textContent = 'Payment system not ready. Please refresh.'; return; }
 
-    btnToPayment.disabled = true;
-    btnToPayment.textContent = 'Preparing...';
+    btnCheckout.disabled = true;
+    btnCheckout.textContent = 'Preparing...';
 
-    fetch(WORKER_URL + '/create-setup-intent', {
+    fetch(WORKER_URL + '/create-checkout-session', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
@@ -672,101 +584,26 @@
     })
     .then(function(r) { return r.json(); })
     .then(function(data) {
-      btnToPayment.disabled = false;
-      btnToPayment.textContent = 'Continue to Payment';
+      btnCheckout.disabled = false;
+      btnCheckout.textContent = 'Continue to Payment';
 
-      if (data.error) { err(step1Error, data.error); return; }
+      if (data.error) {
+        stepError.textContent = data.error;
+        return;
+      }
 
-      clientSecret = data.clientSecret;
-
-      // Build Stripe elements — all tiers use clientSecret
-      var el = stripe.elements({
-        clientSecret: clientSecret,
-        appearance: {
-          theme: 'night',
-          variables: {
-            colorPrimary: '#e8c547',
-            colorBackground: '#090910',
-            colorText: '#f0f0f5',
-            colorDanger: '#e05050',
-            fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif',
-            borderRadius: '10px',
-          }
-        }
-      });
-
-      var paymentEl = el.create('payment', {
-        layout: { type: 'accordion', defaultCollapsed: false }
-      });
-      paymentEl.mount('#stripe-mount');
-      elements = el;
-
-      // Store recurring flag so btnPay knows which confirm method to use
-      elements._recurring = data.recurring;
-
-      showStep('payment');
+      if (data.url) {
+        // Redirect to Stripe Checkout
+        window.location.href = data.url;
+      } else {
+        stepError.textContent = 'Unexpected response. Please try again.';
+      }
     })
     .catch(function() {
-      btnToPayment.disabled = false;
-      btnToPayment.textContent = 'Continue to Payment';
-      err(step1Error, 'Could not reach payment server. Check connection and try again.');
+      btnCheckout.disabled = false;
+      btnCheckout.textContent = 'Continue to Payment';
+      stepError.textContent = 'Could not reach payment server. Check connection and try again.';
     });
-  });
-
-  // ── Step 2: confirm payment / setup ──
-  btnPay.addEventListener('click', function() {
-    if (!elements) return;
-
-    btnPay.disabled = true;
-    btnPay.textContent = 'Processing...';
-    step2Error.textContent = '';
-
-    var returnUrl = window.location.origin + window.location.pathname;
-    var email = document.getElementById('field-email').value.trim();
-
-    if (elements._recurring) {
-      // Recurring: confirm SetupIntent, not PaymentIntent
-      stripe.confirmSetup({
-        elements: elements,
-        confirmParams: {
-          return_url: returnUrl,
-          payment_method_data: {
-            billing_details: { email: email }
-          }
-        },
-        redirect: 'if_required',
-      }).then(function(result) {
-        btnPay.disabled = false;
-        btnPay.textContent = 'Subscribe';
-
-        if (result.error) {
-          err(step2Error, result.error.message || 'Setup failed. Please try again.');
-        } else {
-          showStep('success');
-        }
-      });
-    } else {
-      // One-time: confirm PaymentIntent
-      stripe.confirmPayment({
-        elements: elements,
-        confirmParams: {
-          return_url: returnUrl,
-          payment_method_data: {
-            billing_details: { email: email }
-          }
-        },
-        redirect: 'if_required',
-      }).then(function(result) {
-        btnPay.disabled = false;
-        btnPay.textContent = 'Pay';
-
-        if (result.error) {
-          err(step2Error, result.error.message || 'Payment failed. Please try again.');
-        } else {
-          showStep('success');
-        }
-      });
-    }
   });
 
 })();
