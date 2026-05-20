@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pricing — CreatorPod</title>
+  <style>
+    :root {
+      --bg: #090910;
+      --surface: #111120;
+      --surface-2: #181828;
+      --border: #1e1e30;
+      --accent: #e8c547;
+      --accent-dim: #9a8028;
+      --text: #f0f0f5;
+      --text-dim: #7070a0;
+      --success: #3dd98f;
+      --danger: #e05050;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* ── Nav ── */
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 18px 48px;
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      background: rgba(9,9,16,0.96);
+      backdrop-filter: blur(12px);
+      z-index: 100;
+    }
+    .nav-logo { font-size: 16px; font-weight: 700; letter-spacing: -0.02em; }
+    .nav-logo span { color: var(--accent); }
+    .nav-links { display: flex; gap: 32px; list-style: none; }
+    .nav-links a { font-size: 13px; color: var(--text-dim); transition: color 0.2s; }
+    .nav-links a:hover { color: var(--text); text-decoration: none; }
+
+    /* ── Hero ── */
+    .hero {
+      text-align: center;
+      padding: 80px 24px 60px;
+    }
+    .hero-badge {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
+      background: rgba(232,197,71,0.08);
+      border: 1px solid rgba(232,197,71,0.2);
+      border-radius: 100px;
+      padding: 6px 16px;
+      margin-bottom: 20px;
+    }
+    h1 {
+      font-size: 52px;
+      font-weight: 800;
+      letter-spacing: -0.035em;
+      line-height: 1.08;
+      margin-bottom: 16px;
+      background: linear-gradient(135deg, #f0f0f5 0%, #b0b0cc 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .hero p {
+      font-size: 17px;
+      color: var(--text-dim);
+      max-width: 480px;
+      margin: 0 auto;
+      line-height: 1.65;
+    }
+
+    /* ── Pricing grid ── */
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 0 24px 80px;
+    }
+    .pricing-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 32px 28px;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+    .pricing-card:hover {
+      border-color: rgba(232,197,71,0.3);
+      transform: translateY(-2px);
+    }
+    .pricing-card.featured {
+      border-color: var(--accent);
+      background: linear-gradient(180deg, rgba(232,197,71,0.06) 0%, var(--surface) 60%);
+    }
+    .pricing-card.featured::before {
+      content: 'Most Popular';
+      position: absolute;
+      top: -13px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      background: var(--accent);
+      color: #090910;
+      padding: 4px 14px;
+      border-radius: 100px;
+    }
+    .card-tier {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--accent-dim);
+      margin-bottom: 8px;
+    }
+    .card-price {
+      font-size: 44px;
+      font-weight: 800;
+      letter-spacing: -0.04em;
+      line-height: 1;
+      margin-bottom: 4px;
+    }
+    .card-price .per {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--text-dim);
+    }
+    .card-tagline {
+      font-size: 13px;
+      color: var(--text-dim);
+      margin-bottom: 24px;
+    }
+    .card-divider {
+      height: 1px;
+      background: var(--border);
+      margin-bottom: 20px;
+    }
+    .card-features {
+      list-style: none;
+      flex: 1;
+      margin-bottom: 24px;
+    }
+    .card-features li {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      font-size: 13px;
+      color: var(--text-dim);
+      padding: 7px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .card-features li:last-child { border-bottom: none; }
+    .card-features .check {
+      color: var(--success);
+      font-size: 13px;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+    .card-cta {
+      display: block;
+      text-align: center;
+      font-size: 14px;
+      font-weight: 700;
+      padding: 13px;
+      border-radius: 10px;
+      background: var(--accent);
+      color: #090910;
+      border: none;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .card-cta:hover { background: #f0d050; text-decoration: none; }
+
+    /* ── Footer strip ── */
+    .footer-strip {
+      text-align: center;
+      padding: 0 24px 60px;
+      display: flex;
+      justify-content: center;
+      gap: 32px;
+      flex-wrap: wrap;
+    }
+    .footer-strip span {
+      font-size: 12px;
+      color: var(--text-dim);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    /* ── Loading overlay ── */
+    #loading-overlay {
+      position: fixed; inset: 0; z-index: 1000;
+      background: var(--bg);
+      display: flex; align-items: center; justify-content: center;
+      flex-direction: column; gap: 16px;
+    }
+    #loading-overlay.hidden { display: none; }
+    .loading-spinner {
+      width: 36px; height: 36px;
+      border: 2px solid var(--border);
+      border-top-color: var(--accent);
+      border-radius: 50%;
+      animation: spin 0.7s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    #loading-overlay p { font-size: 14px; color: var(--text-dim); }
+
+    /* ── Modal ── */
+    .modal-backdrop {
+      display: none;
+      position: fixed; inset: 0; z-index: 999;
+      background: rgba(0,0,0,0.8);
+      backdrop-filter: blur(6px);
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    .modal-backdrop.open { display: flex; overflow-y: auto; -webkit-overflow-scrolling: touch; }
+
+    .modal {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 40px 36px;
+      width: 100%;
+      max-width: 460px;
+      position: relative;
+    }
+    .modal-close {
+      position: absolute; top: 18px; right: 18px;
+      background: none; border: none; color: var(--text-dim);
+      font-size: 26px; cursor: pointer; line-height: 1;
+    }
+    .modal-close:hover { color: var(--text); }
+
+    .modal-step { display: none; }
+    .modal-step.active { display: block; }
+
+    .modal-eyebrow {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--accent-dim);
+      margin-bottom: 6px;
+    }
+    .modal h2 {
+      font-size: 24px;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      margin-bottom: 4px;
+    }
+    .modal-sub {
+      font-size: 13px;
+      color: var(--text-dim);
+      margin-bottom: 28px;
+    }
+
+    .form-group { margin-bottom: 18px; }
+    .form-group label {
+      display: block;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text-dim);
+      margin-bottom: 7px;
+      letter-spacing: 0.02em;
+    }
+    .form-group input, .form-group select {
+      width: 100%;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 12px 14px;
+      font-size: 14px;
+      color: var(--text);
+      outline: none;
+      transition: border-color 0.2s;
+      box-sizing: border-box;
+    }
+    .form-group input:focus, .form-group select:focus { border-color: var(--accent); }
+    .form-group input::placeholder { color: var(--text-dim); }
+    .form-group select {
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%237070a0' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 14px center;
+      padding-right: 36px;
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: #090910;
+      border: none;
+      font-size: 15px;
+      font-weight: 700;
+      padding: 14px 20px;
+      border-radius: 10px;
+      cursor: pointer;
+      width: 100%;
+      transition: background 0.2s;
+    }
+    .btn-primary:hover:not(:disabled) { background: #f0d050; }
+    .btn-primary:disabled { opacity: 0.45; cursor: not-allowed; }
+
+    .error-msg {
+      font-size: 12px;
+      color: var(--danger);
+      min-height: 18px;
+      margin-top: 8px;
+    }
+
+    .modal-footer {
+      font-size: 11px;
+      color: var(--text-dim);
+      text-align: center;
+      padding-top: 16px;
+      margin-top: 16px;
+      border-top: 1px solid var(--border);
+    }
+
+    @media (max-width: 700px) {
+      .pricing-grid { grid-template-columns: 1fr; }
+      h1 { font-size: 36px; }
+      nav { padding: 16px 20px; }
+    }
+  </style>
+</head>
+<body>
+</body>
+</html>
+
+<!-- SUPPORT PAGE -->
+<div class="container" style="padding-top: 56px;">
+
+  <h1 style="margin-bottom: 32px;">Support</h1>
+
+  <div class="faq-block" style="margin-bottom: 44px;">
+    <div class="section-label">FAQs</div>
+
+    <div class="faq-item" style="margin-bottom: 24px; border-bottom: 1px solid var(--border); padding-bottom: 20px;">
+      <h3 style="font-size: 15px; font-weight: 600; margin-bottom: 8px; color: var(--text);">How is my podcast delivered?</h3>
+      <p style="color: var(--text-dim); font-size: 13px;">Your episode arrives as an MP3 attachment in your inbox, along with your personal RSS feed URL. Paste that URL into Apple Podcasts, Spotify, or any podcast app to subscribe and get new episodes automatically.</p>
+    </div>
+
+    <div class="faq-item" style="margin-bottom: 24px; border-bottom: 1px solid var(--border); padding-bottom: 20px;">
+      <h3 style="font-size: 15px; font-weight: 600; margin-bottom: 8px; color: var(--text);">How long until my first episode?</h3>
+      <p style="color: var(--text-dim); font-size: 13px;">Your first episode ships the same day you subscribe. You'll get an email with the MP3 and your feed URL as soon as it's ready.</p>
+    </div>
+
+    <div class="faq-item" style="margin-bottom: 24px; border-bottom: 1px solid var(--border); padding-bottom: 20px;">
+      <h3 style="font-size: 15px; font-weight: 600; margin-bottom: 8px; color: var(--text);">What Instagram data do you use?</h3>
+      <p style="color: var(--text-dim); font-size: 13px;">We analyze your bio, posts, captions, hashtags, and engagement patterns — all publicly available. No login or password is ever required.</p>
+    </div>
+
+    <div class="faq-item" style="margin-bottom: 24px; border-bottom: 1px solid var(--border); padding-bottom: 20px;">
+      <h3 style="font-size: 15px; font-weight: 600; margin-bottom: 8px; color: var(--text);">Can I cancel anytime?</h3>
+      <p style="color: var(--text-dim); font-size: 13px;">Yes. Cancel anytime with no penalties. Your feed stays active and you'll always have access to past episodes.</p>
+    </div>
+
+    <div class="faq-item" style="margin-bottom: 24px; border-bottom: 1px solid var(--border); padding-bottom: 20px;">
+      <h3 style="font-size: 15px; font-weight: 600; margin-bottom: 8px; color: var(--text);">Can I upgrade or change plans?</h3>
+      <p style="color: var(--text-dim); font-size: 13px;">Yes. Message us at the address below and we'll update your subscription. Changes take effect on your next billing cycle.</p>
+    </div>
+
+    <div class="faq-item" style="margin-bottom: 24px; border-bottom: 1px solid var(--border); padding-bottom: 20px;">
+      <h3 style="font-size: 15px; font-weight: 600; margin-bottom: 8px; color: var(--text);">Is the audio really hands-off?</h3>
+      <p style="color: var(--text-dim); font-size: 13px;">Completely. We handle the analysis, script writing, and narration. You receive a finished MP3 — no reviewing, no editing, no coordination needed.</p>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <div class="email-block" style="margin-bottom: 44px;">
+    <div class="section-label">Contact</div>
+    <h2 style="margin-bottom: 12px;">Need more help?</h2>
+    <p style="color: var(--text-dim); font-size: 13px; margin-bottom: 20px;">Send us a message and we'll get back to you within one business day.</p>
+    <a href="mailto:creatorpodep@gmail.com" class="btn-primary">Email Us</a>
+  </div>
+
+  <hr class="divider">
+
+  <div class="cancel-block" style="margin-bottom: 44px;">
+    <div class="section-label">Account</div>
+    <h2 style="margin-bottom: 12px;">Cancel or manage subscription</h2>
+    <p style="color: var(--text-dim); font-size: 13px; margin-bottom: 16px;">To cancel your subscription, email us at <a href="mailto:creatorpodep@gmail.com" style="color: var(--accent);">creatorpodep@gmail.com</a> with your account email and we'll take care of it.</p>
+  </div>
+
+</div>
+
+
+</body>
+</html>
