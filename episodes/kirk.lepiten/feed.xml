@@ -25,5 +25,15 @@
       <itunes:episode>1</itunes:episode>
       <itunes:explicit>false</itunes:explicit>
     </item>
+    <item>
+      <title>Episode 2: Growth Strategy</title>
+      <description><![CDATA[Emma's growth strategy for @kirk.lepiten.]]></description>
+      <pubDate>Fri, 22 May 2026 18:47:01 GMT</pubDate>
+      <enclosure url="https://connormulligan17-ux.github.io/mulligan-podcast/episodes/kirk.lepiten/ep2.mp3" length="7639502" type="audio/mpeg"/>
+      <guid>https://connormulligan17-ux.github.io/mulligan-podcast/episodes/kirk.lepiten/ep2.mp3</guid>
+      <itunes:duration>600</itunes:duration>
+      <itunes:episode>2</itunes:episode>
+      <itunes:explicit>false</itunes:explicit>
+    </item>
   </channel>
 </rss>
