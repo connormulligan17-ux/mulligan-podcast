@@ -45,5 +45,15 @@
       <itunes:episode>1</itunes:episode>
       <itunes:explicit>false</itunes:explicit>
     </item>
+    <item>
+      <title>Episode 1: Growth Strategy</title>
+      <description><![CDATA[Emma's growth strategy for @mulliganmagazine.]]></description>
+      <pubDate>Fri, 22 May 2026 15:51:22 GMT</pubDate>
+      <enclosure url="https://connormulligan17-ux.github.io/mulligan-podcast/episodes/mulliganmagazine/ep1.mp3" length="3163995" type="audio/mpeg"/>
+      <guid>https://connormulligan17-ux.github.io/mulligan-podcast/episodes/mulliganmagazine/ep1.mp3</guid>
+      <itunes:duration>600</itunes:duration>
+      <itunes:episode>1</itunes:episode>
+      <itunes:explicit>false</itunes:explicit>
+    </item>
   </channel>
 </rss>
