@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>@ugmonk Growth Strategy</title>
+    <link>https://instagram.com/ugmonk</link>
+    <language>en-us</language>
+    <description>Personalized Instagram growth strategy podcast for @ugmonk.</description>
+    <itunes:author>CreatorPod</itunes:author>
+    <itunes:owner>
+      <itunes:name>CreatorPod</itunes:name>
+      <itunes:email>hello@creatorpod.io</itunes:email>
+    </itunes:owner>
+    <itunes:image href="https://creatorpod.io/cover.jpg"/>
+    <itunes:category text="Business"/>
+    <itunes:type>episodic</itunes:type>
+    <itunes:explicit>false</itunes:explicit>
+    <atom:link href="https://creatorpod.io/episodes/ugmonk/feed.xml" rel="self" type="application/rss+xml"/>
+    <item>
+      <title>Episode 1: Growth Strategy</title>
+      <description><![CDATA[Emma's growth strategy for @ugmonk.]]></description>
+      <pubDate>Fri, 22 May 2026 19:00:15 GMT</pubDate>
+      <enclosure url="https://connormulligan17-ux.github.io/mulligan-podcast/episodes/ugmonk/ep1.mp3" length="7071077" type="audio/mpeg"/>
+      <guid>https://connormulligan17-ux.github.io/mulligan-podcast/episodes/ugmonk/ep1.mp3</guid>
+      <itunes:duration>600</itunes:duration>
+      <itunes:episode>1</itunes:episode>
+      <itunes:explicit>false</itunes:explicit>
+    </item>
+  </channel>
+</rss>
